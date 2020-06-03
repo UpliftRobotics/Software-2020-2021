@@ -59,8 +59,7 @@ public class Robot {
             return;
         }
 
-
         //increment the positions
-
+        
     }
 }

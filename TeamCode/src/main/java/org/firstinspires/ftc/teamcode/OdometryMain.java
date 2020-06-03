@@ -81,7 +81,7 @@ public class OdometryMain {
         }
 
 
-            public static void goToPosition(double xPosition, double yPosition,double movementSpeed,double preferredAngle,double turnSpeed){
+        public static void goToPosition(double xPosition, double yPosition,double movementSpeed,double preferredAngle,double turnSpeed){
                 //hypotenuse of the triangle is the distance
                 double distanceToTarget = Math.hypot(xPosition - worldXPosition, yPosition - worldYPosition);
                 // arctan is the direction
