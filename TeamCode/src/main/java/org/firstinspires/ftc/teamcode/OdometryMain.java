@@ -10,6 +10,7 @@ import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
 
 import java.util.ArrayList;
 
+import static org.firstinspires.ftc.teamcode.MathFunctions.lineCircleIntersect;
 import static org.firstinspires.ftc.teamcode.MovementVars.movement_turn;
 import static org.firstinspires.ftc.teamcode.MovementVars.movement_x;
 import static org.firstinspires.ftc.teamcode.MovementVars.movement_y;
@@ -104,8 +105,30 @@ public class OdometryMain {
                 CurvePoint startLine = pathPoints.get(i);
                 CurvePoint endLine = pathPoints.get(i + 1);
 
-                ArrayList<Point> intersections =
+                ArrayList<Point> intersections = lineCircleIntersect(robotLocation, followRadius, startLine.toPoint(), endLine.toPoint());
+
+                double closestAngle = Double.MAX_VALUE;
+
+                for(Point thisIntersection : intersections) {
+                    double angle = Math.atan2(thisIntersection.y - worldYPosition, thisIntersection.x - worldXPosition);
+                    double deltaAngle = Math.abs(MathFunctions.AngleRestrictions(angle - worldAngle_rad));
+
+                    if(deltaAngle < closestAngle) {
+                        closestAngle = deltaAngle;
+                        followPt.setPoint(thisIntersection);
+                    }
+                }
             }
+
+            return followPt;
+
+        }
+
+        public static void followCurve(ArrayList<CurvePoint> allPoints, double followAngle) {
+
+            CurvePoint followPt = getFollowPointPath(allPoints, new Point(worldXPosition, worldYPosition), allPoints.get(0).followDistance);
+
+            goToPosition(followPt.x, followPt.y, followPt.moveSpeed, followAngle, followPt.turnSpeed);
         }
 
 }
