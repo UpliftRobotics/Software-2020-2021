@@ -20,6 +20,8 @@ import static org.firstinspires.ftc.teamcode.Robot.worldYPosition;
 
 public class OdometryMain {
 
+        Robot robot = new Robot();
+
         Orientation angles;
 
         static final double oneRotationTicks = 800;
@@ -36,9 +38,6 @@ public class OdometryMain {
         private double theta = 0;
 
 
-        private DcMotor leftEncoderMotor = null;
-        private DcMotor rightEncoderMotor = null;
-        private DcMotor centerEncoderMotor = null;
 
 
         // set up the hardware map
@@ -47,15 +46,15 @@ public class OdometryMain {
         }
 
         public int getLeftTicks() {
-            return leftEncoderMotor.getCurrentPosition() - leftEncoderPos;
+            return robot.leftEncoderMotor.getCurrentPosition() - leftEncoderPos;
         }
 
         public int getRightTicks() {
-            return rightEncoderMotor.getCurrentPosition() - rightEncoderPos;
+            return robot.rightEncoderMotor.getCurrentPosition() - rightEncoderPos;
         }
 
         public int getCenterTicks() {
-            return centerEncoderMotor.getCurrentPosition() - centerEncoderPos;
+            return robot.centerEncoderMotor.getCurrentPosition() - centerEncoderPos;
         }
 
         public void updatePosition() {

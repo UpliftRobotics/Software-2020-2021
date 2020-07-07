@@ -1,8 +1,11 @@
 package org.firstinspires.ftc.teamcode;
 
 
+import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.util.Range;
+
 
 public class Robot {
 
@@ -12,14 +15,30 @@ public class Robot {
         worldAngle_rad = Math.toRadians(0);
 
 
-        DcMotor leftMotor; //Declares two left motors
+        leftMotor = ; //Declares two left motors
         DcMotor leftMotor1;
         DcMotor rightMotor; //Declares two right motors
         DcMotor rightMotor1;
 
-    }
 
-    //the actual speed the robot is moving
+        DcMotor leftEncoderMotor = null;
+        DcMotor rightEncoderMotor = null;
+        DcMotor centerEncoderMotor = null;
+
+    }
+        public DcMotor leftMotor; //Declares two left motors
+        public DcMotor leftMotor1;
+        public DcMotor rightMotor; //Declares two right motors
+        public DcMotor rightMotor1;
+
+
+        public DcMotor leftEncoderMotor;
+        public DcMotor rightEncoderMotor;
+        public DcMotor centerEncoderMotor;
+
+
+
+
     public static double xSpeed = 0;
     public static double ySpeed = 0;
     public static double turnSpeed = 0;
@@ -27,6 +46,30 @@ public class Robot {
     public static double worldXPosition;
     public static double worldYPosition;
     public static double worldAngle_rad;
+
+
+
+
+    //the actual speed the robot is moving
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     public double getXPos() {
         return worldXPosition;
