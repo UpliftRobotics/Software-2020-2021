@@ -81,10 +81,6 @@ public class Robot {
 
 
 
-
-
-
-
     public double getXPos() {
         return worldXPosition;
     }
@@ -101,22 +97,4 @@ public class Robot {
 
     //last update time
     private long lastUpdateTime = 0;
-
-    /**
-     * Calculates the change in position of the robot
-     */
-    public void update() {
-        //get the current time
-        long currentTimeMillis = System.currentTimeMillis();
-        //get the elapsed time
-        double elapsedTime = (currentTimeMillis - lastUpdateTime) / 1000.0;
-        //remember the lastUpdateTime
-        lastUpdateTime = currentTimeMillis;
-        if (elapsedTime > 1) {
-            return;
-        }
-
-        //increment the positions
-        
-    }
 }
