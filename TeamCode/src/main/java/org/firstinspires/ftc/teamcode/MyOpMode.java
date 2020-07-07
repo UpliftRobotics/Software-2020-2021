@@ -1,10 +1,12 @@
 package org.firstinspires.ftc.teamcode;
 
+import com.qualcomm.robotcore.eventloop.opmode.OpMode;
+
 import org.firstinspires.ftc.teamcode.MathFunctions;
 import org.firstinspires.ftc.teamcode.MovementVars;
 
 
-public class MyOpMode extends OpMode{
+public class MyOpMode extends OpMode {
 
     @Override
     public void init() {
