@@ -83,14 +83,14 @@ public class OdometryMain {
 
         public static void goToPosition(double xPosition, double yPosition,double movementSpeed,double preferredAngle,double turnSpeed){
                 //hypotenuse of the triangle is the distance
-                double distanceToTarget = Math.hypot(xPosition - worldXPosition, yPosition - worldYPosition);
+                double distanceToPoint = Math.hypot(xPosition - worldXPosition, yPosition - worldYPosition);
                 // arctan is the direction
                 double absoluteAngle = Math.atan2(yPosition - worldYPosition, xPosition - worldXPosition);
                 //if angle is above pi and below negative pi
                 double relativeAngle = absoluteAngle - MathFunctions.AngleRestrictions(worldAngle_rad- Math.toRadians(90));
                 // because I subtract the xposition and yposiion inputed by the current position of the robot
-                double relativeXToPoint = Math.cos(relativeAngle)*distanceToTarget;
-                double relativeYToPoint = Math.sin(relativeAngle)*distanceToTarget;
+                double relativeXToPoint = Math.cos(relativeAngle)*distanceToPoint;
+                double relativeYToPoint = Math.sin(relativeAngle)*distanceToPoint;
                 //speeds of the x and y power
                 double movementXPower = relativeXToPoint/ (Math.abs(relativeXToPoint)+ Math.abs(relativeYToPoint));
                 double movementYPower = relativeYToPoint/ (Math.abs(relativeXToPoint)+ Math.abs(relativeYToPoint));
@@ -99,9 +99,10 @@ public class OdometryMain {
                 movement_y = movementYPower * movementSpeed;
                 // add or subtract from the current robot position and get the relative angle of it
                 double relativeTurnAngle = relativeAngle - Math.toRadians(180) + preferredAngle;
+                //adjust turn speed throughout the curve
                 movement_turn = Range.clip(relativeTurnAngle/Math.toRadians(30),-1,1) * turnSpeed;
 
-                if(distanceToTarget < 10){
+                if(distanceToPoint < 10){
                     movement_turn = 0;
                     movement_y = 0;
                     movement_x = 0;
@@ -109,4 +110,5 @@ public class OdometryMain {
 
 
         }
+
 }
