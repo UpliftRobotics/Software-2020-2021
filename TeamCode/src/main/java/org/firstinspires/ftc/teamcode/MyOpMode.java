@@ -5,6 +5,10 @@ import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import org.firstinspires.ftc.teamcode.MathFunctions;
 import org.firstinspires.ftc.teamcode.MovementVars;
 
+import java.util.ArrayList;
+
+import static org.firstinspires.ftc.teamcode.OdometryMain.followCurve;
+
 
 public class MyOpMode extends OpMode {
 
@@ -15,6 +19,14 @@ public class MyOpMode extends OpMode {
 
     @Override
     public void loop() {
-        OdometryMain.goToPosition(0, 0, 0.7, Math.toRadians(90), 0.3);
+        ArrayList<CurvePoint> allPoints = new ArrayList<>();
+        allPoints.add(new CurvePoint(0.0, 0.0, 1.0, 1.0, 50, 20, Math.toRadians(30), 1.0));
+        allPoints.add(new CurvePoint(0.0, 0.0, 1.0, 1.0, 50, 20, Math.toRadians(30), 1.0));
+        allPoints.add(new CurvePoint(0.0, 0.0, 1.0, 1.0, 50, 20, Math.toRadians(30), 1.0));
+        allPoints.add(new CurvePoint(0.0, 0.0, 1.0, 1.0, 50, 20, Math.toRadians(30), 1.0));
+        allPoints.add(new CurvePoint(0.0, 0.0, 1.0, 1.0, 50, 20, Math.toRadians(30), 1.0));
+        allPoints.add(new CurvePoint(0.0, 0.0, 1.0, 1.0, 50, 20, Math.toRadians(30), 1.0));
+
+        followCurve(allPoints, Math.toRadians(90));
     }
 }
