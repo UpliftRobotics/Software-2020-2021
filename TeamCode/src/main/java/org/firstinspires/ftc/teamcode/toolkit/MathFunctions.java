@@ -1,6 +1,5 @@
-package org.firstinspires.ftc.teamcode;
+package org.firstinspires.ftc.teamcode.toolkit;
 
-import org.firstinspires.ftc.teamcode.Point;
 import java.util.ArrayList;
 
 public class MathFunctions {
