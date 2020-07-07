@@ -2,8 +2,7 @@ package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 
-import org.firstinspires.ftc.teamcode.MathFunctions;
-import org.firstinspires.ftc.teamcode.MovementVars;
+import org.firstinspires.ftc.teamcode.toolkit.CurvePoint;
 
 import java.util.ArrayList;
 

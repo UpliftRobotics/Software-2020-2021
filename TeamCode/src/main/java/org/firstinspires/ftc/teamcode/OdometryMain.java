@@ -1,19 +1,20 @@
 package org.firstinspires.ftc.teamcode;
 
 
-import com.qualcomm.robotcore.hardware.DcMotor;
-
 import com.qualcomm.robotcore.util.Range;
 
 
 import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
+import org.firstinspires.ftc.teamcode.toolkit.CurvePoint;
+import org.firstinspires.ftc.teamcode.toolkit.MathFunctions;
+import org.firstinspires.ftc.teamcode.toolkit.Point;
 
 import java.util.ArrayList;
 
-import static org.firstinspires.ftc.teamcode.MathFunctions.lineCircleIntersect;
-import static org.firstinspires.ftc.teamcode.MovementVars.movement_turn;
-import static org.firstinspires.ftc.teamcode.MovementVars.movement_x;
-import static org.firstinspires.ftc.teamcode.MovementVars.movement_y;
+import static org.firstinspires.ftc.teamcode.toolkit.MathFunctions.lineCircleIntersect;
+import static org.firstinspires.ftc.teamcode.toolkit.MovementVars.movement_turn;
+import static org.firstinspires.ftc.teamcode.toolkit.MovementVars.movement_x;
+import static org.firstinspires.ftc.teamcode.toolkit.MovementVars.movement_y;
 
 import static org.firstinspires.ftc.teamcode.Robot.worldAngle_rad;
 import static org.firstinspires.ftc.teamcode.Robot.worldXPosition;
