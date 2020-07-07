@@ -17,7 +17,22 @@ public class Robot {
         DcMotor rightMotor; //Declares two right motors
         DcMotor rightMotor1;
 
+
+        DcMotor leftEncoderMotor = null;
+        DcMotor rightEncoderMotor = null;
+        DcMotor centerEncoderMotor = null;
+
     }
+        public DcMotor leftMotor; //Declares two left motors
+        public DcMotor leftMotor1;
+        public DcMotor rightMotor; //Declares two right motors
+        public DcMotor rightMotor1;
+
+
+        public DcMotor leftEncoderMotor;
+        public DcMotor rightEncoderMotor;
+        public DcMotor centerEncoderMotor;
+
 
     //the actual speed the robot is moving
     public static double xSpeed = 0;
@@ -27,6 +42,24 @@ public class Robot {
     public static double worldXPosition;
     public static double worldYPosition;
     public static double worldAngle_rad;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     public double getXPos() {
         return worldXPosition;
