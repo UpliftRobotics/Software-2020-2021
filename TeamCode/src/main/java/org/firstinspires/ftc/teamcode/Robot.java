@@ -8,6 +8,24 @@ import com.qualcomm.robotcore.util.Range;
 
 
 public class Robot {
+    public DcMotor leftMotor; //Declares two left motors
+    public DcMotor leftMotor1;
+    public DcMotor rightMotor; //Declares two right motors
+    public DcMotor rightMotor1;
+
+
+    public DcMotor leftEncoderMotor;
+    public DcMotor rightEncoderMotor;
+    public DcMotor centerEncoderMotor;
+
+
+    public static double xSpeed = 0;
+    public static double ySpeed = 0;
+    public static double turnSpeed = 0;
+
+    public static double worldXPosition;
+    public static double worldYPosition;
+    public static double worldAngle_rad;
 
     public Robot() {
         worldXPosition = 0;
@@ -24,46 +42,7 @@ public class Robot {
         DcMotor leftEncoderMotor = null;
         DcMotor rightEncoderMotor = null;
         DcMotor centerEncoderMotor = null;
-
     }
-        public DcMotor leftMotor; //Declares two left motors
-        public DcMotor leftMotor1;
-        public DcMotor rightMotor; //Declares two right motors
-        public DcMotor rightMotor1;
-
-
-        public DcMotor leftEncoderMotor;
-        public DcMotor rightEncoderMotor;
-        public DcMotor centerEncoderMotor;
-
-
-
-
-    public static double xSpeed = 0;
-    public static double ySpeed = 0;
-    public static double turnSpeed = 0;
-
-    public static double worldXPosition;
-    public static double worldYPosition;
-    public static double worldAngle_rad;
-
-
-
-
-    //the actual speed the robot is moving
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
