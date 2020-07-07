@@ -17,9 +17,8 @@ public class OdometryCalibration extends LinearOpMode {
     Robot robot = new Robot();
 
     final double PIVOT_SPEED = 0.5;
-
-    //The amount of encoder ticks for each inch the robot moves. THIS WILL CHANGE FOR EACH ROBOT AND NEEDS TO BE UPDATED HERE
-    final double COUNTS_PER_INCH = 307.699557;
+    //CHANGE WHEN ROBOT READY
+    final double COUNTS_PER_INCH = 0;
 
     ElapsedTime timer = new ElapsedTime();
 
@@ -76,6 +75,23 @@ public class OdometryCalibration extends LinearOpMode {
         double wheelBaseSeparation = (2*90*verticalEncoderTickOffsetPerDegree)/(Math.PI*COUNTS_PER_INCH);
 
         horizontalTickOffset = robot.centerEncoderMotor.getCurrentPosition()/Math.toRadians(getZAngle());
+
+        while(opModeIsActive()){
+            telemetry.addData("Odometry System Calibration Status", "Calibration Complete");
+            //Display calculated constants
+            telemetry.addData("Wheel Base Separation", wheelBaseSeparation);
+            telemetry.addData("Horizontal Encoder Offset", horizontalTickOffset);
+
+            //Display raw values
+            telemetry.addData("IMU Angle", getZAngle());
+            telemetry.addData("Vertical Left Position", -robot.leftEncoderMotor.getCurrentPosition());
+            telemetry.addData("Vertical Right Position", robot.rightEncoderMotor.getCurrentPosition());
+            telemetry.addData("Horizontal Position", robot.centerEncoderMotor.getCurrentPosition());
+            telemetry.addData("Vertical Encoder Offset", verticalEncoderTickOffsetPerDegree);
+
+            //Update values
+            telemetry.update();
+        }
     }
     private double getZAngle(){
         return (-robot.imu.getAngularOrientation().firstAngle);
