@@ -8,6 +8,8 @@ import com.qualcomm.robotcore.util.Range;
 
 import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
 
+import java.util.ArrayList;
+
 import static org.firstinspires.ftc.teamcode.MovementVars.movement_turn;
 import static org.firstinspires.ftc.teamcode.MovementVars.movement_x;
 import static org.firstinspires.ftc.teamcode.MovementVars.movement_y;
@@ -93,7 +95,17 @@ public class OdometryMain {
                     movement_x = 0;
                 }
 
+        }
 
+        public static CurvePoint getFollowPointPath(ArrayList<CurvePoint> pathPoints, Point robotLocation, double followRadius) {
+            CurvePoint followPt = new CurvePoint(pathPoints.get(0));
+
+            for(int i = 0; i < pathPoints.size() - 1; i++) {
+                CurvePoint startLine = pathPoints.get(i);
+                CurvePoint endLine = pathPoints.get(i + 1);
+
+                ArrayList<Point> intersections =
+            }
         }
 
 }
