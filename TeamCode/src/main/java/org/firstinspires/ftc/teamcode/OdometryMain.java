@@ -26,18 +26,6 @@ public class OdometryMain {
 
         Orientation angles;
 
-        static final double oneRotationTicks = 800;
-        static final double wheelRadius = 0.025; // in meters (change this later)
-        static final double wheelDistanceApart = 0.09144 + .016 * 2.0; // in meters (change this later)
-        private int leftEncoderPos = 0;
-        private int centerEncoderPos = 0;
-        private int rightEncoderPos = 0;
-        private double deltaLeftDistance = 0;
-        private double deltaRightDistance = 0;
-        private double deltaCenterDistance = 0;
-        private double x = 0;
-        private double y = 0;
-        private double theta = 0;
 
 
 
@@ -47,27 +35,6 @@ public class OdometryMain {
             //initialize the sensors in an if statement
         }
 
-        public int getLeftTicks() {
-            return robot.leftEncoderMotor.getCurrentPosition() - leftEncoderPos;
-        }
-
-        public int getRightTicks() {
-            return robot.rightEncoderMotor.getCurrentPosition() - rightEncoderPos;
-        }
-
-        public int getCenterTicks() {
-            return robot.centerEncoderMotor.getCurrentPosition() - centerEncoderPos;
-        }
-
-        public void updatePosition() {
-            deltaLeftDistance = (getLeftTicks() / oneRotationTicks) * 2.0 * Math.PI * wheelRadius;
-            deltaRightDistance = (getRightTicks() / oneRotationTicks) * 2.0 * Math.PI * wheelRadius;
-            deltaCenterDistance = (getCenterTicks() / oneRotationTicks) * 2.0 * Math.PI * wheelRadius;
-            x += (((deltaLeftDistance + deltaRightDistance) / 2.0)) * Math.cos(theta);
-            y += (((deltaLeftDistance + deltaRightDistance) / 2.0)) * Math.sin(theta);
-            theta += (deltaLeftDistance - deltaRightDistance) / wheelDistanceApart;
-            // resetTicks();
-        }
 
 
         public static void goToPosition(double xPosition, double yPosition,double movementSpeed,double preferredAngle,double turnSpeed){
