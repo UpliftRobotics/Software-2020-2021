@@ -50,8 +50,23 @@ public class OdometryGlobalPositionUpdate implements Runnable {
         y += (((deltaLeftDistance + deltaRightDistance) / 2.0)) * Math.sin(theta);
         theta += (deltaLeftDistance - deltaRightDistance) / robotEncoderWheelDistance;
         // resetTicks();
+
+
     }
 
+    public int getLeftTicks() {
+        return robot.leftEncoderMotor.getCurrentPosition() - leftEncoderPos;
+    }
+
+    public int getRightTicks() {
+        return robot.rightEncoderMotor.getCurrentPosition() - rightEncoderPos;
+    }
+
+    public int getCenterTicks() {
+        return robot.centerEncoderMotor.getCurrentPosition() - centerEncoderPos;
+    }
+
+    public void stop(){ isRunning = false; }
 
 
     @Override
@@ -72,15 +87,4 @@ public class OdometryGlobalPositionUpdate implements Runnable {
 
 
 
-    public int getLeftTicks() {
-        return robot.leftEncoderMotor.getCurrentPosition() - leftEncoderPos;
-    }
-
-    public int getRightTicks() {
-        return robot.rightEncoderMotor.getCurrentPosition() - rightEncoderPos;
-    }
-
-    public int getCenterTicks() {
-        return robot.centerEncoderMotor.getCurrentPosition() - centerEncoderPos;
-    }
 }
