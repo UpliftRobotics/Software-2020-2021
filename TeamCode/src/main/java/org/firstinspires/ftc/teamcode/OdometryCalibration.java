@@ -8,7 +8,6 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.robotcore.internal.system.AppUtil;
-import org.firstinspires.ftc.teamcode.Robot;
 
 import java.io.File;
 
@@ -97,10 +96,10 @@ public class OdometryCalibration extends LinearOpMode {
         return (-robot.imu.getAngularOrientation().firstAngle);
     }
     private void setPowerAll(double rf, double rb, double lf, double lb){
-        robot.rightMotor.setPower(rf);
-        robot.rightMotor1.setPower(rb);
-        robot.leftMotor.setPower(lf);
-        robot.rightMotor1.setPower(lb);
+        robot.rightFront.setPower(rf);
+        robot.rightBack.setPower(rb);
+        robot.leftFront.setPower(lf);
+        robot.rightBack.setPower(lb);
     }
 
 }

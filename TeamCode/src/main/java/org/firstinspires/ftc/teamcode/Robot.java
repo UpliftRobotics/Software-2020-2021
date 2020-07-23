@@ -2,21 +2,18 @@ package org.firstinspires.ftc.teamcode;
 
 
 import com.qualcomm.hardware.bosch.BNO055IMU;
-import com.qualcomm.hardware.bosch.JustLoggingAccelerationIntegrator;
-import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
-import com.qualcomm.robotcore.util.Range;
 
 
 public class Robot {
 
     public  HardwareMap hardwareMap;
 
-    public DcMotor leftMotor; //Declares two left motors
-    public DcMotor leftMotor1;
-    public DcMotor rightMotor; //Declares two right motors
-    public DcMotor rightMotor1;
+    public DcMotor leftFront; //Declares two left motors
+    public DcMotor leftBack;
+    public DcMotor rightFront; //Declares two right motors
+    public DcMotor rightBack;
 
 
     public DcMotor leftEncoderMotor;
@@ -39,10 +36,10 @@ public class Robot {
         worldAngle_rad = Math.toRadians(0);
 
 
-        leftMotor = hardwareMap.get(DcMotor.class,"lf_motor");//Declares two left motors
-        leftMotor1 = hardwareMap.get(DcMotor.class,"lb_motor");
-        rightMotor = hardwareMap.get(DcMotor.class,"rf_motor"); //Declares two right motors
-        rightMotor1 = hardwareMap.get(DcMotor.class,"rb_motor");
+        leftFront = hardwareMap.get(DcMotor.class,"lf_motor");//Declares two left motors
+        leftBack = hardwareMap.get(DcMotor.class,"lb_motor");
+        rightFront = hardwareMap.get(DcMotor.class,"rf_motor"); //Declares two right motors
+        rightBack = hardwareMap.get(DcMotor.class,"rb_motor");
 
 
         leftEncoderMotor = hardwareMap.get(DcMotor.class,"l_encoder");
@@ -52,15 +49,15 @@ public class Robot {
         imu = hardwareMap.get(BNO055IMU.class, "imu");
 
 
-        rightMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        rightMotor1.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        leftMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        leftMotor1.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        rightFront.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        rightBack.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        leftFront.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        leftBack.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
-        rightMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        rightMotor1.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        leftMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        leftMotor1.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        rightFront.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        rightBack.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        leftFront.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        leftBack.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
         leftEncoderMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         rightEncoderMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -71,10 +68,10 @@ public class Robot {
         centerEncoderMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
 
-        rightMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        rightMotor1.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        leftMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        leftMotor1.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        rightFront.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        rightBack.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        leftFront.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        leftBack.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         //may need to change direction of some motors
 
     }
