@@ -19,14 +19,13 @@ public class Teleop extends OpMode {
 
         @Override
         public void init() {
-
         }
 
         @Override
         public void loop() {
-           leftY = -gamepad1.left_stick_y;
-           rightX = gamepad1. right_stick_x;
-           leftX = gamepad1.left_stick_x;
+            leftY = -gamepad1.left_stick_y;
+            rightX = gamepad1. right_stick_x;
+            leftX = gamepad1.left_stick_x;
 
             fl = leftY + leftX + rightX;
             fr = leftY - leftX - rightX;
@@ -37,12 +36,6 @@ public class Teleop extends OpMode {
             robot.rightFront.setPower(Range.clip(fr,-1,1));
             robot.leftBack.setPower(Range.clip(bl,-1,1));
             robot.rightBack.setPower(Range.clip(br,-1,1));
-
-
-
-
-
-
 
         }
 }
