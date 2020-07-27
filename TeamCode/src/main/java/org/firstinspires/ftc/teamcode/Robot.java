@@ -35,7 +35,6 @@ public class Robot {
         worldYPosition = 0;
         worldAngle_rad = Math.toRadians(0);
 
-
         leftFront = hardwareMap.get(DcMotor.class,"lf_motor");//Declares two left motors
         leftBack = hardwareMap.get(DcMotor.class,"lb_motor");
         rightFront = hardwareMap.get(DcMotor.class,"rf_motor"); //Declares two right motors

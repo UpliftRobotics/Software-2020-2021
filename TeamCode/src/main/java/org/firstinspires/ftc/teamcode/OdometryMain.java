@@ -26,16 +26,10 @@ public class OdometryMain {
 
         Orientation angles;
 
-
-
-
-
         // set up the hardware map
         public void init() {
             //initialize the sensors in an if statement
         }
-
-
 
         public static void goToPosition(double xPosition, double yPosition,double movementSpeed,double preferredAngle,double turnSpeed){
                 //hypotenuse of the triangle is the distance
