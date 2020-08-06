@@ -1,20 +1,19 @@
 package org.firstinspires.ftc.teamcode;
 
-
 import com.qualcomm.hardware.bosch.BNO055IMU;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
-
 public class Robot {
 
-    public  HardwareMap hardwareMap;
+    // Declare HardwareMap and hardware devices
+
+    public HardwareMap hardwareMap;
 
     public DcMotor leftFront; //Declares two left motors
     public DcMotor leftBack;
     public DcMotor rightFront; //Declares two right motors
     public DcMotor rightBack;
-
 
     public DcMotor leftEncoderMotor;
     public DcMotor rightEncoderMotor;
@@ -71,7 +70,8 @@ public class Robot {
         rightBack.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         leftFront.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         leftBack.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        //may need to change direction of some motors
+
+        //Note: may need to change direction of some motors
 
     }
 
