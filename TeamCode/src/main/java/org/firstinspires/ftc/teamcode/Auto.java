@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode;
 
+import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 
 import org.firstinspires.ftc.teamcode.toolkit.CurvePoint;
@@ -8,8 +9,8 @@ import java.util.ArrayList;
 
 import static org.firstinspires.ftc.teamcode.OdometryMain.followCurve;
 
-
-public class MyOpMode extends OpMode {
+@Autonomous(name = "PathAuto", group = "OpModes")
+public class Auto extends OpMode {
 
     @Override
     public void init() {
@@ -18,7 +19,10 @@ public class MyOpMode extends OpMode {
 
     @Override
     public void loop() {
+        // declare and initialize an empty list of CurvePoints
         ArrayList<CurvePoint> allPoints = new ArrayList<>();
+
+        // add each CurvePoint to the ArrayList
         allPoints.add(new CurvePoint(16.658823529725343, 129.03529412007597, 0.7, 0.3, 5.0, 5.0, 0.08726646259971647, 5.0));
         allPoints.add(new CurvePoint(24.000000000451767, 129.03529412007597, 0.7, 0.3, 5.0, 5.0, 0.08726646259971647, 5.0));
         allPoints.add(new CurvePoint(31.341176471178187, 129.03529412007597, 0.7, 0.3, 5.0, 5.0, 0.08726646259971647, 5.0));
@@ -65,6 +69,7 @@ public class MyOpMode extends OpMode {
         allPoints.add(new CurvePoint(29.082352941723904, 134.96470588489345, 0.7, 0.3, 5.0, 5.0, 0.08726646259971647, 5.0));
         allPoints.add(new CurvePoint(21.74117647099748, 135.81176470843883, 0.7, 0.3, 5.0, 5.0, 0.08726646259971647, 5.0));
 
+        // tell the robot to map out the path and follow it
         followCurve(allPoints, Math.toRadians(90));
     }
 }

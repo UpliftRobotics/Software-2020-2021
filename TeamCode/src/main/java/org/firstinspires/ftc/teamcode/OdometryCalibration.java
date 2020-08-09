@@ -11,24 +11,29 @@ import org.firstinspires.ftc.robotcore.internal.system.AppUtil;
 
 import java.io.File;
 
+/*
+    Note: this class was inspired by the odometry calibration program made by Wizard.exe, FTC Team 9794
+*/
+
 @TeleOp(name = "OdometryCalibration", group = "Odometry")
 public class OdometryCalibration extends LinearOpMode {
+
+    // declare and initialize instance of the Robot class (Object-oriented programming)
     Robot robot = new Robot();
 
+    // declare and init class variables/constants
     final double PIVOT_SPEED = 0.5;
-    //CHANGE WHEN ROBOT READY
-    final double COUNTS_PER_INCH = 0.1;
-
+    final double COUNTS_PER_INCH = 0.1; // CHANGE WHEN ROBOT READY
     ElapsedTime timer = new ElapsedTime();
-
     double horizontalTickOffset = 0;
 
-    //Text files to write the values to. The files are stored in the robot controller under Internal Storage\FIRST\settings
+    // Text files to write the values to. The files are stored in the robot controller under Internal Storage\FIRST\settings
     File wheelBaseSeparationFile = AppUtil.getInstance().getSettingsFile("wheelBaseSeparation.txt");
     File horizontalTickOffsetFile = AppUtil.getInstance().getSettingsFile("horizontalTickOffset.txt");
 
     @Override
     public void runOpMode() throws InterruptedException {
+        // add necessary parameters for the REVhub imu
         BNO055IMU.Parameters parameters = new BNO055IMU.Parameters();
         parameters.angleUnit           = BNO055IMU.AngleUnit.DEGREES;
         parameters.accelUnit           = BNO055IMU.AccelUnit.METERS_PERSEC_PERSEC;
@@ -40,7 +45,7 @@ public class OdometryCalibration extends LinearOpMode {
         telemetry.addData("Odometry System Calibration Status", "IMU Init Complete");
         telemetry.clear();
 
-        //Odometry System Calibration Init Complete
+        // Odometry System Calibration Init Complete
         telemetry.addData("Odometry System Calibration Status", "Init Complete");
         telemetry.update();
 
