@@ -21,16 +21,15 @@ public class Teleop extends ULOpMode {
         robot = new Robot();
     }
 
-    //diagonal
-
-
     @Override
     public void loop() {
+
         // initialize the gamepad stick values to the three needed axes
-        leftY = -gamepad1.left_stick_y;
+        leftY = gamepad1.left_stick_y;
         rightX = gamepad1. right_stick_x;
         leftX = gamepad1.left_stick_x;
 
+        /*
         // clip the input variables
         Range.clip(leftX, -1, 1);
         Range.clip(leftY, -1, 1);
@@ -47,12 +46,27 @@ public class Teleop extends ULOpMode {
         robot.rightFront.setPower(Range.clip(rightFrontPower,-1,1));
         robot.leftBack.setPower(Range.clip(leftBackPower,-1,1));
         robot.rightBack.setPower(Range.clip(rightBackPower,-1,1));
+        */
+
+        // Note: The following algorithm was inspired by the webpage https://seamonsters-2605.github.io/archive/mecanum/. It explains this concept very well.
+
+        // find the angle of the left joystick
+        double joystickAngle = Math.atan2(leftX , leftY);
+
+        // find the magnitude, or hypotenuse of the left joystick and scale it to less than one
+        double magnitude = Range.clip(Math.sqrt(Math.pow(leftX, 2) + Math.pow(leftY, 2)), 0, 1);
+
+        // set the powers using the 2 specific equations
+        robot.leftFront.setPower(Math.sin(joystickAngle + (0.25 * Math.PI)) * magnitude);
+        robot.rightFront.setPower(Math.sin(joystickAngle - (0.25 * Math.PI)) * magnitude);
+        robot.leftBack.setPower(Math.sin(joystickAngle - (0.25 * Math.PI)) * magnitude);
+        robot.rightBack.setPower(Math.sin(joystickAngle + (0.25 * Math.PI)) * magnitude);
 
         // display odometry telemetry data onto the phone
 //        telemetry.addData("Left Encoder Position\t", robot.leftEncoderMotor.getCurrentPosition());
-////        telemetry.addData("Right Encoder Position\t", robot.rightEncoderMotor.getCurrentPosition());
-////        telemetry.addData("Center Encoder Position\t", robot.centerEncoderMotor.getCurrentPosition());
-////        telemetry.update();
+//        telemetry.addData("Right Encoder Position\t", robot.rightEncoderMotor.getCurrentPosition());
+//        telemetry.addData("Center Encoder Position\t", robot.centerEncoderMotor.getCurrentPosition());
+//        telemetry.update();
 
     }
 }
