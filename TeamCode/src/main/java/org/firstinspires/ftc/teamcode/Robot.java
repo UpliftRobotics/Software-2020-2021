@@ -43,6 +43,8 @@ public class Robot {
 
         rightFront.setDirection(DcMotorSimple.Direction.REVERSE);
         rightBack.setDirection(DcMotorSimple.Direction.REVERSE);
+        leftFront.setDirection(DcMotorSimple.Direction.REVERSE);
+        leftBack.setDirection(DcMotorSimple.Direction.REVERSE);
 
 
 //        leftEncoderMotor = hardwareMap.get(DcMotor.class,"l_encoder");
