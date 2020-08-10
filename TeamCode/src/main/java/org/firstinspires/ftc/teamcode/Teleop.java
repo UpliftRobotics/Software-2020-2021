@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode;
 
+import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.util.Range;
 
@@ -8,7 +9,7 @@ public class Teleop extends ULOpMode {
 
     // Declare robot and variables.
     Robot robot;
-    double rightY;
+    double leftY;
     double rightX;
     double leftX;
     double leftFrontPower;
@@ -24,15 +25,15 @@ public class Teleop extends ULOpMode {
     @Override
     public void loop() {
         // initialize the gamepad stick values to the three needed axes
-        rightY = -gamepad1.right_stick_y;
+        leftY = -gamepad1.left_stick_y;
         rightX = gamepad1. right_stick_x;
         leftX = gamepad1.left_stick_x;
 
         // calculate power needed for each motor using the gamepad values
-        leftFrontPower = leftX + rightX + rightY;
-        rightBackPower = leftX - rightX - rightY;
-        leftBackPower = leftX - rightX + rightY;
-        rightFrontPower = leftX + rightX - rightY;
+        leftFrontPower = leftY + leftX + rightX;
+        rightFrontPower = leftY - leftX - rightX;
+        leftBackPower = leftY - leftX + rightX;
+        rightBackPower = leftY + leftX - rightX;
 
         // set the restricted powers for the respective motors
         robot.leftFront.setPower(Range.clip(leftFrontPower,-1,1));
@@ -42,9 +43,9 @@ public class Teleop extends ULOpMode {
 
         // display odometry telemetry data onto the phone
 //        telemetry.addData("Left Encoder Position\t", robot.leftEncoderMotor.getCurrentPosition());
-//        telemetry.addData("Right Encoder Position\t", robot.rightEncoderMotor.getCurrentPosition());
-//        telemetry.addData("Center Encoder Position\t", robot.centerEncoderMotor.getCurrentPosition());
-//        telemetry.update();
+////        telemetry.addData("Right Encoder Position\t", robot.rightEncoderMotor.getCurrentPosition());
+////        telemetry.addData("Center Encoder Position\t", robot.centerEncoderMotor.getCurrentPosition());
+////        telemetry.update();
 
     }
 }
