@@ -5,10 +5,10 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.util.Range;
 
 @TeleOp(name = "TeleOp", group = "OpModes")
-public class Teleop extends OpMode {
+public class Teleop extends ULOpMode {
 
     // Declare robot and variables.
-    Robot robot = new Robot();
+    Robot robot;
     double leftY;
     double rightX;
     double leftX;
@@ -19,6 +19,7 @@ public class Teleop extends OpMode {
 
     @Override
     public void init() {
+        robot = new Robot();
     }
 
     @Override

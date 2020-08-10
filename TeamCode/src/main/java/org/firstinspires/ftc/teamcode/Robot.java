@@ -30,6 +30,7 @@ public class Robot {
     public static double worldAngle_rad;
 
     public Robot() {
+        hardwareMap = ULOpMode.getInstance().hardwareMap;
         worldXPosition = 0;
         worldYPosition = 0;
         worldAngle_rad = Math.toRadians(0);
@@ -40,30 +41,30 @@ public class Robot {
         rightBack = hardwareMap.get(DcMotor.class,"rb_motor");
 
 
-        leftEncoderMotor = hardwareMap.get(DcMotor.class,"l_encoder");
-        rightEncoderMotor = hardwareMap.get(DcMotor.class,"r_encoder") ;
-        centerEncoderMotor = hardwareMap.get(DcMotor.class,"c_encoder");
+//        leftEncoderMotor = hardwareMap.get(DcMotor.class,"l_encoder");
+//        rightEncoderMotor = hardwareMap.get(DcMotor.class,"r_encoder") ;
+//        centerEncoderMotor = hardwareMap.get(DcMotor.class,"c_encoder");
 
-        imu = hardwareMap.get(BNO055IMU.class, "imu");
+//        imu = hardwareMap.get(BNO055IMU.class, "imu");
 
 
-        rightFront.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        rightBack.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        leftFront.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        leftBack.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+//        rightFront.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+//        rightBack.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+//        leftFront.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+//        leftBack.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
         rightFront.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         rightBack.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         leftFront.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         leftBack.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
-        leftEncoderMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        rightEncoderMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        centerEncoderMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+//        leftEncoderMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+//        rightEncoderMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+//        centerEncoderMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
-        leftEncoderMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        rightEncoderMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        centerEncoderMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+//        leftEncoderMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+//        rightEncoderMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+//        centerEncoderMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
 
         rightFront.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
