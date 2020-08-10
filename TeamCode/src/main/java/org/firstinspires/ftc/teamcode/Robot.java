@@ -45,7 +45,7 @@ public class Robot {
 //        rightEncoderMotor = hardwareMap.get(DcMotor.class,"r_encoder") ;
 //        centerEncoderMotor = hardwareMap.get(DcMotor.class,"c_encoder");
 
-//        imu = hardwareMap.get(BNO055IMU.class, "imu");
+        imu = hardwareMap.get(BNO055IMU.class, "imu");
 
 
 //        rightFront.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
