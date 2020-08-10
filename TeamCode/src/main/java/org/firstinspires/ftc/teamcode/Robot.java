@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.hardware.bosch.BNO055IMU;
+import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
@@ -32,9 +33,9 @@ public class Robot {
 
     public Robot() {
         hardwareMap = ULOpMode.getInstance().hardwareMap;
-        worldXPosition = 0;
-        worldYPosition = 0;
-        worldAngle_rad = Math.toRadians(0);
+//        worldXPosition = 0;
+//        worldYPosition = 0;
+//        worldAngle_rad = Math.toRadians(0);
 
         leftFront = hardwareMap.get(DcMotor.class,"lf_motor");//Declares two left motors
         leftBack = hardwareMap.get(DcMotor.class,"lb_motor");
@@ -84,20 +85,20 @@ public class Robot {
 
 
 
-    public double getXPos() {
-        return worldXPosition;
-    }
-
-    public double getYPos() {
-        return worldYPosition;
-    }
-
-
-    public double getWorldAngle_rad() {
-        return worldAngle_rad;
-    }
-
-
-    //last update time
-    private long lastUpdateTime = 0;
+//    public double getXPos() {
+//        return worldXPosition;
+//    }
+//
+//    public double getYPos() {
+//        return worldYPosition;
+//    }
+//
+//
+//    public double getWorldAngle_rad() {
+//        return worldAngle_rad;
+//    }
+//
+//
+//    //last update time
+//    private long lastUpdateTime = 0;
 }
