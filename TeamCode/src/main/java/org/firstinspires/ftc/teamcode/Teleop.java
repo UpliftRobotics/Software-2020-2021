@@ -38,7 +38,7 @@ public class Teleop extends ULOpMode {
         double magnitude = Math.sqrt(Math.pow(leftX, 2) + Math.pow(leftY, 2));
 
         // find the turnValue directly from the rightX input value
-        double turnValue = rightX;
+        double turnValue = 0.50 * rightX;
 
         // set the powers using the 2 specific equations and clip the result
         robot.leftFront.setPower(Range.clip((Math.sin(joystickAngle + (0.25 * Math.PI)) * magnitude) + turnValue, -1, 1));
