@@ -12,9 +12,10 @@ import static org.firstinspires.ftc.teamcode.OdometryMain.followCurve;
 //@Autonomous(name = "PathAuto", group = "OpModes")
 public class Auto extends OpMode {
 
+    Robot robot;
     @Override
     public void init() {
-
+        robot = new Robot();
     }
 
     @Override

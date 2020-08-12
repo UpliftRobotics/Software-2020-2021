@@ -5,6 +5,7 @@ import com.qualcomm.hardware.bosch.BNO055IMU;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
+import com.qualcomm.robotcore.util.Range;
 
 public class Robot {
 
@@ -81,7 +82,13 @@ public class Robot {
 
     }
 
-
+    public void slideDirection(double speedVal, double angle, double turnVal) {
+        // set the powers using the 2 specific equations and clip the result
+        leftFront.setPower(Range.clip((Math.sin(angle + (0.25 * Math.PI)) * speedVal) + turnVal, -1, 1));
+        rightFront.setPower(Range.clip((Math.sin(angle - (0.25 * Math.PI)) * speedVal) - turnVal, -1, 1));
+        leftBack.setPower(Range.clip((Math.sin(angle - (0.25 * Math.PI)) * speedVal) + turnVal, -1, 1));
+        rightBack.setPower(Range.clip((Math.sin(angle + (0.25 * Math.PI)) * speedVal) - turnVal, -1, 1));
+    }
 
 //    public double getXPos() {
 //        return worldXPosition;
