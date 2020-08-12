@@ -10,7 +10,6 @@ public class Teleop extends OpMode {
     Robot robot = new Robot();
     double leftY;
     double rightX;
-    double rightY;
     double leftX;
     double fl;
     double fr;
