@@ -10,7 +10,7 @@ import java.util.ArrayList;
 
 @Disabled
 @Autonomous(name = "PathAuto", group = "OpModes")
-public class Auto extends OpMode {
+public class Auto extends ULOpMode {
 
     Robot robot;
     OdometryGlobalPositionUpdate od;
