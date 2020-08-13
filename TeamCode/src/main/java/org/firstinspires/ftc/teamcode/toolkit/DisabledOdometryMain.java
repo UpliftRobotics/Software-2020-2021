@@ -1,8 +1,9 @@
-package org.firstinspires.ftc.teamcode;
+package org.firstinspires.ftc.teamcode.toolkit;
 
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.util.Range;
 import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
+import org.firstinspires.ftc.teamcode.Robot;
 import org.firstinspires.ftc.teamcode.toolkit.CurvePoint;
 import org.firstinspires.ftc.teamcode.toolkit.MathFunctions;
 import org.firstinspires.ftc.teamcode.toolkit.Point;
@@ -16,7 +17,7 @@ import static org.firstinspires.ftc.teamcode.Robot.worldXPosition;
 import static org.firstinspires.ftc.teamcode.Robot.worldYPosition;
 
 @Disabled
-public class OdometryMain {
+public class DisabledOdometryMain {
         // instantiate new Robot object (Object-oriented programming)
         Robot robot = new Robot();
 

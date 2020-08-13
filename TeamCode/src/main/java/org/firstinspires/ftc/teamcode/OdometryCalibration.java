@@ -3,13 +3,10 @@ package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.hardware.bosch.BNO055IMU;
 import com.qualcomm.hardware.bosch.JustLoggingAccelerationIntegrator;
-import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
-import org.firstinspires.ftc.robotcore.internal.system.AppUtil;
-
-import java.io.File;
+import org.firstinspires.ftc.teamcode.toolkit.ULOpMode;
 
 /*
     Note: this class was inspired by the odometry calibration program made by Wizard.exe, FTC Team 9794
@@ -18,7 +15,8 @@ import java.io.File;
 @TeleOp(name = "OdometryCalibration", group = "Odometry")
 public class OdometryCalibration extends ULOpMode {
     Robot robot = new Robot();
-    OdometryGlobalPositionUpdate od = new OdometryGlobalPositionUpdate(robot.leftFront, robot.rightFront, robot.leftBack, OdometryGlobalPositionUpdate.oneRotationTicks, 10);
+    OdometryGlobalPositionUpdate od = new OdometryGlobalPositionUpdate(robot.leftFront, robot.rightFront, robot.leftBack,
+            OdometryGlobalPositionUpdate.oneRotationTicks, 10);
 
     // declare and init class variables/constants
     final double PIVOT_SPEED = 0.5;
@@ -105,6 +103,7 @@ public class OdometryCalibration extends ULOpMode {
     private double getZAngle(){
         return (-robot.imu.getAngularOrientation().firstAngle);
     }
+
     private void setPowerAll(double rf, double rb, double lf, double lb){
         robot.rightFront.setPower(rf);
         robot.rightBack.setPower(rb);

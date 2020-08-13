@@ -1,28 +1,22 @@
 package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
-import com.qualcomm.robotcore.eventloop.opmode.OpMode;
+import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.teamcode.toolkit.CurvePoint;
+import org.firstinspires.ftc.teamcode.toolkit.ULLinearOpMode;
+import org.firstinspires.ftc.teamcode.toolkit.ULOpMode;
 
 import java.util.ArrayList;
 
 @Autonomous(name = "PathAuto", group = "OpModes")
-public class Auto extends ULOpMode {
+public class Auto extends ULLinearOpMode {
 
-    Robot robot;
-    OdometryGlobalPositionUpdate od;
-
-    @Override
-    public void init() {
-        robot = new Robot();
-        od = new OdometryGlobalPositionUpdate(robot.leftFront, robot.rightFront, robot.leftBack, 76.5954101038
-                , 100);
-    }
+    Robot robot = new Robot();
+    OdometryGlobalPositionUpdate od = new OdometryGlobalPositionUpdate(robot.leftFront, robot.rightFront, robot.leftBack, 76.5954101038, 100);
 
     @Override
-    public void loop() {
+    public void runOpMode() {
         // declare and initialize an empty list of CurvePoints
         ArrayList<CurvePoint> allPoints = new ArrayList<>();
 
@@ -38,5 +32,25 @@ public class Auto extends ULOpMode {
 
         // tell the robot to map out the path and follow it
         robot.followCurve(allPoints, Math.toRadians(90));
+    }
+
+    @TeleOp(name = "GamepadTester", group = "OpModes")
+    public static class GamepadTester extends ULOpMode {
+
+        Robot robot;
+
+        @Override
+        public void init() {
+            robot = new Robot();
+        }
+
+        @Override
+        public void loop() {
+            telemetry.addData("Gamepad1 Left Joystick Y:   ", gamepad1.left_stick_y);
+            telemetry.addData("Gamepad1 Left Joystick X:   ", gamepad1.left_stick_x);
+            telemetry.addData("Gamepad1 Right Joystick Y:   ", gamepad1.right_stick_y);
+            telemetry.addData("Gamepad1 Right Joystick X:   ", gamepad1.right_stick_x);
+            telemetry.update();
+        }
     }
 }

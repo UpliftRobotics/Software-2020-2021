@@ -1,26 +1,20 @@
 package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
-import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 
 import org.firstinspires.ftc.teamcode.toolkit.CurvePoint;
+import org.firstinspires.ftc.teamcode.toolkit.ULLinearOpMode;
 
 import java.util.ArrayList;
 
 @Autonomous(name = "TestAuto", group = "OpModes")
-public class TestAuto extends ULOpMode {
+public class TestAuto extends ULLinearOpMode {
 
-    Robot robot;
-    OdometryGlobalPositionUpdate od;
-
-    @Override
-    public void init() {
-        robot = new Robot();
-        od = new OdometryGlobalPositionUpdate(robot.leftFront, robot.rightFront, robot.leftBack, 76.5954101038, 10);
-    }
+    Robot robot = new Robot();
+    OdometryGlobalPositionUpdate od = new OdometryGlobalPositionUpdate(robot.leftFront, robot.rightFront, robot.leftBack, 76.5954101038, 10);
 
     @Override
-    public void loop() {
+    public void runOpMode() {
         // declare and initialize an empty list of CurvePoints
         ArrayList<CurvePoint> allPoints = new ArrayList<>();
 

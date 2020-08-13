@@ -10,13 +10,12 @@ import com.qualcomm.robotcore.util.Range;
 import org.firstinspires.ftc.teamcode.toolkit.CurvePoint;
 import org.firstinspires.ftc.teamcode.toolkit.MathFunctions;
 import org.firstinspires.ftc.teamcode.toolkit.Point;
+import org.firstinspires.ftc.teamcode.toolkit.ULOpMode;
 
 import java.util.ArrayList;
 
 import static org.firstinspires.ftc.teamcode.toolkit.MathFunctions.lineCircleIntersect;
 import static org.firstinspires.ftc.teamcode.toolkit.MovementVars.movement_turn;
-import static org.firstinspires.ftc.teamcode.toolkit.MovementVars.movement_x;
-import static org.firstinspires.ftc.teamcode.toolkit.MovementVars.movement_y;
 
 public class Robot {
 
@@ -121,6 +120,7 @@ public class Robot {
             double absoluteAngle = Math.atan2(yPosition - worldYPosition, xPosition - worldXPosition);
             // if angle is above pi and below negative pi
             double relativeAngle = absoluteAngle - MathFunctions.AngleRestrictions(worldAngle_rad - Math.toRadians(90));
+
 //          // because I subtract the xposition and yposiion inputed by the current position of the robot
 //          double relativeXToPoint = Math.cos(relativeAngle)*distanceToPoint;
 //          double relativeYToPoint = Math.sin(relativeAngle)*distanceToPoint;
@@ -130,14 +130,19 @@ public class Robot {
 //          // speeds of x and y
 //          movement_x = movementXPower * movementSpeed;
 //          movement_y = movementYPower * movementSpeed;
+
             // add or subtract from the current robot position and get the relative angle of it
             double relativeTurnAngle = relativeAngle - Math.toRadians(180) + preferredAngle;
-            // adjust turn speed throughout the curve
-            movement_turn = Range.clip(relativeTurnAngle/Math.toRadians(30),-1,1) * turnSpeed;
 
-            slideDirection(1, relativeTurnAngle, movement_turn);
+//          // adjust turn speed throughout the curve
+//          movement_turn = Range.clip(relativeTurnAngle/Math.toRadians(30),-1,1) * turnSpeed;
+
+            // actually start to move the robot towards the target point
+            slideDirection(movementSpeed, relativeTurnAngle, turnSpeed);
+
         }
 
+        return;
     }
 
     public CurvePoint getFollowPointPath(CurvePoint startLine, CurvePoint endLine, Point robotLocation, double followRadius) {

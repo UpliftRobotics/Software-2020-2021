@@ -3,6 +3,8 @@ package org.firstinspires.ftc.teamcode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.util.Range;
 
+import org.firstinspires.ftc.teamcode.toolkit.ULOpMode;
+
 @TeleOp(name = "TeleOp", group = "OpModes")
 public class Teleop extends ULOpMode {
 
@@ -12,10 +14,6 @@ public class Teleop extends ULOpMode {
     double rightX;
     double leftY;
     double leftX;
-    double leftFrontPower;
-    double rightFrontPower;
-    double leftBackPower;
-    double rightBackPower;
 
     @Override
     public void init() {
@@ -39,14 +37,11 @@ public class Teleop extends ULOpMode {
         // find the magnitude, or hypotenuse of the left joystick and scale it down by dividing by the max it could be
         double magnitude = Math.sqrt(Math.pow(leftX, 2) + Math.pow(leftY, 2));
 
-        // find the turnValue directly from the rightX input value
+        // find the turnValue directly from the rightX input value (halved for smoothness)
         double turnValue = 0.50 * rightX;
 
         // set the powers using the 2 specific equations and clip the result
-        robot.leftFront.setPower(Range.clip((Math.sin(joystickAngle + (0.25 * Math.PI)) * magnitude) + turnValue, -1, 1));
-        robot.rightFront.setPower(Range.clip((Math.sin(joystickAngle - (0.25 * Math.PI)) * magnitude) - turnValue, -1, 1));
-        robot.leftBack.setPower(Range.clip((Math.sin(joystickAngle - (0.25 * Math.PI)) * magnitude) + turnValue, -1, 1));
-        robot.rightBack.setPower(Range.clip((Math.sin(joystickAngle + (0.25 * Math.PI)) * magnitude) - turnValue, -1, 1));
+        robot.slideDirection(magnitude, joystickAngle, turnValue);
 
         // add telemetry data for the encoders
         telemetry.addData("Left Encoder pos:\t", od.getLeftTicks());

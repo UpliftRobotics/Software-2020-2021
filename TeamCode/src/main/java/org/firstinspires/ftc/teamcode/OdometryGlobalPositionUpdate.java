@@ -17,7 +17,7 @@ public class OdometryGlobalPositionUpdate implements Runnable {
 
     static final double oneRotationTicks = 720;
     static final double wheelRadius = 0.038; // in meters (change this later)
-    public double wheelCircumfrence = 9.40004106022;
+    public double wheelCircumference = 9.40004106022; // inches
     private double deltaLeftDistance = 0;
     private double deltaRightDistance = 0;
     private double deltaCenterDistance = 0;
@@ -53,19 +53,16 @@ public class OdometryGlobalPositionUpdate implements Runnable {
 
     // getter method for the left encoder ticks
     public int getLeftTicks() {
-        // left encoder wheel
         return -robot.leftFront.getCurrentPosition();
     }
 
     // getter method for the right encoder ticks
     public int getRightTicks() {
-        // right encoder wheel
         return robot.rightFront.getCurrentPosition();
     }
 
     // getter method for the center encoder ticks
     public int getCenterTicks() {
-        // center encoder wheel
         return robot.leftBack.getCurrentPosition();
     }
 
@@ -83,6 +80,7 @@ public class OdometryGlobalPositionUpdate implements Runnable {
             try {
                 Thread.sleep(sleepTime);
             } catch (InterruptedException e) {
+                System.out.println("Couldn't sleep...");
                 e.printStackTrace();
             }
         }
