@@ -26,7 +26,7 @@ public class TestAuto extends ULOpMode {
         ArrayList<CurvePoint> allPoints = new ArrayList<>();
 
         // add each CurvePoint to the ArrayList
-        allPoints.add(new CurvePoint(2.258823529454284, 44.04705882435854, 0.7, 0.5, 2.0, 5.0, 0.5235987755982988, 0.2));
+        allPoints.add(new CurvePoint(2.258823529454284, 44.04705882435854, 0.2, 0.5, 2.0, 5.0, 0.5235987755982988, 0.2));
         allPoints.add(new CurvePoint(9.31764705899892, 43.200000000813176, 0.7, 0.5, 2.0, 5.0, 0.5235987755982988, 0.2));
         allPoints.add(new CurvePoint(15.247058823816415, 38.11764705954104, 0.7, 0.5, 2.0, 5.0, 0.5235987755982988, 0.2));
         allPoints.add(new CurvePoint(20.61176470627034, 33.0352941182689, 0.7, 0.5, 2.0, 5.0, 0.5235987755982988, 0.2));
