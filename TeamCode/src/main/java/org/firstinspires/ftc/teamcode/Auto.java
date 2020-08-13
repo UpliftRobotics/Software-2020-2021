@@ -18,7 +18,8 @@ public class Auto extends ULOpMode {
     @Override
     public void init() {
         robot = new Robot();
-        od = new OdometryGlobalPositionUpdate(robot.leftFront, robot.rightFront, robot.leftBack, OdometryGlobalPositionUpdate.oneRotationTicks, 100);
+        od = new OdometryGlobalPositionUpdate(robot.leftFront, robot.rightFront, robot.leftBack, 76.5954101038
+                , 100);
     }
 
     @Override

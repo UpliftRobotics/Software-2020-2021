@@ -24,7 +24,7 @@ public class OdometryCalibration extends LinearOpMode {
 
     // declare and init class variables/constants
     final double PIVOT_SPEED = 0.5;
-    final double COUNTS_PER_INCH = 0.1; // CHANGE WHEN ROBOT READY
+    final double COUNTS_PER_INCH = 76.595410103; // CHANGE WHEN ROBOT READY
     ElapsedTime timer = new ElapsedTime();
     double horizontalTickOffset = 0;
 

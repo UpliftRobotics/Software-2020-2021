@@ -15,9 +15,9 @@ public class OdometryGlobalPositionUpdate implements Runnable {
     // declare and init Robot and variables/constants
     Robot robot = new Robot();
 
-    static final double oneRotationTicks = 800;
-    static final double wheelRadius = 0.025; // in meters (change this later)
-
+    static final double oneRotationTicks = 720;
+    static final double wheelRadius = 0.038; // in meters (change this later)
+    public double wheelCircumfrence = 9.40004106022;
     private double deltaLeftDistance = 0;
     private double deltaRightDistance = 0;
     private double deltaCenterDistance = 0;
