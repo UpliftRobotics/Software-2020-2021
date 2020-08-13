@@ -7,14 +7,14 @@ import org.firstinspires.ftc.teamcode.toolkit.CurvePoint;
 
 import java.util.ArrayList;
 
-import static org.firstinspires.ftc.teamcode.OdometryMain.followCurve;
-
 //@Autonomous(name = "PathAuto", group = "OpModes")
 public class Auto extends OpMode {
 
+    Robot robot;
+
     @Override
     public void init() {
-
+        robot = new Robot();
     }
 
     @Override
@@ -70,6 +70,6 @@ public class Auto extends OpMode {
         allPoints.add(new CurvePoint(21.74117647099748, 135.81176470843883, 0.7, 0.3, 5.0, 5.0, 0.08726646259971647, 5.0));
 
         // tell the robot to map out the path and follow it
-        followCurve(allPoints, Math.toRadians(90));
+        robot.followCurve(allPoints, Math.toRadians(90));
     }
 }
