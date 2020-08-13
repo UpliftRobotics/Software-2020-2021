@@ -19,8 +19,8 @@ public class Teleop extends ULOpMode {
 
     @Override
     public void init() {
-        od = new OdometryGlobalPositionUpdate(robot.leftFront, robot.rightFront, robot.leftBack, OdometryGlobalPositionUpdate.oneRotationTicks, 10);
         robot = new Robot();
+        od = new OdometryGlobalPositionUpdate(robot.leftFront, robot.rightFront, robot.leftBack, OdometryGlobalPositionUpdate.oneRotationTicks, 10);
     }
 
     @Override
