@@ -18,15 +18,9 @@ public class OdometryGlobalPositionUpdate implements Runnable {
     static final double oneRotationTicks = 800;
     static final double wheelRadius = 0.025; // in meters (change this later)
 
-    private int leftEncoderPos = 0;
-    private int centerEncoderPos = 0;
-    private int rightEncoderPos = 0;
     private double deltaLeftDistance = 0;
     private double deltaRightDistance = 0;
     private double deltaCenterDistance = 0;
-    private double x = 0;
-    private double y = 0;
-    private double theta = 0;
     private int sleepTime;
     private double robotEncoderWheelDistance;
     private double horizontalEncoderTickPerDegreeOffset;
@@ -37,41 +31,41 @@ public class OdometryGlobalPositionUpdate implements Runnable {
 
     // constructor for this class that initializes the encoders, delay, and wheel constants
     public OdometryGlobalPositionUpdate(DcMotor leftEncoderMotor, DcMotor rightEncoderMotor, DcMotor centerEncoderMotor, double COUNTS_PER_INCH, int threadSleepDelay){
-//        this.robot.leftEncoderMotor = leftEncoderMotor;
-//        this.robot.rightEncoderMotor = rightEncoderMotor;
-//        this.robot.centerEncoderMotor = centerEncoderMotor;
+        this.robot.leftEncoderMotor = leftEncoderMotor;
+        this.robot.rightEncoderMotor = rightEncoderMotor;
+        this.robot.centerEncoderMotor = centerEncoderMotor;
         sleepTime = threadSleepDelay;
 
-//        robotEncoderWheelDistance = Double.parseDouble(ReadWriteFile.readFile(wheelBaseSeparationFile).trim()) * COUNTS_PER_INCH;
-//        this.horizontalEncoderTickPerDegreeOffset = Double.parseDouble(ReadWriteFile.readFile(horizontalTickOffsetFile).trim());
+        robotEncoderWheelDistance = Double.parseDouble(ReadWriteFile.readFile(wheelBaseSeparationFile).trim()) * COUNTS_PER_INCH;
+        this.horizontalEncoderTickPerDegreeOffset = Double.parseDouble(ReadWriteFile.readFile(horizontalTickOffsetFile).trim());
 
     }
 
     // method to update the robot's position
     private void globalCoordinatePositionUpdate(){
-//        deltaLeftDistance = (getLeftTicks() / oneRotationTicks) * 2.0 * Math.PI * wheelRadius;
-//        deltaRightDistance = (getRightTicks() / oneRotationTicks) * 2.0 * Math.PI * wheelRadius;
-//        deltaCenterDistance = (getCenterTicks() / oneRotationTicks) * 2.0 * Math.PI * wheelRadius;
-//        x += (((deltaLeftDistance + deltaRightDistance) / 2.0)) * Math.cos(theta);
-//        y += (((deltaLeftDistance + deltaRightDistance) / 2.0)) * Math.sin(theta);
-//        theta += (deltaLeftDistance - deltaRightDistance) / robotEncoderWheelDistance;
-        // resetTicks();
+        deltaLeftDistance = (getLeftTicks() / oneRotationTicks) * 2.0 * Math.PI * wheelRadius;
+        deltaRightDistance = (getRightTicks() / oneRotationTicks) * 2.0 * Math.PI * wheelRadius;
+        deltaCenterDistance = (getCenterTicks() / oneRotationTicks) * 2.0 * Math.PI * wheelRadius;
+        robot.worldXPosition += (((deltaLeftDistance + deltaRightDistance) / 2.0)) * Math.cos(robot.worldAngle_rad);
+        robot.worldYPosition += (((deltaLeftDistance + deltaRightDistance) / 2.0)) * Math.sin(robot.worldAngle_rad);
+        robot.worldAngle_rad += (deltaLeftDistance - deltaRightDistance) / robotEncoderWheelDistance;
+        //resetTicks();
     }
 
-//    // getter method for the left encoder ticks
-//    public int getLeftTicks() {
-//        return robot.leftEncoderMotor.getCurrentPosition() - leftEncoderPos;
-//    }
-//
-//    // getter method for the right encoder ticks
-//    public int getRightTicks() {
-//        return robot.rightEncoderMotor.getCurrentPosition() - rightEncoderPos;
-//    }
-//
-//    // getter method for the center encoder ticks
-//    public int getCenterTicks() {
-//        return robot.centerEncoderMotor.getCurrentPosition() - centerEncoderPos;
-//    }
+    // getter method for the left encoder ticks
+    public int getLeftTicks() {
+        return robot.leftEncoderMotor.getCurrentPosition();
+    }
+
+    // getter method for the right encoder ticks
+    public int getRightTicks() {
+        return robot.rightEncoderMotor.getCurrentPosition();
+    }
+
+    // getter method for the center encoder ticks
+    public int getCenterTicks() {
+        return robot.centerEncoderMotor.getCurrentPosition();
+    }
 
     // method to "stop" the program by setting the boolean isRunning to false;
     public void stop(){
@@ -83,7 +77,7 @@ public class OdometryGlobalPositionUpdate implements Runnable {
     @Override
     public void run() {
         while(isRunning) {
-            //globalCoordinatePositionUpdate();
+            globalCoordinatePositionUpdate();
             try {
                 Thread.sleep(sleepTime);
             } catch (InterruptedException e) {

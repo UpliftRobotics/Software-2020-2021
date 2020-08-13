@@ -45,9 +45,9 @@ public class Robot {
 
     public Robot() {
         hardwareMap = ULOpMode.getInstance().hardwareMap;
-//        worldXPosition = 0;
-//        worldYPosition = 0;
-//        worldAngle_rad = Math.toRadians(0);
+        worldXPosition = 0;
+        worldYPosition = 0;
+        worldAngle_rad = Math.toRadians(0);
 
         leftFront = hardwareMap.get(DcMotor.class,"lf_motor");//Declares two left motors
         leftBack = hardwareMap.get(DcMotor.class,"lb_motor");
@@ -65,23 +65,23 @@ public class Robot {
         imu = hardwareMap.get(BNO055IMU.class, "imu");
 
 
-//        rightFront.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-//        rightBack.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-//        leftFront.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-//        leftBack.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        rightFront.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        rightBack.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        leftFront.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        leftBack.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
         rightFront.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         rightBack.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         leftFront.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         leftBack.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
-//        leftEncoderMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-//        rightEncoderMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-//        centerEncoderMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        leftEncoderMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        rightEncoderMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        centerEncoderMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
-//        leftEncoderMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-//        rightEncoderMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-//        centerEncoderMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        leftEncoderMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        rightEncoderMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        centerEncoderMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
 
         rightFront.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
@@ -95,22 +95,22 @@ public class Robot {
 
 
 
-//    public double getXPos() {
-//        return worldXPosition;
-//    }
-//
-//    public double getYPos() {
-//        return worldYPosition;
-//    }
-//
-//
-//    public double getWorldAngle_rad() {
-//        return worldAngle_rad;
-//    }
-//
-//
-//    //last update time
-//    private long lastUpdateTime = 0;
+    public double getXPos() {
+        return worldXPosition;
+    }
+
+    public double getYPos() {
+        return worldYPosition;
+    }
+
+
+    public double getWorldAngle_rad() {
+        return worldAngle_rad;
+    }
+
+
+    //last update time
+    private long lastUpdateTime = 0;
 
     public void slideDirection(double speedVal, double angle, double turnVal) {
         // set the powers using the 2 specific equations and clip the result
@@ -129,7 +129,7 @@ public class Robot {
 
     public void goToPosition(double xPosition, double yPosition,double movementSpeed,double preferredAngle,double turnSpeed){
 
-        double distanceToPoint = 10;
+        double distanceToPoint = Math.hypot(xPosition - worldXPosition, yPosition - worldYPosition);
 
         while(distanceToPoint > 5) {
             // hypotenuse of the triangle is the distance
@@ -138,22 +138,23 @@ public class Robot {
             double absoluteAngle = Math.atan2(yPosition - worldYPosition, xPosition - worldXPosition);
             // if angle is above pi and below negative pi
             double relativeAngle = absoluteAngle - MathFunctions.AngleRestrictions(worldAngle_rad - Math.toRadians(90));
-//        // because I subtract the xposition and yposiion inputed by the current position of the robot
-//        double relativeXToPoint = Math.cos(relativeAngle)*distanceToPoint;
-//        double relativeYToPoint = Math.sin(relativeAngle)*distanceToPoint;
-//        // speeds of the x and y power
-//        double movementXPower = relativeXToPoint/ (Math.abs(relativeXToPoint)+ Math.abs(relativeYToPoint));
-//        double movementYPower = relativeYToPoint/ (Math.abs(relativeXToPoint)+ Math.abs(relativeYToPoint));
-//        // speeds of x and y
-//        movement_x = movementXPower * movementSpeed;
-//        movement_y = movementYPower * movementSpeed;
+//          // because I subtract the xposition and yposiion inputed by the current position of the robot
+//          double relativeXToPoint = Math.cos(relativeAngle)*distanceToPoint;
+//          double relativeYToPoint = Math.sin(relativeAngle)*distanceToPoint;
+//          // speeds of the x and y power
+//          double movementXPower = relativeXToPoint/ (Math.abs(relativeXToPoint)+ Math.abs(relativeYToPoint));
+//          double movementYPower = relativeYToPoint/ (Math.abs(relativeXToPoint)+ Math.abs(relativeYToPoint));
+//          // speeds of x and y
+//          movement_x = movementXPower * movementSpeed;
+//          movement_y = movementYPower * movementSpeed;
             // add or subtract from the current robot position and get the relative angle of it
             double relativeTurnAngle = relativeAngle - Math.toRadians(180) + preferredAngle;
-        // adjust turn speed throughout the curve
-        movement_turn = Range.clip(relativeTurnAngle/Math.toRadians(30),-1,1) * turnSpeed;
+            // adjust turn speed throughout the curve
+            movement_turn = Range.clip(relativeTurnAngle/Math.toRadians(30),-1,1) * turnSpeed;
 
             slideDirection(1, relativeTurnAngle, movement_turn);
         }
+
     }
 
     public CurvePoint getFollowPointPath(CurvePoint startLine, CurvePoint endLine, Point robotLocation, double followRadius) {
@@ -186,6 +187,6 @@ public class Robot {
             goToPosition(followPt.x, followPt.y, followPt.moveSpeed, followAngle, followPt.turnSpeed);
 
         }
-
+        stopMotors();
     }
 }

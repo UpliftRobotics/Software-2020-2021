@@ -1,16 +1,14 @@
 package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 
 import org.firstinspires.ftc.teamcode.toolkit.CurvePoint;
 
 import java.util.ArrayList;
 
-@Disabled
-@Autonomous(name = "PathAuto", group = "OpModes")
-public class Auto extends OpMode {
+@Autonomous(name = "TestAuto", group = "OpModes")
+public class TestAuto extends OpMode {
 
     Robot robot;
     OdometryGlobalPositionUpdate od;
@@ -37,6 +35,10 @@ public class Auto extends OpMode {
         allPoints.add(new CurvePoint(45.74117647144925, 19.764705882724982, 0.7, 0.5, 2.0, 5.0, 0.5235987755982988, 0.2));
 
         // tell the robot to map out the path and follow it
-        robot.followCurve(allPoints, Math.toRadians(90));
+        for(CurvePoint target : allPoints) {
+            robot.goToPosition(target.x, target.y, target.moveSpeed, 0, target.turnSpeed);
+        }
+        robot.stopMotors();
     }
+
 }

@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode;
 
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.util.Range;
 import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
 import org.firstinspires.ftc.teamcode.toolkit.CurvePoint;
@@ -14,6 +15,7 @@ import static org.firstinspires.ftc.teamcode.Robot.worldAngle_rad;
 import static org.firstinspires.ftc.teamcode.Robot.worldXPosition;
 import static org.firstinspires.ftc.teamcode.Robot.worldYPosition;
 
+@Disabled
 public class OdometryMain {
         // instantiate new Robot object (Object-oriented programming)
         Robot robot = new Robot();
