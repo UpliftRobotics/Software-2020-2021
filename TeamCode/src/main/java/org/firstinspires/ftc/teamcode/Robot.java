@@ -80,11 +80,9 @@ public class Robot {
         return worldYPosition;
     }
 
-
     public double getWorldAngle_rad() {
         return worldAngle_rad;
     }
-
 
     //last update time
     private long lastUpdateTime = 0;
