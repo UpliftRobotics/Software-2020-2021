@@ -18,7 +18,7 @@ public class Teleop extends ULOpMode {
     @Override
     public void init() {
         robot = new Robot();
-        od = new OdometryGlobalPositionUpdate(robot.leftFront, robot.rightFront, robot.leftBack, OdometryGlobalPositionUpdate.oneRotationTicks, 10);
+        od = new OdometryGlobalPositionUpdate(robot, OdometryGlobalPositionUpdate.oneRotationTicks, 10);
     }
 
     @Override
@@ -38,7 +38,7 @@ public class Teleop extends ULOpMode {
         double magnitude = Math.sqrt(Math.pow(leftX, 2) + Math.pow(leftY, 2));
 
         // find the turnValue directly from the rightX input value (halved for smoothness)
-        double turnValue = 0.50 * rightX;
+        double turnValue = 0.75 * rightX;
 
         // set the powers using the 2 specific equations and clip the result
         robot.slideDirection(magnitude, joystickAngle, turnValue);

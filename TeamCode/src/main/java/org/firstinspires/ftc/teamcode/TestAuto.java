@@ -11,7 +11,7 @@ import java.util.ArrayList;
 public class TestAuto extends ULLinearOpMode {
 
     Robot robot = new Robot();
-    OdometryGlobalPositionUpdate od = new OdometryGlobalPositionUpdate(robot.leftFront, robot.rightFront, robot.leftBack, 76.5954101038, 10);
+    OdometryGlobalPositionUpdate od = new OdometryGlobalPositionUpdate(robot, 76.5954101038, 10);
 
     @Override
     public void runOpMode() {

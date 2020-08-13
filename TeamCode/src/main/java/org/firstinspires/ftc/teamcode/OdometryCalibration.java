@@ -15,8 +15,7 @@ import org.firstinspires.ftc.teamcode.toolkit.ULOpMode;
 @TeleOp(name = "OdometryCalibration", group = "Odometry")
 public class OdometryCalibration extends ULOpMode {
     Robot robot = new Robot();
-    OdometryGlobalPositionUpdate od = new OdometryGlobalPositionUpdate(robot.leftFront, robot.rightFront, robot.leftBack,
-            OdometryGlobalPositionUpdate.oneRotationTicks, 10);
+    OdometryGlobalPositionUpdate od = new OdometryGlobalPositionUpdate(robot, OdometryGlobalPositionUpdate.oneRotationTicks, 10);
 
     // declare and init class variables/constants
     final double PIVOT_SPEED = 0.5;

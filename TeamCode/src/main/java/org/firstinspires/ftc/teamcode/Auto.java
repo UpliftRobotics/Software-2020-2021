@@ -13,7 +13,7 @@ import java.util.ArrayList;
 public class Auto extends ULLinearOpMode {
 
     Robot robot = new Robot();
-    OdometryGlobalPositionUpdate od = new OdometryGlobalPositionUpdate(robot.leftFront, robot.rightFront, robot.leftBack, 76.5954101038, 100);
+    OdometryGlobalPositionUpdate od = new OdometryGlobalPositionUpdate(robot, 76.5954101038, 100);
 
     @Override
     public void runOpMode() {

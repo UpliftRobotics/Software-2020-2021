@@ -12,9 +12,10 @@ public class OdometryGlobalPositionUpdate implements Runnable {
     // create boolean that becomes true the instant the program begins
     private boolean isRunning = true;
 
-    // declare and init Robot and variables/constants
-    Robot robot = new Robot();
-
+    public Robot robot;
+    public DcMotor leftFront;
+    public DcMotor rightFront;
+    public DcMotor leftBack;
     static final double oneRotationTicks = 720;
     static final double wheelRadius = 0.038; // in meters (change this later)
     public double wheelCircumference = 9.40004106022; // inches
@@ -30,10 +31,11 @@ public class OdometryGlobalPositionUpdate implements Runnable {
 //    private File horizontalTickOffsetFile = AppUtil.getInstance().getSettingsFile("horizontalTickOffset.txt");
 
     // constructor for this class that initializes the encoders, delay, and wheel constants
-    public OdometryGlobalPositionUpdate(DcMotor leftFront, DcMotor rightFront, DcMotor leftBack, double COUNTS_PER_INCH, int threadSleepDelay){
-        this.robot.leftFront = leftFront;
-        this.robot.rightFront = rightFront;
-        this.robot.leftBack = leftBack;
+    public OdometryGlobalPositionUpdate(Robot robot, double COUNTS_PER_INCH, int threadSleepDelay){
+        this.robot = robot;
+        leftFront = robot.leftFront;
+        rightFront = robot.rightFront;
+        leftBack = robot.leftBack;
         sleepTime = threadSleepDelay;
 
 //        robotEncoderWheelDistance = Double.parseDouble(ReadWriteFile.readFile(wheelBaseSeparationFile).trim()) * COUNTS_PER_INCH;
