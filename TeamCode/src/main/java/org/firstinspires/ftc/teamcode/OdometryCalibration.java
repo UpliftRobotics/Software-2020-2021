@@ -20,6 +20,7 @@ public class OdometryCalibration extends LinearOpMode {
 
     // declare and initialize instance of the Robot class (Object-oriented programming)
     Robot robot = new Robot();
+    OdometryGlobalPositionUpdate od = new OdometryGlobalPositionUpdate(robot.leftFront, robot.rightFront, robot.leftBack, OdometryGlobalPositionUpdate.oneRotationTicks, 10);
 
     // declare and init class variables/constants
     final double PIVOT_SPEED = 0.5;
@@ -72,13 +73,13 @@ public class OdometryCalibration extends LinearOpMode {
         double angle = getZAngle();
 
 
-        double encoderDifference = Math.abs(robot.leftFront.getCurrentPosition()) + (Math.abs(robot.rightFront.getCurrentPosition()));
+        double encoderDifference = Math.abs(od.getLeftTicks()) + (Math.abs(od.getRightTicks()));
 
         double verticalEncoderTickOffsetPerDegree = encoderDifference/angle;
 
         double wheelBaseSeparation = (2*90*verticalEncoderTickOffsetPerDegree)/(Math.PI*COUNTS_PER_INCH);
 
-        horizontalTickOffset = robot.leftBack.getCurrentPosition()/Math.toRadians(getZAngle());
+        horizontalTickOffset = od.getCenterTicks()/Math.toRadians(getZAngle());
 
         while(opModeIsActive()){
             telemetry.addData("Odometry System Calibration Status", "Calibration Complete");
@@ -88,9 +89,9 @@ public class OdometryCalibration extends LinearOpMode {
 
             //Display raw values
             telemetry.addData("IMU Angle", getZAngle());
-            telemetry.addData("Vertical Left Position", -robot.leftFront.getCurrentPosition());
-            telemetry.addData("Vertical Right Position", robot.rightFront.getCurrentPosition());
-            telemetry.addData("Horizontal Position", robot.leftBack.getCurrentPosition());
+            telemetry.addData("Vertical Left Position", od.getLeftTicks());
+            telemetry.addData("Vertical Right Position", od.getRightTicks());
+            telemetry.addData("Horizontal Position", od.getCenterTicks());
             telemetry.addData("Vertical Encoder Offset", verticalEncoderTickOffsetPerDegree);
 
             //Update values
