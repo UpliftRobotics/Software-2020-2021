@@ -16,9 +16,7 @@ import java.io.File;
 */
 
 @TeleOp(name = "OdometryCalibration", group = "Odometry")
-public class OdometryCalibration extends LinearOpMode {
-
-    // declare and initialize instance of the Robot class (Object-oriented programming)
+public class OdometryCalibration extends ULOpMode {
     Robot robot = new Robot();
     OdometryGlobalPositionUpdate od = new OdometryGlobalPositionUpdate(robot.leftFront, robot.rightFront, robot.leftBack, OdometryGlobalPositionUpdate.oneRotationTicks, 10);
 
@@ -29,11 +27,18 @@ public class OdometryCalibration extends LinearOpMode {
     double horizontalTickOffset = 0;
 
     // Text files to write the values to. The files are stored in the robot controller under Internal Storage\FIRST\settings
-    File wheelBaseSeparationFile = AppUtil.getInstance().getSettingsFile("wheelBaseSeparation.txt");
-    File horizontalTickOffsetFile = AppUtil.getInstance().getSettingsFile("horizontalTickOffset.txt");
+//    File wheelBaseSeparationFile = AppUtil.getInstance().getSettingsFile("wheelBaseSeparation.txt");
+//    File horizontalTickOffsetFile = AppUtil.getInstance().getSettingsFile("horizontalTickOffset.txt");
 
     @Override
-    public void runOpMode() throws InterruptedException {
+    public void init() {
+
+    }
+
+    // declare and initialize instance of the Robot class (Object-oriented programming)
+
+    @Override
+    public void loop() {
         // add necessary parameters for the REVhub imu
         BNO055IMU.Parameters parameters = new BNO055IMU.Parameters();
         parameters.angleUnit           = BNO055IMU.AngleUnit.DEGREES;
@@ -50,9 +55,8 @@ public class OdometryCalibration extends LinearOpMode {
         telemetry.addData("Odometry System Calibration Status", "Init Complete");
         telemetry.update();
 
-        waitForStart();
 
-        while(getZAngle() < 90 && opModeIsActive()){
+        while(getZAngle() < 90 ){
             setPowerAll(-PIVOT_SPEED, -PIVOT_SPEED, PIVOT_SPEED, PIVOT_SPEED);
 
             if(getZAngle() < 60) {
@@ -66,7 +70,7 @@ public class OdometryCalibration extends LinearOpMode {
             }
             setPowerAll(0, 0, 0, 0);
             timer.reset();
-            while(timer.milliseconds() < 1000 && opModeIsActive()){
+            while(timer.milliseconds() < 1000){
                 telemetry.addData("IMU Angle", getZAngle());
                 telemetry.update();
             }
@@ -81,7 +85,7 @@ public class OdometryCalibration extends LinearOpMode {
 
         horizontalTickOffset = od.getCenterTicks()/Math.toRadians(getZAngle());
 
-        while(opModeIsActive()){
+
             telemetry.addData("Odometry System Calibration Status", "Calibration Complete");
             //Display calculated constants
             telemetry.addData("Wheel Base Separation", wheelBaseSeparation);
@@ -97,7 +101,7 @@ public class OdometryCalibration extends LinearOpMode {
             //Update values
             telemetry.update();
         }
-    }
+
     private double getZAngle(){
         return (-robot.imu.getAngularOrientation().firstAngle);
     }

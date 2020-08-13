@@ -8,7 +8,6 @@ import org.firstinspires.ftc.teamcode.toolkit.CurvePoint;
 
 import java.util.ArrayList;
 
-@Disabled
 @Autonomous(name = "PathAuto", group = "OpModes")
 public class Auto extends ULOpMode {
 
