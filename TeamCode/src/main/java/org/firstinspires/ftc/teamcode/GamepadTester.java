@@ -1,8 +1,9 @@
-package org.firstinspires.ftc.teamcode.toolkit;
+package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.teamcode.Robot;
+import org.firstinspires.ftc.teamcode.toolkit.ULOpMode;
 
 @TeleOp(name = "GamepadTester", group = "OpModes")
 public class GamepadTester extends ULOpMode {
