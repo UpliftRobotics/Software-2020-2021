@@ -24,9 +24,9 @@ public class Robot {
 
     public HardwareMap hardwareMap;
 
-    public DcMotor leftFront; //Declares two left motors
-    public DcMotor leftBack;
-    public DcMotor rightFront; //Declares two right motors
+    public DcMotor leftFront; //Left Encoder Motor
+    public DcMotor leftBack; // Center Encoder Motor
+    public DcMotor rightFront; //Right Encoder Motor
     public DcMotor rightBack;
 
     public BNO055IMU imu;
