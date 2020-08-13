@@ -30,11 +30,6 @@ public class Robot {
 
     public BNO055IMU imu;
 
-
-    public static double xSpeed = 0;
-    public static double ySpeed = 0;
-    public static double turnSpeed = 0;
-
     public static double worldXPosition;
     public static double worldYPosition;
     public static double worldAngle_rad;
