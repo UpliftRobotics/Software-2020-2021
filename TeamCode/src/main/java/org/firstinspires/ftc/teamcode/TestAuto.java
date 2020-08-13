@@ -8,7 +8,7 @@ import org.firstinspires.ftc.teamcode.toolkit.CurvePoint;
 import java.util.ArrayList;
 
 @Autonomous(name = "TestAuto", group = "OpModes")
-public class TestAuto extends OpMode {
+public class TestAuto extends ULOpMode {
 
     Robot robot;
     OdometryGlobalPositionUpdate od;
