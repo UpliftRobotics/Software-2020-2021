@@ -8,6 +8,7 @@ public class Teleop extends ULOpMode {
 
     // Declare robot and variables.
     Robot robot;
+    OdometryGlobalPositionUpdate od;
     double rightX;
     double leftY;
     double leftX;
@@ -18,6 +19,7 @@ public class Teleop extends ULOpMode {
 
     @Override
     public void init() {
+        od = new OdometryGlobalPositionUpdate(robot.leftFront, robot.rightFront, robot.leftBack, OdometryGlobalPositionUpdate.oneRotationTicks, 100 )
         robot = new Robot();
     }
 
@@ -45,6 +47,9 @@ public class Teleop extends ULOpMode {
         robot.rightFront.setPower(Range.clip((Math.sin(joystickAngle - (0.25 * Math.PI)) * magnitude) - turnValue, -1, 1));
         robot.leftBack.setPower(Range.clip((Math.sin(joystickAngle - (0.25 * Math.PI)) * magnitude) + turnValue, -1, 1));
         robot.rightBack.setPower(Range.clip((Math.sin(joystickAngle + (0.25 * Math.PI)) * magnitude) - turnValue, -1, 1));
+
+        // add telemetry data for the encoders
+        telemetry.addData("Left Encoder pos:\t", OdometryGlobalPositionUpdate.getLeftTicks())
 
     }
 }
