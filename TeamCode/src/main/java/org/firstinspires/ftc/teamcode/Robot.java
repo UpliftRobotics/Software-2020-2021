@@ -29,9 +29,6 @@ public class Robot {
     public DcMotor rightFront; //Declares two right motors
     public DcMotor rightBack;
 
-    public DcMotor leftEncoderMotor;
-    public DcMotor rightEncoderMotor;
-    public DcMotor centerEncoderMotor;
     public BNO055IMU imu;
 
 
@@ -57,11 +54,6 @@ public class Robot {
         leftFront.setDirection(DcMotorSimple.Direction.REVERSE);
         leftBack.setDirection(DcMotorSimple.Direction.REVERSE);
 
-
-//        leftEncoderMotor = hardwareMap.get(DcMotor.class,"l_encoder");
-//        rightEncoderMotor = hardwareMap.get(DcMotor.class,"r_encoder") ;
-//        centerEncoderMotor = hardwareMap.get(DcMotor.class,"c_encoder");
-
         imu = hardwareMap.get(BNO055IMU.class, "imu");
 
 
@@ -74,15 +66,6 @@ public class Robot {
         rightBack.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         leftFront.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         leftBack.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-
-        leftEncoderMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        rightEncoderMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        centerEncoderMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-
-        leftEncoderMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        rightEncoderMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        centerEncoderMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-
 
         rightFront.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         rightBack.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);

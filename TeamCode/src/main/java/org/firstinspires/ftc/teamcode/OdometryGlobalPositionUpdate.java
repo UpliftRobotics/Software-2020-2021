@@ -30,10 +30,10 @@ public class OdometryGlobalPositionUpdate implements Runnable {
     private File horizontalTickOffsetFile = AppUtil.getInstance().getSettingsFile("horizontalTickOffset.txt");
 
     // constructor for this class that initializes the encoders, delay, and wheel constants
-    public OdometryGlobalPositionUpdate(DcMotor leftEncoderMotor, DcMotor rightEncoderMotor, DcMotor centerEncoderMotor, double COUNTS_PER_INCH, int threadSleepDelay){
-        this.robot.leftEncoderMotor = leftEncoderMotor;
-        this.robot.rightEncoderMotor = rightEncoderMotor;
-        this.robot.centerEncoderMotor = centerEncoderMotor;
+    public OdometryGlobalPositionUpdate(DcMotor leftFront, DcMotor rightFront, DcMotor leftBack, double COUNTS_PER_INCH, int threadSleepDelay){
+        this.robot.leftFront = leftFront;
+        this.robot.rightFront = rightFront;
+        this.robot.leftBack = leftBack;
         sleepTime = threadSleepDelay;
 
         robotEncoderWheelDistance = Double.parseDouble(ReadWriteFile.readFile(wheelBaseSeparationFile).trim()) * COUNTS_PER_INCH;
@@ -54,17 +54,17 @@ public class OdometryGlobalPositionUpdate implements Runnable {
 
     // getter method for the left encoder ticks
     public int getLeftTicks() {
-        return robot.leftEncoderMotor.getCurrentPosition();
+        return robot.leftFront.getCurrentPosition();
     }
 
     // getter method for the right encoder ticks
     public int getRightTicks() {
-        return robot.rightEncoderMotor.getCurrentPosition();
+        return robot.rightFront.getCurrentPosition();
     }
 
     // getter method for the center encoder ticks
     public int getCenterTicks() {
-        return robot.centerEncoderMotor.getCurrentPosition();
+        return robot.leftBack.getCurrentPosition();
     }
 
     // method to "stop" the program by setting the boolean isRunning to false;
