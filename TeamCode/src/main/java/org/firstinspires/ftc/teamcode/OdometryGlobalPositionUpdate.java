@@ -54,16 +54,19 @@ public class OdometryGlobalPositionUpdate implements Runnable {
 
     // getter method for the left encoder ticks
     public int getLeftTicks() {
+        // left encoder wheel
         return robot.leftFront.getCurrentPosition();
     }
 
     // getter method for the right encoder ticks
     public int getRightTicks() {
+        // right encoder wheel
         return robot.rightFront.getCurrentPosition();
     }
 
     // getter method for the center encoder ticks
     public int getCenterTicks() {
+        // center encoder wheel
         return robot.leftBack.getCurrentPosition();
     }
 

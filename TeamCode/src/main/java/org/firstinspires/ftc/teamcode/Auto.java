@@ -18,8 +18,7 @@ public class Auto extends OpMode {
     @Override
     public void init() {
         robot = new Robot();
-        od = new OdometryGlobalPositionUpdate(robot.leftEncoderMotor, robot.rightEncoderMotor, robot.centerEncoderMotor, OdometryGlobalPositionUpdate.oneRotationTicks, 100);
-
+        od = new OdometryGlobalPositionUpdate(robot.leftFront, robot.rightFront, robot.leftBack, OdometryGlobalPositionUpdate.oneRotationTicks, 100);
     }
 
     @Override
