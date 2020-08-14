@@ -47,25 +47,25 @@ public class OdometryGlobalPositionUpdate implements Runnable {
         deltaLeftDistance = (getLeftTicks() / oneRotationTicks) * 2.0 * Math.PI * wheelRadius;
         deltaRightDistance = (getRightTicks() / oneRotationTicks) * 2.0 * Math.PI * wheelRadius;
         deltaCenterDistance = (getCenterTicks() / oneRotationTicks) * 2.0 * Math.PI * wheelRadius;
-        robot.worldXPosition += (((deltaLeftDistance + deltaRightDistance) / 2.0)) * Math.cos(robot.worldAngle_rad);
-        robot.worldYPosition += (((deltaLeftDistance + deltaRightDistance) / 2.0)) * Math.sin(robot.worldAngle_rad);
-        robot.worldAngle_rad += (deltaLeftDistance - deltaRightDistance) / robotEncoderWheelDistance;
+        this.robot.worldXPosition += (((deltaLeftDistance + deltaRightDistance) / 2.0)) * Math.cos(this.robot.worldAngle_rad);
+        this.robot.worldYPosition += (((deltaLeftDistance + deltaRightDistance) / 2.0)) * Math.sin(this.robot.worldAngle_rad);
+        this.robot.worldAngle_rad += (deltaLeftDistance - deltaRightDistance) / robotEncoderWheelDistance;
         //resetTicks();
     }
 
     // getter method for the left encoder ticks
     public int getLeftTicks() {
-        return -robot.leftFront.getCurrentPosition();
+        return -this.robot.leftFront.getCurrentPosition();
     }
 
     // getter method for the right encoder ticks
     public int getRightTicks() {
-        return robot.rightFront.getCurrentPosition();
+        return this.robot.rightFront.getCurrentPosition();
     }
 
     // getter method for the center encoder ticks
     public int getCenterTicks() {
-        return robot.leftBack.getCurrentPosition();
+        return this.robot.leftBack.getCurrentPosition();
     }
 
     // method to "stop" the program by setting the boolean isRunning to false;
