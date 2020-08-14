@@ -37,6 +37,7 @@ public class OdometryGlobalPositionUpdate implements Runnable {
         rightFront = myRobot.rightFront;
         leftBack = myRobot.leftBack;
         sleepTime = threadSleepDelay;
+        run();
 
 //        robotEncoderWheelDistance = Double.parseDouble(ReadWriteFile.readFile(wheelBaseSeparationFile).trim()) * COUNTS_PER_INCH;
 //        this.horizontalEncoderTickPerDegreeOffset = Double.parseDouble(ReadWriteFile.readFile(horizontalTickOffsetFile).trim());

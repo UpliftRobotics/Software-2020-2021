@@ -22,9 +22,7 @@ public class TestAuto extends ULOpMode {
 
     @Override
     public void loop() {
-        telemetry.addData("worldx", robot.getXPos());
-        telemetry.addData("worldy", robot.getYPos());
-        telemetry.update();
+
 
         ArrayList<CurvePoint> allPoints = new ArrayList<>();
 
@@ -34,6 +32,9 @@ public class TestAuto extends ULOpMode {
             // tell the robot to map out the path and follow it
             for (CurvePoint target : allPoints) {
                 robot.goToPosition(target.x, target.y, target.moveSpeed, 0, target.turnSpeed);
+                telemetry.addData("worldx", robot.getXPos());
+                telemetry.addData("worldy", robot.getYPos());
+                telemetry.update();
             }
         robot.stopMotors();
         stop();
