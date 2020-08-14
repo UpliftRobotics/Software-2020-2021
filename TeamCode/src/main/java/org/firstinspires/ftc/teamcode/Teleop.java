@@ -10,7 +10,6 @@ public class Teleop extends ULOpMode {
 
     // Declare robot and variables.
     Robot robot;
-    OdometryGlobalPositionUpdate od;
     double rightX;
     double leftY;
     double leftX;
@@ -18,13 +17,12 @@ public class Teleop extends ULOpMode {
     @Override
     public void init() {
         robot = new Robot();
-        od = new OdometryGlobalPositionUpdate(robot, OdometryGlobalPositionUpdate.oneRotationTicks, 10);
     }
 
     @Override
     public void loop() {
 
-        robot.globalCoordinatePositionUpdate();
+        //robot.globalCoordinatePositionUpdate();
 
         // initialize the gamepad stick values to the three needed axes
         leftY = Range.clip(-gamepad1.left_stick_y, -1, 1);
@@ -46,11 +44,11 @@ public class Teleop extends ULOpMode {
         robot.slideDirection(magnitude, joystickAngle, turnValue);
 
         // add telemetry data for the encoders
-        telemetry.addData("Left Encoder pos:\t", od.getLeftTicks());
-        telemetry.addData("Right Encoder pos:\t", od.getRightTicks());
-        telemetry.addData("Center Encoder pos:\t", od.getCenterTicks());
-        telemetry.addData("WorldX:\t", robot.getXPos());
-        telemetry.addData("WorldY:\t", robot.getYPos());
+        telemetry.addData("Left Encoder pos:\t", robot.getLeftTicks());
+        telemetry.addData("Right Encoder pos:\t", robot.getRightTicks());
+        telemetry.addData("Center Encoder pos:\t", robot.getCenterTicks());
+        telemetry.addData("WorldX:\t", robot.worldXPosition);
+        telemetry.addData("WorldY:\t", robot.worldYPosition);
         telemetry.update();
 
     }

@@ -30,9 +30,9 @@ public class Robot {
 
     public BNO055IMU imu;
 
-    public static double worldXPosition;
-    public static double worldYPosition;
-    public static double worldAngle_rad;
+    public static double worldXPosition = 0;
+    public static double worldYPosition = 0;
+    public static double worldAngle_rad = 0;
 
     static final double oneRotationTicks = 720;
     static final double wheelRadius = 0.038; // in meters (change this later)
@@ -147,7 +147,7 @@ public class Robot {
     }
 
     public void goToPosition(double xPosition, double yPosition,double movementSpeed,double preferredAngle,double turnSpeed){
-        globalCoordinatePositionUpdate();
+        //globalCoordinatePositionUpdate();
         double distanceToPoint = Math.hypot(xPosition - worldXPosition, yPosition - worldYPosition);
 
         while(distanceToPoint > 5) {

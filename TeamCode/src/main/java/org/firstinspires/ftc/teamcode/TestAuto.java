@@ -12,7 +12,6 @@ import java.util.ArrayList;
 public class TestAuto extends ULOpMode {
 
     Robot robot;
-    OdometryGlobalPositionUpdate od;
 
     @Override
     public void init() {
