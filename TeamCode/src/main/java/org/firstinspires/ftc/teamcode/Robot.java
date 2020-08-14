@@ -41,7 +41,7 @@ public class Robot {
     private double deltaRightDistance = 0;
     private double deltaCenterDistance = 0;
     private int sleepTime;
-    private double robotEncoderWheelDistance;
+    private double robotEncoderWheelDistance = 14;
     private double horizontalEncoderTickPerDegreeOffset;
 
     // access files created and written to in the calibration program
@@ -98,7 +98,7 @@ public class Robot {
 
     // getter method for the left encoder ticks
     public int getLeftTicks() {
-        return -leftFront.getCurrentPosition();
+        return leftFront.getCurrentPosition();
 
     }
 

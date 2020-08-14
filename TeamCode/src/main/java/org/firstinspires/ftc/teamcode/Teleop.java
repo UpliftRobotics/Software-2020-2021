@@ -22,7 +22,7 @@ public class Teleop extends ULOpMode {
     @Override
     public void loop() {
 
-        //robot.globalCoordinatePositionUpdate();
+        robot.globalCoordinatePositionUpdate();
 
         // initialize the gamepad stick values to the three needed axes
         leftY = Range.clip(-gamepad1.left_stick_y, -1, 1);
