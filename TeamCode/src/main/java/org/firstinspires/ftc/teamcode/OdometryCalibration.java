@@ -60,26 +60,16 @@ public class OdometryCalibration extends ULOpMode {
                 }else{
                     setPowerAll(-PIVOT_SPEED/2, -PIVOT_SPEED/2, PIVOT_SPEED/2, PIVOT_SPEED/2);
             }
-
-                telemetry.addData("IMU Angle", getZAngle());
-                telemetry.update();
-        }
-            setPowerAll(0, 0, 0, 0);
-            timer.reset();
-//            while(timer.milliseconds() < 1000){
-//                telemetry.addData("IMU Angle", getZAngle());
-//                telemetry.update();
-//            }
-        double angle = getZAngle();
+            double angle = getZAngle();
 
 
-        double encoderDifference = Math.abs(robot.getLeftTicks()) + (Math.abs(robot.getRightTicks()));
+            double encoderDifference = Math.abs(robot.getLeftTicks()) + (Math.abs(robot.getRightTicks()));
 
-        double verticalEncoderTickOffsetPerDegree = encoderDifference/angle;
+            double verticalEncoderTickOffsetPerDegree = encoderDifference/angle;
 
-        double wheelBaseSeparation = (2*90*verticalEncoderTickOffsetPerDegree)/(Math.PI*COUNTS_PER_INCH);
+            double wheelBaseSeparation = (2*90*verticalEncoderTickOffsetPerDegree)/(Math.PI*COUNTS_PER_INCH);
 
-        horizontalTickOffset = robot.getCenterTicks()/Math.toRadians(getZAngle());
+            horizontalTickOffset = robot.getCenterTicks()/Math.toRadians(getZAngle());
 
 
             telemetry.addData("Odometry System Calibration Status", "Calibration Complete");
@@ -94,10 +84,18 @@ public class OdometryCalibration extends ULOpMode {
             telemetry.addData("Horizontal Position", robot.leftBack.getCurrentPosition());
             telemetry.addData("Vertical Encoder Offset", verticalEncoderTickOffsetPerDegree);
             telemetry.addData("Wheel distance", wheelBaseSeparation);
-
-            //Update values
             telemetry.update();
+        }
+
+
+            setPowerAll(0, 0, 0, 0);
             stop();
+            timer.reset();
+//            while(timer.milliseconds() < 1000){
+//                telemetry.addData("IMU Angle", getZAngle());
+//                telemetry.update();
+//            }
+
         }
 
     private double getZAngle(){
