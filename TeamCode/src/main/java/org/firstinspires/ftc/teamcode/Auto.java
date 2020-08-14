@@ -17,6 +17,7 @@ public class Auto extends ULLinearOpMode {
 
     @Override
     public void runOpMode() {
+        waitForStart();
         // declare and initialize an empty list of CurvePoints
         ArrayList<CurvePoint> allPoints = new ArrayList<>();
 
