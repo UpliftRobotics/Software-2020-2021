@@ -10,11 +10,15 @@ import java.util.ArrayList;
 @Autonomous(name = "TestAuto", group = "OpModes")
 public class TestAuto extends ULLinearOpMode {
 
-    Robot robot = new Robot();
-    OdometryGlobalPositionUpdate od = new OdometryGlobalPositionUpdate(robot, 76.5954101038, 10);
+    Robot robot;
+    OdometryGlobalPositionUpdate od;
 
     @Override
     public void runOpMode() {
+        od = new OdometryGlobalPositionUpdate(robot, 76.5954101038, 10);
+        robot = new Robot();
+
+
         waitForStart();
         // declare and initialize an empty list of CurvePoints
         ArrayList<CurvePoint> allPoints = new ArrayList<>();
