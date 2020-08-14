@@ -30,6 +30,7 @@ public class TestAuto extends ULLinearOpMode {
             // allPoints.add(new CurvePoint(0, 0, 0.3, 0.5, 50, 5.0, 0.5235987755982988, 0.2));
             allPoints.add(new CurvePoint(10, 0, 0.3, 0.5, 50, 5.0, 0.5235987755982988, 0.2));
 
+
             // tell the robot to map out the path and follow it
             for (CurvePoint target : allPoints) {
                 robot.goToPosition(target.x, target.y, target.moveSpeed, 0, target.turnSpeed);
