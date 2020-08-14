@@ -14,8 +14,7 @@ import org.firstinspires.ftc.teamcode.toolkit.ULOpMode;
 
 @TeleOp(name = "OdometryCalibration", group = "Odometry")
 public class OdometryCalibration extends ULOpMode {
-    Robot robot = new Robot();
-    OdometryGlobalPositionUpdate od = new OdometryGlobalPositionUpdate(robot, OdometryGlobalPositionUpdate.oneRotationTicks, 10);
+    Robot robot;
 
     // declare and init class variables/constants
     final double PIVOT_SPEED = 0.5;
@@ -29,7 +28,7 @@ public class OdometryCalibration extends ULOpMode {
 
     @Override
     public void init() {
-
+        robot = new Robot();
     }
 
     // declare and initialize instance of the Robot class (Object-oriented programming)
@@ -60,27 +59,27 @@ public class OdometryCalibration extends ULOpMode {
                     setPowerAll(-PIVOT_SPEED, -PIVOT_SPEED, PIVOT_SPEED, PIVOT_SPEED);
                 }else{
                     setPowerAll(-PIVOT_SPEED/2, -PIVOT_SPEED/2, PIVOT_SPEED/2, PIVOT_SPEED/2);
-                }
+            }
 
                 telemetry.addData("IMU Angle", getZAngle());
                 telemetry.update();
-            }
+        }
             setPowerAll(0, 0, 0, 0);
             timer.reset();
-            while(timer.milliseconds() < 1000){
-                telemetry.addData("IMU Angle", getZAngle());
-                telemetry.update();
-            }
+//            while(timer.milliseconds() < 1000){
+//                telemetry.addData("IMU Angle", getZAngle());
+//                telemetry.update();
+//            }
         double angle = getZAngle();
 
 
-        double encoderDifference = Math.abs(od.getLeftTicks()) + (Math.abs(od.getRightTicks()));
+        double encoderDifference = Math.abs(robot.getLeftTicks()) + (Math.abs(robot.getRightTicks()));
 
         double verticalEncoderTickOffsetPerDegree = encoderDifference/angle;
 
         double wheelBaseSeparation = (2*90*verticalEncoderTickOffsetPerDegree)/(Math.PI*COUNTS_PER_INCH);
 
-        horizontalTickOffset = od.getCenterTicks()/Math.toRadians(getZAngle());
+        horizontalTickOffset = robot.getCenterTicks()/Math.toRadians(getZAngle());
 
 
             telemetry.addData("Odometry System Calibration Status", "Calibration Complete");
@@ -90,13 +89,15 @@ public class OdometryCalibration extends ULOpMode {
 
             //Display raw values
             telemetry.addData("IMU Angle", getZAngle());
-            telemetry.addData("Vertical Left Position", od.getLeftTicks());
-            telemetry.addData("Vertical Right Position", od.getRightTicks());
-            telemetry.addData("Horizontal Position", od.getCenterTicks());
+            telemetry.addData("Vertical Left Position", robot.getLeftTicks());
+            telemetry.addData("Vertical Right Position", robot.getRightTicks());
+            telemetry.addData("Horizontal Position", robot.leftBack.getCurrentPosition());
             telemetry.addData("Vertical Encoder Offset", verticalEncoderTickOffsetPerDegree);
+            telemetry.addData("Wheel distance", wheelBaseSeparation);
 
             //Update values
             telemetry.update();
+            stop();
         }
 
     private double getZAngle(){
