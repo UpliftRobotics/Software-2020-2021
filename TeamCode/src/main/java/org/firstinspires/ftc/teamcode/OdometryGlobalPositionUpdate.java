@@ -12,7 +12,7 @@ public class OdometryGlobalPositionUpdate implements Runnable {
     // create boolean that becomes true the instant the program begins
     private boolean isRunning = true;
 
-    public Robot robot;
+    public Robot myRobot;
     public DcMotor leftFront;
     public DcMotor rightFront;
     public DcMotor leftBack;
@@ -31,11 +31,11 @@ public class OdometryGlobalPositionUpdate implements Runnable {
 //    private File horizontalTickOffsetFile = AppUtil.getInstance().getSettingsFile("horizontalTickOffset.txt");
 
     // constructor for this class that initializes the encoders, delay, and wheel constants
-    public OdometryGlobalPositionUpdate(Robot robot, double COUNTS_PER_INCH, int threadSleepDelay){
-        this.robot = robot;
-        leftFront = robot.leftFront;
-        rightFront = robot.rightFront;
-        leftBack = robot.leftBack;
+    public OdometryGlobalPositionUpdate(Robot bot, double COUNTS_PER_INCH, int threadSleepDelay){
+        myRobot = bot;
+        leftFront = myRobot.leftFront;
+        rightFront = myRobot.rightFront;
+        leftBack = myRobot.leftBack;
         sleepTime = threadSleepDelay;
 
 //        robotEncoderWheelDistance = Double.parseDouble(ReadWriteFile.readFile(wheelBaseSeparationFile).trim()) * COUNTS_PER_INCH;
@@ -47,25 +47,25 @@ public class OdometryGlobalPositionUpdate implements Runnable {
         deltaLeftDistance = (getLeftTicks() / oneRotationTicks) * 2.0 * Math.PI * wheelRadius;
         deltaRightDistance = (getRightTicks() / oneRotationTicks) * 2.0 * Math.PI * wheelRadius;
         deltaCenterDistance = (getCenterTicks() / oneRotationTicks) * 2.0 * Math.PI * wheelRadius;
-        robot.worldXPosition += (((deltaLeftDistance + deltaRightDistance) / 2.0)) * Math.cos(robot.worldAngle_rad);
-        robot.worldYPosition += (((deltaLeftDistance + deltaRightDistance) / 2.0)) * Math.sin(robot.worldAngle_rad);
-        robot.worldAngle_rad += (deltaLeftDistance - deltaRightDistance) / robotEncoderWheelDistance;
+        myRobot.worldXPosition += (((deltaLeftDistance + deltaRightDistance) / 2.0)) * Math.cos(myRobot.worldAngle_rad);
+        myRobot.worldYPosition += (((deltaLeftDistance + deltaRightDistance) / 2.0)) * Math.sin(myRobot.worldAngle_rad);
+        myRobot.worldAngle_rad += (deltaLeftDistance - deltaRightDistance) / robotEncoderWheelDistance;
         //resetTicks();
     }
 
     // getter method for the left encoder ticks
     public int getLeftTicks() {
-        return -robot.leftFront.getCurrentPosition();
+        return -myRobot.leftFront.getCurrentPosition();
     }
 
     // getter method for the right encoder ticks
     public int getRightTicks() {
-        return robot.rightFront.getCurrentPosition();
+        return myRobot.rightFront.getCurrentPosition();
     }
 
     // getter method for the center encoder ticks
     public int getCenterTicks() {
-        return robot.leftBack.getCurrentPosition();
+        return myRobot.leftBack.getCurrentPosition();
     }
 
     // method to "stop" the program by setting the boolean isRunning to false;
