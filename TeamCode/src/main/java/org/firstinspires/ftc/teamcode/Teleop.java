@@ -47,6 +47,8 @@ public class Teleop extends ULOpMode {
         telemetry.addData("Left Encoder pos:\t", od.getLeftTicks());
         telemetry.addData("Right Encoder pos:\t", od.getRightTicks());
         telemetry.addData("Center Encoder pos:\t", od.getCenterTicks());
+        telemetry.addData("WorldX:\t", robot.getXPos());
+        telemetry.addData("WorldY:\t", robot.getYPos());
         telemetry.update();
 
     }
