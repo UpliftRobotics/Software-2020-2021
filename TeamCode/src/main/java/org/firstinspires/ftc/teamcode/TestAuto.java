@@ -17,7 +17,7 @@ public class TestAuto extends ULOpMode {
     @Override
     public void init() {
         robot = new Robot();
-        od = new OdometryGlobalPositionUpdate(robot, 76.5954101038, 10);
+        robot.globalCoordinatePositionUpdate();
     }
 
     @Override

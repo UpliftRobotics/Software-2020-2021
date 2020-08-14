@@ -34,6 +34,20 @@ public class Robot {
     public static double worldYPosition;
     public static double worldAngle_rad;
 
+    static final double oneRotationTicks = 720;
+    static final double wheelRadius = 0.038; // in meters (change this later)
+    public double wheelCircumference = 9.40004106022; // inches
+    private double deltaLeftDistance = 0;
+    private double deltaRightDistance = 0;
+    private double deltaCenterDistance = 0;
+    private int sleepTime;
+    private double robotEncoderWheelDistance;
+    private double horizontalEncoderTickPerDegreeOffset;
+
+    // access files created and written to in the calibration program
+//    private File wheelBaseSeparationFile = AppUtil.getInstance().getSettingsFile("wheelBaseSeparation.txt");
+//    private File horizontalTickOffsetFile = AppUtil.getInstance().getSettingsFile("horizontalTickOffset.txt");
+
     public Robot() {
         hardwareMap = ULOpMode.getInstance().hardwareMap;
         worldXPosition = 0;
@@ -70,7 +84,37 @@ public class Robot {
 
     }
 
+    // method to update the robot's position
+    public void globalCoordinatePositionUpdate(){
+        deltaLeftDistance = (getLeftTicks() / oneRotationTicks) * 2.0 * Math.PI * wheelRadius;
+        deltaRightDistance = (getRightTicks() / oneRotationTicks) * 2.0 * Math.PI * wheelRadius;
+        deltaCenterDistance = (getCenterTicks() / oneRotationTicks) * 2.0 * Math.PI * wheelRadius;
+        worldXPosition += (((deltaLeftDistance + deltaRightDistance) / 2.0)) * Math.cos(worldAngle_rad);
+        worldYPosition += (((deltaLeftDistance + deltaRightDistance) / 2.0)) * Math.sin(worldAngle_rad);
+        worldAngle_rad += (deltaLeftDistance - deltaRightDistance) / robotEncoderWheelDistance;
 
+        //resetTicks();
+    }
+
+    // getter method for the left encoder ticks
+    public int getLeftTicks() {
+        return -leftFront.getCurrentPosition();
+
+    }
+
+    // getter method for the right encoder ticks
+    public int getRightTicks() {
+
+        return rightFront.getCurrentPosition();
+
+    }
+
+    // getter method for the center encoder ticks
+    public int getCenterTicks() {
+
+        return leftBack.getCurrentPosition();
+
+    }
 
     public double getXPos() {
         return worldXPosition;
@@ -103,7 +147,7 @@ public class Robot {
     }
 
     public void goToPosition(double xPosition, double yPosition,double movementSpeed,double preferredAngle,double turnSpeed){
-
+        globalCoordinatePositionUpdate();
         double distanceToPoint = Math.hypot(xPosition - worldXPosition, yPosition - worldYPosition);
 
         while(distanceToPoint > 5) {
