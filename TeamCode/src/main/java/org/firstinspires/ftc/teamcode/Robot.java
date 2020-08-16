@@ -33,6 +33,7 @@ public class Robot {
     public static double worldXPosition = 0;
     public static double worldYPosition = 0;
     public static double worldAngle_rad = 0;
+    final double COUNTS_PER_INCH = 76.595410103;
 
     static final double oneRotationTicks = 720;
     static final double wheelRadius = 0.038; // in meters (change this later)

@@ -44,9 +44,9 @@ public class Teleop extends ULOpMode {
         robot.slideDirection(magnitude, joystickAngle, turnValue);
 
         // add telemetry data for the encoders
-        telemetry.addData("Left Encoder pos:\t", robot.getLeftTicks());
-        telemetry.addData("Right Encoder pos:\t", robot.getRightTicks());
-        telemetry.addData("Center Encoder pos:\t", robot.getCenterTicks());
+        telemetry.addData("Left Encoder pos:\t", robot.getLeftTicks()/robot.COUNTS_PER_INCH);
+        telemetry.addData("Right Encoder pos:\t", robot.getRightTicks()/robot.COUNTS_PER_INCH);
+        telemetry.addData("Center Encoder pos:\t", robot.getCenterTicks()/robot.COUNTS_PER_INCH);
         telemetry.addData("WorldX:\t", robot.worldXPosition);
         telemetry.addData("WorldY:\t", robot.worldYPosition);
         telemetry.update();

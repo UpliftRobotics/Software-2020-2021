@@ -21,6 +21,7 @@ public class TestAuto extends ULOpMode {
 
     @Override
     public void loop() {
+        //set up Text files through control hub
         telemetry.addData("worldx", robot.getXPos());
         telemetry.addData("worldy", robot.getYPos());
         telemetry.update();

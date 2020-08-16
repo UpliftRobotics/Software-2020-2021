@@ -6,7 +6,10 @@ import com.qualcomm.hardware.bosch.JustLoggingAccelerationIntegrator;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
+import org.firstinspires.ftc.robotcore.internal.system.AppUtil;
 import org.firstinspires.ftc.teamcode.toolkit.ULOpMode;
+
+import java.io.File;
 
 /*
     Note: this class was inspired by the odometry calibration program made by Wizard.exe, FTC Team 9794
@@ -23,8 +26,8 @@ public class OdometryCalibration extends ULOpMode {
     double horizontalTickOffset = 0;
 
     // Text files to write the values to. The files are stored in the robot controller under Internal Storage\FIRST\settings
-//    File wheelBaseSeparationFile = AppUtil.getInstance().getSettingsFile("wheelBaseSeparation.txt");
-//    File horizontalTickOffsetFile = AppUtil.getInstance().getSettingsFile("horizontalTickOffset.txt");
+    File wheelBaseSeparationFile = AppUtil.getInstance().getSettingsFile("wheelBaseSeparation.txt");
+    File horizontalTickOffsetFile = AppUtil.getInstance().getSettingsFile("horizontalTickOffset.txt");
 
     @Override
     public void init() {
