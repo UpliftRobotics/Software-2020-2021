@@ -15,7 +15,6 @@ import org.firstinspires.ftc.teamcode.toolkit.ULOpMode;
 import java.util.ArrayList;
 
 import static org.firstinspires.ftc.teamcode.toolkit.MathFunctions.lineCircleIntersect;
-import static org.firstinspires.ftc.teamcode.toolkit.MovementVars.movement_turn;
 
 public class Robot {
 
@@ -38,9 +37,19 @@ public class Robot {
     static final double oneRotationTicks = 720;
     static final double wheelRadius = 0.038; // in meters (change this later)
     public double wheelCircumference = 9.40004106022; // inches
-    private double deltaLeftDistance = 0;
-    private double deltaRightDistance = 0;
-    private double deltaCenterDistance = 0;
+    private double initialLeftDistance = 0;
+    private double initialRightDistance = 0;
+    private double initialCenterDistance = 0;
+    private double initialOrientation = 0;
+    private double finalLeftDistance = 0;
+    private double finalRightDistance = 0;
+    private double finalCenterDistance = 0;
+    private double finalOrientation = 0;
+    private double deltaLeftDistance;
+    private double deltaRightDistance;
+    private double deltaCenterDistance;
+    private double deltaOrientation;
+    private double horizontalChange;
     private int sleepTime;
     private double robotEncoderWheelDistance = 14;
     private double horizontalEncoderTickPerDegreeOffset;
@@ -87,14 +96,30 @@ public class Robot {
 
     // method to update the robot's position
     public void globalCoordinatePositionUpdate(){
-        deltaLeftDistance = (getLeftTicks() / oneRotationTicks) * 2.0 * Math.PI * wheelRadius;
-        deltaRightDistance = (getRightTicks() / oneRotationTicks) * 2.0 * Math.PI * wheelRadius;
-        deltaCenterDistance = (getCenterTicks() / oneRotationTicks) * 2.0 * Math.PI * wheelRadius;
-        worldXPosition += (((deltaLeftDistance + deltaRightDistance) / 2.0)) * Math.cos(worldAngle_rad);
-        worldYPosition += (((deltaLeftDistance + deltaRightDistance) / 2.0)) * Math.sin(worldAngle_rad);
+
+
+        finalLeftDistance = (getLeftTicks() / oneRotationTicks) * 2.0 * Math.PI * wheelRadius;
+        finalRightDistance = (getRightTicks() / oneRotationTicks) * 2.0 * Math.PI * wheelRadius;
+        finalCenterDistance = (getCenterTicks() / oneRotationTicks) * 2.0 * Math.PI * wheelRadius;
+        finalOrientation = (deltaLeftDistance - deltaRightDistance) / robotEncoderWheelDistance;
+
+        deltaLeftDistance = finalLeftDistance - initialLeftDistance;
+        deltaRightDistance = finalRightDistance - initialRightDistance;
+        deltaCenterDistance = finalCenterDistance - initialCenterDistance;
+        deltaOrientation = finalOrientation - initialOrientation;
+
         worldAngle_rad += (deltaLeftDistance - deltaRightDistance) / robotEncoderWheelDistance;
 
-        //resetTicks();
+        horizontalChange = deltaCenterDistance - (deltaOrientation * horizontalEncoderTickPerDegreeOffset);
+
+        worldXPosition += ((((deltaLeftDistance + deltaRightDistance) / 2.0)) * Math.cos(deltaOrientation)) + (horizontalChange * Math.cos(deltaOrientation));
+        worldYPosition += ((((deltaLeftDistance + deltaRightDistance) / 2.0)) * Math.sin(worldAngle_rad)) - (horizontalChange * Math.sin(deltaOrientation));
+
+        initialLeftDistance = finalLeftDistance;
+        initialRightDistance = finalRightDistance;
+        initialCenterDistance = finalCenterDistance;
+        initialOrientation = finalOrientation;
+
     }
 
     // getter method for the left encoder ticks
