@@ -27,18 +27,19 @@ public class TestAuto extends ULOpMode {
 
         ArrayList<CurvePoint> allPoints = new ArrayList<>();
 
-            // add each CurvePoint to the ArrayList
-            // allPoints.add(new CurvePoint(0, 0, 0.3, 0.5, 50, 5.0, 0.5235987755982988, 0.2));
-            allPoints.add(new CurvePoint(10, 0, 0.3, 0.5, 50, 5.0, 0, 0.2));
-            // tell the robot to map out the path and follow it
-            for (CurvePoint target : allPoints) {
-                robot.goToPosition(target.x, target.y, target.moveSpeed, 0, target.turnSpeed);
-            }
+        // add each CurvePoint to the ArrayList
+        allPoints.add(new CurvePoint(10, 0, 0.3, 0.5, 50, 5.0, 0, 0));
+        allPoints.add(new CurvePoint(10, 10, 0.3, 0.5, 50, 5.0, 0, 0));
+        allPoints.add(new CurvePoint(0, 10, 0.3, 0.5, 50, 5.0, 0, 0));
+        allPoints.add(new CurvePoint(0, 0, 0.3, 0.5, 50, 5.0, 0, 0));
+
+        // tell the robot to map out the path and follow it
+        for (CurvePoint target : allPoints) {
+            robot.goToPosition(target.x, target.y, target.moveSpeed, 0, 0);
+        }
+
         robot.stopMotors();
         stop();
-
-
-
 
     }
 
