@@ -16,9 +16,6 @@ public class OdometryGlobalPositionUpdate implements Runnable {
     public DcMotor leftFront;
     public DcMotor rightFront;
     public DcMotor leftBack;
-    static final double oneRotationTicks = 720;
-    static final double wheelRadius = 0.038; // in meters (change this later)
-    public double wheelCircumference = 9.40004106022; // inches
     private double deltaLeftDistance = 0;
     private double deltaRightDistance = 0;
     private double deltaCenterDistance = 0;
@@ -44,9 +41,9 @@ public class OdometryGlobalPositionUpdate implements Runnable {
 
     // method to update the robot's position
     private void globalCoordinatePositionUpdate(){
-        deltaLeftDistance = (getLeftTicks() / oneRotationTicks) * 2.0 * Math.PI * wheelRadius;
-        deltaRightDistance = (getRightTicks() / oneRotationTicks) * 2.0 * Math.PI * wheelRadius;
-        deltaCenterDistance = (getCenterTicks() / oneRotationTicks) * 2.0 * Math.PI * wheelRadius;
+        deltaLeftDistance = (getLeftTicks() / myRobot.oneRotationTicks) * 2.0 * Math.PI * myRobot.wheelRadius;
+        deltaRightDistance = (getRightTicks() / myRobot.oneRotationTicks) * 2.0 * Math.PI * myRobot.wheelRadius;
+        deltaCenterDistance = (getCenterTicks() / myRobot.oneRotationTicks) * 2.0 * Math.PI * myRobot.wheelRadius;
         myRobot.worldXPosition += (((deltaLeftDistance + deltaRightDistance) / 2.0)) * Math.cos(myRobot.worldAngle_rad);
         myRobot.worldYPosition += (((deltaLeftDistance + deltaRightDistance) / 2.0)) * Math.sin(myRobot.worldAngle_rad);
         myRobot.worldAngle_rad += (deltaLeftDistance - deltaRightDistance) / robotEncoderWheelDistance;

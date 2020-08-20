@@ -32,11 +32,11 @@ public class Robot {
     public static double worldXPosition = 0;
     public static double worldYPosition = 0;
     public static double worldAngle_rad = 0;
-    final double COUNTS_PER_INCH = 76.595410103;
 
     static final double oneRotationTicks = 720;
-    static final double wheelRadius = 0.038; // in meters (change this later)
-    public double wheelCircumference = 9.40004106022; // inches
+    static final double wheelRadius = 19/25.4; // in meters (change this later)
+    static final double wheelCircumference = wheelRadius*2*Math.PI; // inches
+    static final double COUNTS_PER_INCH = 720*4/wheelCircumference;
     private double initialLeftDistance = 0;
     private double initialRightDistance = 0;
     private double initialCenterDistance = 0;
