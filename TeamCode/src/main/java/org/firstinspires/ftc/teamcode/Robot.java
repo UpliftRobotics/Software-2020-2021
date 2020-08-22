@@ -96,8 +96,7 @@ public class Robot {
 
     // method to update the robot's position
     public void globalCoordinatePositionUpdate(){
-
-
+        
         finalLeftDistance = (getLeftTicks() / oneRotationTicks) * 2.0 * Math.PI * wheelRadius;
         finalRightDistance = (getRightTicks() / oneRotationTicks) * 2.0 * Math.PI * wheelRadius;
         finalCenterDistance = (getCenterTicks() / oneRotationTicks) * 2.0 * Math.PI * wheelRadius;
@@ -173,10 +172,12 @@ public class Robot {
     }
 
     public void goToPosition(double xPosition, double yPosition,double movementSpeed,double preferredAngle,double turnSpeed){
-        //globalCoordinatePositionUpdate();
+        globalCoordinatePositionUpdate();
         double distanceToPoint = Math.hypot(xPosition - worldXPosition, yPosition - worldYPosition);
 
         while(distanceToPoint > 5) {
+            // update position
+            globalCoordinatePositionUpdate();
             // hypotenuse of the triangle is the distance
             distanceToPoint = Math.hypot(xPosition - worldXPosition, yPosition - worldYPosition);
             // arctan is the direction
@@ -203,6 +204,9 @@ public class Robot {
             // actually start to move the robot towards the target point
             slideDirection(movementSpeed, relativeTurnAngle, turnSpeed);
 
+            distanceToPoint = Math.hypot(xPosition - worldXPosition, yPosition - worldYPosition);
+
+            globalCoordinatePositionUpdate();
         }
 
         return;
