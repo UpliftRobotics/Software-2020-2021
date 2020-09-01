@@ -34,8 +34,10 @@ public class TestAuto extends ULLinearOpMode {
 //            //robot.goToPosition(target.x, target.y, target.moveSpeed, 0, 0);
 //        }
 
-        telemetry.addData("distanceToTargetPoint", robot.getDistanceToPoint(-111, 0, .7, 0, 0));
-        telemetry.update();
+        while(opModeIsActive()) {
+            telemetry.addData("distanceToTargetPoint", robot.getDistanceToPoint(-111, 0, .7, 0, 0));
+            telemetry.update();
+        }
 
         robot.stopMotors();
 
