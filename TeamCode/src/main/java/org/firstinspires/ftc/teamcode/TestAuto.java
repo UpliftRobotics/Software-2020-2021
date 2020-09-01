@@ -31,7 +31,8 @@ public class TestAuto extends ULLinearOpMode {
 
         // tell the robot to map out the path and follow it
         for (CurvePoint target : allPoints) {
-            robot.goToPosition(target.x, target.y, target.moveSpeed, 0, 0);
+            //robot.goToPosition(target.x, target.y, target.moveSpeed, 0, 0);
+            robot.getDistanceToPoint(target.x, target.y, target.moveSpeed, 0, 0);
         }
 
         robot.stopMotors();

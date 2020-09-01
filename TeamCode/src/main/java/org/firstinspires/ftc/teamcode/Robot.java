@@ -176,8 +176,7 @@ public class Robot {
         globalCoordinatePositionUpdate();
         double distanceToPoint = Math.hypot(xPosition - worldXPosition, yPosition - worldYPosition);
 
-        while(distanceToPoint > 20?) {
-            "}="
+        while(distanceToPoint > 20) {
             // update position
             globalCoordinatePositionUpdate();
             // hypotenuse of the triangle is the distance
@@ -213,6 +212,12 @@ public class Robot {
 
         stopMotors();
         return;
+    }
+
+    public double getDistanceToPoint(double xPosition, double yPosition,double movementSpeed,double preferredAngle,double turnSpeed) {
+        globalCoordinatePositionUpdate();
+        double distanceToPoint = Math.hypot(xPosition - worldXPosition, yPosition - worldYPosition);
+        return distanceToPoint;
     }
 
     public CurvePoint getFollowPointPath(CurvePoint startLine, CurvePoint endLine, Point robotLocation, double followRadius) {
