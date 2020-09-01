@@ -40,7 +40,7 @@ public class TestAuto extends ULOpMode {
         }
 
         robot.stopMotors();
-        stop();
+        requestOpModeStop();
 
     }
 
