@@ -10,6 +10,7 @@ import com.qualcomm.robotcore.util.Range;
 import org.firstinspires.ftc.teamcode.toolkit.CurvePoint;
 import org.firstinspires.ftc.teamcode.toolkit.MathFunctions;
 import org.firstinspires.ftc.teamcode.toolkit.Point;
+import org.firstinspires.ftc.teamcode.toolkit.ULLinearOpMode;
 import org.firstinspires.ftc.teamcode.toolkit.ULOpMode;
 
 import java.util.ArrayList;
@@ -59,7 +60,7 @@ public class Robot {
 //    private File horizontalTickOffsetFile = AppUtil.getInstance().getSettingsFile("horizontalTickOffset.txt");
 
     public Robot() {
-        hardwareMap = ULOpMode.getInstance().hardwareMap;
+        hardwareMap = ULLinearOpMode.getInstance().hardwareMap;
         worldXPosition = 0;
         worldYPosition = 0;
         worldAngle_rad = Math.toRadians(0);
