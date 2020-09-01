@@ -176,7 +176,7 @@ public class Robot {
         globalCoordinatePositionUpdate();
         double distanceToPoint = Math.hypot(xPosition - worldXPosition, yPosition - worldYPosition);
 
-        while(distanceToPoint > 5) {
+        while(distanceToPoint > 2) {
             // update position
             globalCoordinatePositionUpdate();
             // hypotenuse of the triangle is the distance

@@ -26,10 +26,8 @@ public class TestAuto extends ULLinearOpMode {
         ArrayList<CurvePoint> allPoints = new ArrayList<>();
 
         // add each CurvePoint to the ArrayList
-        allPoints.add(new CurvePoint(5, 0, .7, 0.5, 5, 5.0, 0, 0));
-//        allPoints.add(new CurvePoint(5, 5, .7, 0, 50, 5.0, 0, 0));
-//        allPoints.add(new CurvePoint(0, 5, .7, 0, 50, 5.0, 0, 0));
-//        allPoints.add(new CurvePoint(0, 0, .7, 0, 50, 5.0, 0, 0));
+
+        allPoints.add(new CurvePoint(5, 0, .7, 0.5, 50, 5.0, 0, 0));
 
         // tell the robot to map out the path and follow it
         for (CurvePoint target : allPoints) {
