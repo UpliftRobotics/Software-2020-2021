@@ -13,7 +13,7 @@ import java.util.ArrayList;
 public class Auto extends ULLinearOpMode {
 
     Robot robot = new Robot();
-    
+
     @Override
     public void runOpMode() {
         waitForStart();

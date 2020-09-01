@@ -49,6 +49,7 @@ public class Teleop extends ULOpMode {
         telemetry.addData("Center Encoder pos:\t", robot.getCenterTicks()/robot.COUNTS_PER_INCH);
         telemetry.addData("WorldX:\t", robot.worldXPosition);
         telemetry.addData("WorldY:\t", robot.worldYPosition);
+        telemetry.addData("WorldOrientationAngle\t", robot.getWorldAngle_rad());
         telemetry.update();
 
     }
