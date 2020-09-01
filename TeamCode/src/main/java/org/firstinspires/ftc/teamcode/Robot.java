@@ -210,6 +210,7 @@ public class Robot {
             globalCoordinatePositionUpdate();
         }
 
+        stopMotors();
         return;
     }
 
