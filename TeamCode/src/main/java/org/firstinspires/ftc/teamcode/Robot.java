@@ -125,7 +125,7 @@ public class Robot {
     // getter method for the left encoder ticks
     public int getLeftTicks() {
         return leftFront.getCurrentPosition();
-0[p;'/>']
+
     }
 
     // getter method for the right encoder ticks
