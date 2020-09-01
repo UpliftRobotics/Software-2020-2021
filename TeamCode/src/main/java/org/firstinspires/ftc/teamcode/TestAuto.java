@@ -9,18 +9,17 @@ import org.firstinspires.ftc.teamcode.toolkit.ULOpMode;
 import java.util.ArrayList;
 
 @Autonomous(name = "TestAuto", group = "OpModes")
-public class TestAuto extends ULOpMode {
+public class TestAuto extends ULLinearOpMode {
 
     Robot robot;
 
     @Override
-    public void init() {
+    public void runOpMode() {
         robot = new Robot();
         robot.globalCoordinatePositionUpdate();
-    }
 
-    @Override
-    public void loop() {
+        waitForStart();
+
         //set up Text files through control hub
         telemetry.addData("worldx", robot.getXPos());
         telemetry.addData("worldy", robot.getYPos());
@@ -40,7 +39,6 @@ public class TestAuto extends ULOpMode {
         }
 
         robot.stopMotors();
-        requestOpModeStop();
 
     }
 
