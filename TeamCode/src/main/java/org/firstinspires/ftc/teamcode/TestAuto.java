@@ -21,14 +21,12 @@ public class TestAuto extends ULLinearOpMode {
         waitForStart();
 
         //set up Text files through control hub
-        telemetry.addData("worldx", robot.getXPos());
-        telemetry.addData("worldy", robot.getYPos());
-        telemetry.update();
+
 
         ArrayList<CurvePoint> allPoints = new ArrayList<>();
 
         // add each CurvePoint to the ArrayList
-        allPoints.add(new CurvePoint(5, 0, .7, 0, 50, 5.0, 0, 0));
+        allPoints.add(new CurvePoint(5, 0, .7, 0.5, 5, 5.0, 0, 0));
 //        allPoints.add(new CurvePoint(5, 5, .7, 0, 50, 5.0, 0, 0));
 //        allPoints.add(new CurvePoint(0, 5, .7, 0, 50, 5.0, 0, 0));
 //        allPoints.add(new CurvePoint(0, 0, .7, 0, 50, 5.0, 0, 0));
