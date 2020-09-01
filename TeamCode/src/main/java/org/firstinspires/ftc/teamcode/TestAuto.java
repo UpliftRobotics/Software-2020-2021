@@ -29,12 +29,13 @@ public class TestAuto extends ULLinearOpMode {
 
         allPoints.add(new CurvePoint(-111, 0, .7, 0.5, 5, 5.0, 0, 0));
 
-        // tell the robot to map out the path and follow it
-        for (CurvePoint target : allPoints) {
-            //robot.goToPosition(target.x, target.y, target.moveSpeed, 0, 0);
-            telemetry.addData("distanceToTargetPoint", robot.getDistanceToPoint(target.x, target.y, target.moveSpeed, 0, 0));
-            telemetry.update();
-        }
+//        // tell the robot to map out the path and follow it
+//        for (CurvePoint target : allPoints) {
+//            //robot.goToPosition(target.x, target.y, target.moveSpeed, 0, 0);
+//        }
+
+        telemetry.addData("distanceToTargetPoint", robot.getDistanceToPoint(-111, 0, .7, 0, 0));
+        telemetry.update();
 
         robot.stopMotors();
 
