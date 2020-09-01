@@ -15,13 +15,18 @@ public class Teleop extends ULLinearOpMode {
     double leftY;
     double leftX;
 
+
     @Override
     public void runOpMode() {
 
-        while(opModeIsActive()) {
-            robot = new Robot();
+        waitForStart();
+        robot = new Robot();
 
+
+
+        while(opModeIsActive()) {
             robot.globalCoordinatePositionUpdate();
+
 
             // initialize the gamepad stick values to the three needed axes
             leftY = Range.clip(-gamepad1.left_stick_y, -1, 1);

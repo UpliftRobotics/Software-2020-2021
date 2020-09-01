@@ -125,7 +125,7 @@ public class Robot {
     // getter method for the left encoder ticks
     public int getLeftTicks() {
         return leftFront.getCurrentPosition();
-
+0[p;'/>']
     }
 
     // getter method for the right encoder ticks
@@ -176,7 +176,8 @@ public class Robot {
         globalCoordinatePositionUpdate();
         double distanceToPoint = Math.hypot(xPosition - worldXPosition, yPosition - worldYPosition);
 
-        while(distanceToPoint > 2) {
+        while(distanceToPoint > 20?) {
+            "}="
             // update position
             globalCoordinatePositionUpdate();
             // hypotenuse of the triangle is the distance
