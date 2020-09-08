@@ -12,9 +12,7 @@ import static org.firstinspires.ftc.teamcode.toolkit.MathFunctions.lineCircleInt
 import static org.firstinspires.ftc.teamcode.toolkit.MovementVars.movement_turn;
 import static org.firstinspires.ftc.teamcode.toolkit.MovementVars.movement_x;
 import static org.firstinspires.ftc.teamcode.toolkit.MovementVars.movement_y;
-import static org.firstinspires.ftc.teamcode.Robot.worldAngle_rad;
-import static org.firstinspires.ftc.teamcode.Robot.worldXPosition;
-import static org.firstinspires.ftc.teamcode.Robot.worldYPosition;
+
 
 @Disabled
 public class DisabledOdometryMain {
