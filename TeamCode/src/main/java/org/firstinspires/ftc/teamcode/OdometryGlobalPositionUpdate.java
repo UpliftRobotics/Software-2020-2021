@@ -24,8 +24,8 @@ public class OdometryGlobalPositionUpdate implements Runnable {
     private double horizontalEncoderTickPerDegreeOffset;
 
     // access files created and written to in the calibration program
-    private File wheelBaseSeparationFile = AppUtil.getInstance().getSettingsFile("wheelBaseSeparation.txt");
-    private File horizontalTickOffsetFile = AppUtil.getInstance().getSettingsFile("horizontalTickOffset.txt");
+//    private File wheelBaseSeparationFile = AppUtil.getInstance().getSettingsFile("wheelBaseSeparation.txt");
+//    private File horizontalTickOffsetFile = AppUtil.getInstance().getSettingsFile("horizontalTickOffset.txt");
 
     // constructor for this class that initializes the encoders, delay, and wheel constants
     public OdometryGlobalPositionUpdate(Robot bot, double COUNTS_PER_INCH, int threadSleepDelay){
@@ -35,8 +35,8 @@ public class OdometryGlobalPositionUpdate implements Runnable {
         leftBack = myRobot.leftBack;
         sleepTime = threadSleepDelay;
 
-        robotEncoderWheelDistance = Double.parseDouble(ReadWriteFile.readFile(wheelBaseSeparationFile).trim()) * COUNTS_PER_INCH;
-        this.horizontalEncoderTickPerDegreeOffset = Double.parseDouble(ReadWriteFile.readFile(horizontalTickOffsetFile).trim());
+//        robotEncoderWheelDistance = Double.parseDouble(ReadWriteFile.readFile(wheelBaseSeparationFile).trim()) * COUNTS_PER_INCH;
+//        this.horizontalEncoderTickPerDegreeOffset = Double.parseDouble(ReadWriteFile.readFile(horizontalTickOffsetFile).trim());
     }
 
     // method to update the robot's position

@@ -7,6 +7,7 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.robotcore.internal.system.AppUtil;
+import org.firstinspires.ftc.teamcode.toolkit.ULLinearOpMode;
 import org.firstinspires.ftc.teamcode.toolkit.ULOpMode;
 
 import java.io.File;
@@ -16,7 +17,7 @@ import java.io.File;
 */
 
 @TeleOp(name = "OdometryCalibration", group = "Odometry")
-public class OdometryCalibration extends ULOpMode {
+public class OdometryCalibration extends ULLinearOpMode {
     Robot robot;
 
     // declare and init class variables/constants
@@ -26,25 +27,30 @@ public class OdometryCalibration extends ULOpMode {
     double horizontalTickOffset = 0;
 
     // Text files to write the values to. The files are stored in the robot controller under Internal Storage\FIRST\settings
-    File wheelBaseSeparationFile = AppUtil.getInstance().getSettingsFile("wheelBaseSeparation.txt");
-    File horizontalTickOffsetFile = AppUtil.getInstance().getSettingsFile("horizontalTickOffset.txt");
+//    File wheelBaseSeparationFile = AppUtil.getInstance().getSettingsFile("wheelBaseSeparation.txt");
+//    File horizontalTickOffsetFile = AppUtil.getInstance().getSettingsFile("horizontalTickOffset.txt");
 
-    @Override
-    public void init() {
-        robot = new Robot();
-    }
+
+
+
 
     // declare and initialize instance of the Robot class (Object-oriented programming)
 
+
     @Override
-    public void loop() {
+    public void runOpMode() {
+        robot = new Robot();
+
+        waitForStart();
+
+
         // add necessary parameters for the REVhub imu
         BNO055IMU.Parameters parameters = new BNO055IMU.Parameters();
-        parameters.angleUnit           = BNO055IMU.AngleUnit.DEGREES;
-        parameters.accelUnit           = BNO055IMU.AccelUnit.METERS_PERSEC_PERSEC;
+        parameters.angleUnit = BNO055IMU.AngleUnit.DEGREES;
+        parameters.accelUnit = BNO055IMU.AccelUnit.METERS_PERSEC_PERSEC;
         parameters.calibrationDataFile = "BNO055IMUCalibration.json"; // see the calibration sample opmode
-        parameters.loggingEnabled      = true;
-        parameters.loggingTag          = "IMU";
+        parameters.loggingEnabled = true;
+        parameters.loggingTag = "IMU";
         parameters.accelerationIntegrationAlgorithm = new JustLoggingAccelerationIntegrator();
         robot.imu.initialize(parameters);
         telemetry.addData("Odometry System Calibration Status", "IMU Init Complete");
@@ -55,24 +61,24 @@ public class OdometryCalibration extends ULOpMode {
         telemetry.update();
 
 
-        while(getZAngle() < 90 ){
+        while (getZAngle() < 90) {
             setPowerAll(-PIVOT_SPEED, -PIVOT_SPEED, PIVOT_SPEED, PIVOT_SPEED);
 
-            if(getZAngle() < 60) {
-                    setPowerAll(-PIVOT_SPEED, -PIVOT_SPEED, PIVOT_SPEED, PIVOT_SPEED);
-                }else{
-                    setPowerAll(-PIVOT_SPEED/2, -PIVOT_SPEED/2, PIVOT_SPEED/2, PIVOT_SPEED/2);
+            if (getZAngle() < 60) {
+                setPowerAll(-PIVOT_SPEED, -PIVOT_SPEED, PIVOT_SPEED, PIVOT_SPEED);
+            } else {
+                setPowerAll(-PIVOT_SPEED / 2, -PIVOT_SPEED / 2, PIVOT_SPEED / 2, PIVOT_SPEED / 2);
             }
             double angle = getZAngle();
 
 
             double encoderDifference = Math.abs(robot.getLeftTicks()) + (Math.abs(robot.getRightTicks()));
 
-            double verticalEncoderTickOffsetPerDegree = encoderDifference/angle;
+            double verticalEncoderTickOffsetPerDegree = encoderDifference / angle;
 
-            double wheelBaseSeparation = (2*90*verticalEncoderTickOffsetPerDegree)/(Math.PI*COUNTS_PER_INCH);
+            double wheelBaseSeparation = (2 * 90 * verticalEncoderTickOffsetPerDegree) / (Math.PI * COUNTS_PER_INCH);
 
-            horizontalTickOffset = robot.getCenterTicks()/Math.toRadians(getZAngle());
+            horizontalTickOffset = robot.getCenterTicks() / Math.toRadians(getZAngle());
 
 
             telemetry.addData("Odometry System Calibration Status", "Calibration Complete");
@@ -91,15 +97,16 @@ public class OdometryCalibration extends ULOpMode {
         }
 
 
-            setPowerAll(0, 0, 0, 0);
-            stop();
-            timer.reset();
+        setPowerAll(0, 0, 0, 0);
+        stop();
+        timer.reset();
 //            while(timer.milliseconds() < 1000){
 //                telemetry.addData("IMU Angle", getZAngle());
 //                telemetry.update();
 //            }
+    }
 
-        }
+
 
     private double getZAngle(){
         return (-robot.imu.getAngularOrientation().firstAngle);

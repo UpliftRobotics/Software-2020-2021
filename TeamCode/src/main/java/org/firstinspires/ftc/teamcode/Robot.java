@@ -48,9 +48,9 @@ public class Robot {
     private double finalCenterDistance = 0;
     private double finalOrientation = 0;
     private double finalAngle = 0;
-    private double deltaLeftDistance;
-    private double deltaRightDistance;
-    private double deltaCenterDistance;
+    public double deltaLeftDistance;
+    public double deltaRightDistance;
+    public double deltaCenterDistance;
     private double deltaOrientation;
     private double deltaAngle;
     private double horizontalChange;
