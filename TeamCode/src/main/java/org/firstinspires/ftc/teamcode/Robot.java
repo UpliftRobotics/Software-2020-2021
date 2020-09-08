@@ -42,14 +42,17 @@ public class Robot {
     private double initialRightDistance = 0;
     private double initialCenterDistance = 0;
     private double initialOrientation = 0;
+    private double initialAngle = 0;
     private double finalLeftDistance = 0;
     private double finalRightDistance = 0;
     private double finalCenterDistance = 0;
     private double finalOrientation = 0;
+    private double finalAngle = 0;
     private double deltaLeftDistance;
     private double deltaRightDistance;
     private double deltaCenterDistance;
     private double deltaOrientation;
+    private double deltaAngle;
     private double horizontalChange;
     private int sleepTime;
     private double robotEncoderWheelDistance = 14;
@@ -110,13 +113,13 @@ public class Robot {
 
         worldAngle_rad += (deltaLeftDistance - deltaRightDistance) / robotEncoderWheelDistance;
 
-        horizontalChange = deltaCenterDistance - (deltaOrientation * horizontalEncoderTickPerDegreeOffset);
+//        horizontalChange = deltaCenterDistance - (deltaOrientation * horizontalEncoderTickPerDegreeOffset);
 
 //        worldXPosition += ((((deltaLeftDistance + deltaRightDistance) / 2.0)) * Math.cos(deltaOrientation)) + (horizontalChange * Math.cos(deltaOrientation));
 //        worldYPosition += ((((deltaLeftDistance + deltaRightDistance) / 2.0)) * Math.sin(worldAngle_rad)) - (horizontalChange * Math.sin(deltaOrientation));
 
-        worldXPosition += (((deltaLeftDistance + deltaRightDistance) / 2.0)) * Math.sin(deltaOrientation);
-        worldYPosition += (((deltaLeftDistance + deltaRightDistance) / 2.0)) * Math.cos(deltaOrientation);
+        worldXPosition += ((deltaLeftDistance + deltaRightDistance) / 2.0);
+        worldYPosition += ((deltaLeftDistance + deltaRightDistance) / 2.0);
 
         initialLeftDistance = finalLeftDistance;
         initialRightDistance = finalRightDistance;
