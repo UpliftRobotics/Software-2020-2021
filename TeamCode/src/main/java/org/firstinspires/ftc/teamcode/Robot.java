@@ -118,7 +118,7 @@ public class Robot {
 //        worldXPosition += ((((deltaLeftDistance + deltaRightDistance) / 2.0)) * Math.cos(deltaOrientation)) + (horizontalChange * Math.cos(deltaOrientation));
 //        worldYPosition += ((((deltaLeftDistance + deltaRightDistance) / 2.0)) * Math.sin(worldAngle_rad)) - (horizontalChange * Math.sin(deltaOrientation));
 
-        worldXPosition += ((deltaLeftDistance + deltaRightDistance) / 2.0);
+//        worldXPosition += ((deltaLeftDistance + deltaRightDistance) / 2.0);
         worldYPosition += ((deltaLeftDistance + deltaRightDistance) / 2.0);
 
         initialLeftDistance = finalLeftDistance;
