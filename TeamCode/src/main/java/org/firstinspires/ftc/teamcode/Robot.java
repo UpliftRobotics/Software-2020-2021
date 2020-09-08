@@ -112,8 +112,11 @@ public class Robot {
 
         horizontalChange = deltaCenterDistance - (deltaOrientation * horizontalEncoderTickPerDegreeOffset);
 
-        worldXPosition += ((((deltaLeftDistance + deltaRightDistance) / 2.0)) * Math.cos(deltaOrientation)) + (horizontalChange * Math.cos(deltaOrientation));
-        worldYPosition += ((((deltaLeftDistance + deltaRightDistance) / 2.0)) * Math.sin(worldAngle_rad)) - (horizontalChange * Math.sin(deltaOrientation));
+//        worldXPosition += ((((deltaLeftDistance + deltaRightDistance) / 2.0)) * Math.cos(deltaOrientation)) + (horizontalChange * Math.cos(deltaOrientation));
+//        worldYPosition += ((((deltaLeftDistance + deltaRightDistance) / 2.0)) * Math.sin(worldAngle_rad)) - (horizontalChange * Math.sin(deltaOrientation));
+
+        worldXPosition += (((deltaLeftDistance + deltaRightDistance) / 2.0)) * Math.sin(deltaOrientation);
+        worldYPosition += (((deltaLeftDistance + deltaRightDistance) / 2.0)) * Math.cos(deltaOrientation);
 
         initialLeftDistance = finalLeftDistance;
         initialRightDistance = finalRightDistance;
