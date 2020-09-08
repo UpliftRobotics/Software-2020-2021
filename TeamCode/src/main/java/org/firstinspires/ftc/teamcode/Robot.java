@@ -101,9 +101,9 @@ public class Robot {
     // method to update the robot's position
     public void globalCoordinatePositionUpdate(){
         
-        finalLeftDistance = (getLeftTicks() / oneRotationTicks) * 2.0 * Math.PI * wheelRadius;
-        finalRightDistance = (getRightTicks() / oneRotationTicks) * 2.0 * Math.PI * wheelRadius;
-        finalCenterDistance = (getCenterTicks() / oneRotationTicks) * 2.0 * Math.PI * wheelRadius;
+        finalLeftDistance = (getLeftTicks() / COUNTS_PER_INCH);
+        finalRightDistance = (getRightTicks() / COUNTS_PER_INCH);
+        finalCenterDistance = (getCenterTicks() / COUNTS_PER_INCH);
         finalOrientation = (deltaLeftDistance - deltaRightDistance) / robotEncoderWheelDistance;
 
         deltaLeftDistance = finalLeftDistance - initialLeftDistance;
