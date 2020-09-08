@@ -77,7 +77,8 @@ public class Robot {
         leftBack.setDirection(DcMotorSimple.Direction.REVERSE);
 
         imu = hardwareMap.get(BNO055IMU.class, "imu");
-
+        BNO055IMU.Parameters parameters = new BNO055IMU.Parameters();
+        parameters.angleUnit = BNO055IMU.AngleUnit.RADIANS;
 
         rightFront.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         rightBack.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -104,14 +105,14 @@ public class Robot {
         finalLeftDistance = (getLeftTicks() / COUNTS_PER_INCH);
         finalRightDistance = (getRightTicks() / COUNTS_PER_INCH);
         finalCenterDistance = (getCenterTicks() / COUNTS_PER_INCH);
-        finalOrientation = (deltaLeftDistance - deltaRightDistance) / robotEncoderWheelDistance;
+        finalAngle = imu.getAngularOrientation().firstAngle;
 
         deltaLeftDistance = finalLeftDistance - initialLeftDistance;
         deltaRightDistance = finalRightDistance - initialRightDistance;
         deltaCenterDistance = finalCenterDistance - initialCenterDistance;
-        deltaOrientation = finalOrientation - initialOrientation;
+        deltaAngle = finalAngle - initialAngle;
 
-        worldAngle_rad += (deltaLeftDistance - deltaRightDistance) / robotEncoderWheelDistance;
+        worldAngle_rad += deltaAngle;
 
 //        horizontalChange = deltaCenterDistance - (deltaOrientation * horizontalEncoderTickPerDegreeOffset);
 
@@ -124,7 +125,7 @@ public class Robot {
         initialLeftDistance = finalLeftDistance;
         initialRightDistance = finalRightDistance;
         initialCenterDistance = finalCenterDistance;
-        initialOrientation = finalOrientation;
+        initialAngle = finalAngle;
 
     }
 
