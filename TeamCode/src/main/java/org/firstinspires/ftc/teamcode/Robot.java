@@ -30,9 +30,9 @@ public class Robot {
 
     public BNO055IMU imu;
 
-    public static double worldXPosition = 0;
-    public static double worldYPosition = 0;
-    public static double worldAngle_rad = 0;
+    public double worldXPosition = 0;
+    public double worldYPosition = 0;
+    public double worldAngle_rad = 0;
 
     static final double oneRotationTicks = 720;
     static final double wheelRadius = 19/25.4; // in meters (change this later)
