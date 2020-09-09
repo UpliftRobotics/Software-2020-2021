@@ -20,7 +20,6 @@ import static org.firstinspires.ftc.teamcode.toolkit.MathFunctions.lineCircleInt
 public class Robot {
 
     // Declare HardwareMap and hardware devices
-    // this is test commentt
     public HardwareMap hardwareMap;
 
     public DcMotor leftFront; // links to Left Encoder Motor
