@@ -44,9 +44,9 @@ public class OdometryGlobalPositionUpdate implements Runnable {
         deltaLeftDistance = (getLeftTicks() / myRobot.oneRotationTicks) * 2.0 * Math.PI * myRobot.wheelRadius;
         deltaRightDistance = (getRightTicks() / myRobot.oneRotationTicks) * 2.0 * Math.PI * myRobot.wheelRadius;
         deltaCenterDistance = (getCenterTicks() / myRobot.oneRotationTicks) * 2.0 * Math.PI * myRobot.wheelRadius;
-        myRobot.worldXPosition += (((deltaLeftDistance + deltaRightDistance) / 2.0)) * Math.cos(myRobot.worldAngle_rad);
-        myRobot.worldYPosition += (((deltaLeftDistance + deltaRightDistance) / 2.0)) * Math.sin(myRobot.worldAngle_rad);
-        myRobot.worldAngle_rad += (deltaLeftDistance - deltaRightDistance) / robotEncoderWheelDistance;
+        myRobot.worldXPosition += (((deltaLeftDistance + deltaRightDistance) / 2.0)) * Math.cos(myRobot.worldAngle);
+        myRobot.worldYPosition += (((deltaLeftDistance + deltaRightDistance) / 2.0)) * Math.sin(myRobot.worldAngle);
+        myRobot.worldAngle += (deltaLeftDistance - deltaRightDistance) / robotEncoderWheelDistance;
 
         //resetTicks();
     }

@@ -54,7 +54,7 @@ public class Teleop extends ULLinearOpMode {
             telemetry.addData("RightDelta:\t", robot.deltaRightDistance );
             telemetry.addData("WorldX:\t", robot.worldXPosition);
             telemetry.addData("WorldY:\t", robot.worldYPosition);
-            telemetry.addData("WorldOrientationAngle\t", Math.toDegrees(robot.worldAngle_rad));
+            telemetry.addData("WorldOrientationAngle\t", Math.toDegrees(robot.worldAngle));
             telemetry.update();
 
         }
