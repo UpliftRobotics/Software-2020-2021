@@ -3,6 +3,8 @@ package org.firstinspires.ftc.teamcode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.util.Range;
 
+import org.firstinspires.ftc.robotcore.external.matrices.MatrixF;
+import org.firstinspires.ftc.teamcode.toolkit.MathFunctions;
 import org.firstinspires.ftc.teamcode.toolkit.ULLinearOpMode;
 
 @TeleOp(name = "TeleOp", group = "OpModes")
@@ -52,8 +54,8 @@ public class Teleop extends ULLinearOpMode {
             telemetry.addData("Center Encoder pos:\t", robot.getCenterTicks() / Robot.COUNTS_PER_INCH);
             telemetry.addData("LeftDelta:\t", robot.deltaLeftDistance);
             telemetry.addData("RightDelta:\t", robot.deltaRightDistance );
-            telemetry.addData("WorldX:\t", robot.worldXPosition);
-            telemetry.addData("WorldY:\t", robot.worldYPosition);
+            telemetry.addData("WorldX:\t", MathFunctions.truncate(robot.worldXPosition));
+            telemetry.addData("WorldY:\t", MathFunctions.truncate(robot.worldYPosition));
             telemetry.addData("WorldOrientationAngle\t", Math.toDegrees(robot.worldAngle));
             telemetry.update();
 

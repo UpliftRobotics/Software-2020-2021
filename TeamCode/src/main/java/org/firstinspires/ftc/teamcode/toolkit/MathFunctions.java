@@ -4,6 +4,10 @@ import java.util.ArrayList;
 
 public class MathFunctions {
 
+    public static double truncate(double val) {
+        return (((int)(val * 1000)) / 1000.0);
+    }
+
     public static double AngleRestrictions(double angle) {
         while (angle < -180) {
             angle += 2 * 180;
