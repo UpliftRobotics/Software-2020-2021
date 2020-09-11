@@ -37,7 +37,7 @@ public class Teleop extends ULLinearOpMode {
             // Note: The following algorithm was inspired by the webpage https://seamonsters-2605.github.io/archive/mecanum/. It explains this concept very well.
 
             // find the angle of the left joystick
-            double joystickAngle = Math.atan2(leftY, leftX);
+            double joystickAngle = Math.toDegrees(Math.atan2(leftY, leftX));
 
             // find the magnitude, or hypotenuse of the left joystick and scale it down by dividing by the max it could be
             double magnitude = Math.sqrt(Math.pow(leftX, 2) + Math.pow(leftY, 2));
