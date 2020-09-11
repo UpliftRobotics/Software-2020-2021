@@ -46,7 +46,7 @@ public class Teleop extends ULLinearOpMode {
             double turnValue = 0.75 * rightXDirection;
 
             // set the powers using the 2 specific equations and clip the result
-//            robot.slideDirection(magnitude, joystickAngle, turnValue);
+            robot.slideDirection(magnitude, joystickAngle, turnValue);
 
             // add telemetry data for the encoders
             telemetry.addData("Left Encoder pos:\t", robot.getLeftTicks() / Robot.COUNTS_PER_INCH);

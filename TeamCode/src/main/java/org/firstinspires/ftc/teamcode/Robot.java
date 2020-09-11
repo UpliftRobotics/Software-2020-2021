@@ -161,10 +161,10 @@ public class Robot {
 
     public void slideDirection(double speedVal, double angle, double turnVal) {
         // set the powers using the 2 specific equations and clip the result
-        leftFront.setPower(Range.clip((Math.sin(angle + (0.25 * Math.PI)) * speedVal) + turnVal, -1, 1));
-        rightFront.setPower(Range.clip((Math.sin(angle - (0.25 * Math.PI)) * speedVal) - turnVal, -1, 1));
-        leftBack.setPower(Range.clip((Math.sin(angle - (0.25 * Math.PI)) * speedVal) + turnVal, -1, 1));
-        rightBack.setPower(Range.clip((Math.sin(angle + (0.25 * Math.PI)) * speedVal) - turnVal, -1, 1));
+        leftFront.setPower(Range.clip((Math.sin(Math.toRadians(angle) + (0.25 * Math.PI)) * speedVal) + turnVal, -1, 1));
+        rightFront.setPower(Range.clip((Math.sin(Math.toRadians(angle) - (0.25 * Math.PI)) * speedVal) - turnVal, -1, 1));
+        leftBack.setPower(Range.clip((Math.sin(Math.toRadians(angle) - (0.25 * Math.PI)) * speedVal) + turnVal, -1, 1));
+        rightBack.setPower(Range.clip((Math.sin(Math.toRadians(angle) + (0.25 * Math.PI)) * speedVal) - turnVal, -1, 1));
     }
 
     public void stopMotors() {
