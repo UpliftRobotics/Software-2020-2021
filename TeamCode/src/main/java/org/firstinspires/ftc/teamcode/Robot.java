@@ -31,7 +31,7 @@ public class Robot {
 
     public double worldXPosition = 0;
     public double worldYPosition = 0;
-    public double worldAngle_rad = 0;
+    public double worldAngle = 0;
 
     static final double oneRotationTicks = 720;
     static final double wheelRadius = 19/25.4; // in meters (change this later)
@@ -40,22 +40,19 @@ public class Robot {
     private double initialLeftDistance = 0;
     private double initialRightDistance = 0;
     private double initialCenterDistance = 0;
-    private double initialOrientation = 0;
     private double initialAngle = 0;
     private double finalLeftDistance = 0;
     private double finalRightDistance = 0;
     private double finalCenterDistance = 0;
-    private double finalOrientation = 0;
     private double finalAngle = 0;
     public double deltaLeftDistance;
     public double deltaRightDistance;
     public double deltaCenterDistance;
-    private double deltaOrientation;
     private double deltaAngle;
     private double horizontalChange;
     private int sleepTime;
     private double robotEncoderWheelDistance = 14;
-    private double horizontalEncoderTickPerDegreeOffset;
+    private double horizontalEncoderInchesPerDegreeOffset = 0.02386;
 
     // access files created and written to in the calibration program
 //    private File wheelBaseSeparationFile = AppUtil.getInstance().getSettingsFile("wheelBaseSeparation.txt");
@@ -65,7 +62,7 @@ public class Robot {
         hardwareMap = ULLinearOpMode.getInstance().hardwareMap;
         worldXPosition = 0;
         worldYPosition = 0;
-        worldAngle_rad = Math.toRadians(0);
+        worldAngle = 0;
 
         leftFront = hardwareMap.get(DcMotor.class,"lf_motor");//Declares two left motors
         leftBack = hardwareMap.get(DcMotor.class,"lb_motor");
@@ -77,7 +74,7 @@ public class Robot {
 
         imu = hardwareMap.get(BNO055IMU.class, "imu");
         BNO055IMU.Parameters parameters = new BNO055IMU.Parameters();
-        parameters.angleUnit = BNO055IMU.AngleUnit.RADIANS;
+        parameters.angleUnit = BNO055IMU.AngleUnit.DEGREES;
         imu.initialize(parameters);
 
         rightFront.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -112,14 +109,12 @@ public class Robot {
         deltaCenterDistance = finalCenterDistance - initialCenterDistance;
         deltaAngle = finalAngle - initialAngle;
 
-        worldAngle_rad += deltaAngle;
-
-        horizontalChange = deltaCenterDistance - (worldAngle_rad * horizontalEncoderTickPerDegreeOffset);
-
-        worldXPosition += ((((deltaLeftDistance + deltaRightDistance) / 2.0)) * Math.sin(worldAngle_rad)) + (horizontalChange * Math.cos(worldAngle_rad));
-        worldYPosition += ((((deltaLeftDistance + deltaRightDistance) / 2.0)) * Math.cos(worldAngle_rad)) - (horizontalChange * Math.sin(worldAngle_rad));
+        worldAngle += deltaAngle;
 
 
+
+        worldXPosition += ((((deltaLeftDistance + deltaRightDistance) / 2.0)) * Math.sin(Math.toRadians(worldAngle)) + (horizontalChange * Math.sin(Math.toRadians(worldAngle))));
+        worldYPosition += ((((deltaLeftDistance + deltaRightDistance) / 2.0)) * Math.cos(Math.toRadians(worldAngle))) - (horizontalChange * Math.sin(Math.toRadians(worldAngle)));
 
         initialLeftDistance = finalLeftDistance;
         initialRightDistance = finalRightDistance;
@@ -156,8 +151,8 @@ public class Robot {
         return worldYPosition;
     }
 
-    public double getWorldAngle_rad() {
-        return worldAngle_rad;
+    public double getWorldAngle() {
+        return worldAngle;
     }
 
     //last update time
@@ -190,7 +185,7 @@ public class Robot {
             // arctan is the direction
             double absoluteAngle = Math.atan2(yPosition - worldYPosition, xPosition - worldXPosition);
             // if angle is above pi and below negative pi
-            double relativeAngle = absoluteAngle - MathFunctions.AngleRestrictions(worldAngle_rad - Math.toRadians(90));
+            double relativeAngle = absoluteAngle - MathFunctions.AngleRestrictions(worldAngle - Math.toRadians(90));
 
 //          // because I subtract the xposition and yposiion inputed by the current position of the robot
 //          double relativeXToPoint = Math.cos(relativeAngle)*distanceToPoint;
@@ -235,7 +230,7 @@ public class Robot {
 
         for(Point thisIntersection : intersections) {
             double angle = Math.atan2(thisIntersection.y - worldYPosition, thisIntersection.x - worldXPosition);
-            double deltaAngle = Math.abs(MathFunctions.AngleRestrictions(angle - worldAngle_rad));
+            double deltaAngle = Math.abs(MathFunctions.AngleRestrictions(angle - worldAngle));
 
             if(deltaAngle < closestAngle) {
                 closestAngle = deltaAngle;
