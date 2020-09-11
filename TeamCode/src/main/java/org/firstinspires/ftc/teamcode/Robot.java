@@ -176,44 +176,20 @@ public class Robot {
 
     public void goToPosition(double xPosition, double yPosition,double movementSpeed,double preferredAngle,double turnSpeed){
         globalCoordinatePositionUpdate();
-        double distanceToPoint = Math.hypot(xPosition - worldXPosition, yPosition - worldYPosition);
+        double xDistanceToPoint = xPosition - worldXPosition;
+        double yDistanceToPoint = yPosition - worldYPosition;
+        double distanceToPoint = Math.hypot(xDistanceToPoint, yDistanceToPoint);
 
-        while(distanceToPoint > 3) {
-            // update position
-            globalCoordinatePositionUpdate();
-            // hypotenuse of the triangle is the distance
-            distanceToPoint = Math.hypot(xPosition - worldXPosition, yPosition - worldYPosition);
-            // arctan is the direction
-            double absoluteAngle = Math.toDegrees(Math.atan2(yPosition - worldYPosition, xPosition - worldXPosition));
-            // if angle is above pi and below negative pi
-
-            double relativeAngle = absoluteAngle - MathFunctions.AngleRestrictions(worldAngle - 90);
-
-//          // because I subtract the xposition and yposiion inputed by the current position of the robot
-//          double relativeXToPoint = Math.cos(relativeAngle)*distanceToPoint;
-//          double relativeYToPoint = Math.sin(relativeAngle)*distanceToPoint;
-//          // speeds of the x and y power
-//          double movementXPower = relativeXToPoint/ (Math.abs(relativeXToPoint)+ Math.abs(relativeYToPoint));
-//          double movementYPower = relativeYToPoint/ (Math.abs(relativeXToPoint)+ Math.abs(relativeYToPoint));
-//          // speeds of x and y
-//          movement_x = movementXPower * movementSpeed;
-//          movement_y = movementYPower * movementSpeed;
-
-            // add or subtract from the current robot position and get the relative angle of it
-            double relativeTurnAngle = relativeAngle - 180 + preferredAngle;
-
-//          // adjust turn speed throughout the curve
-//          movement_turn = Range.clip(relativeTurnAngle/Math.toRadians(30),-1,1) * turnSpeed;
-
-            // actually start to move the robot towards the target point
-            slideDirection(movementSpeed, relativeTurnAngle, turnSpeed);
-
-            distanceToPoint = Math.hypot(xPosition - worldXPosition, yPosition - worldYPosition);
-
-            globalCoordinatePositionUpdate();
+        while(distanceToPoint > 5) {
+            double relativeAngle = Math.toDegrees(Math.atan2(yDistanceToPoint, xDistanceToPoint));
+            slideDirection(0.7, relativeAngle, 0);
+            xDistanceToPoint = xPosition - worldXPosition;
+            yDistanceToPoint = yPosition - worldYPosition;
+            distanceToPoint = Math.hypot(xDistanceToPoint, yDistanceToPoint);
         }
 
         stopMotors();
+
         return;
     }
 
