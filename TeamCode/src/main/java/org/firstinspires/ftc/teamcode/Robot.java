@@ -41,14 +41,17 @@ public class Robot {
     private double initialRightDistance = 0;
     private double initialCenterDistance = 0;
     private double initialAngle = 0;
+    private double initialHorizontal = 0;
     private double finalLeftDistance = 0;
     private double finalRightDistance = 0;
     private double finalCenterDistance = 0;
     private double finalAngle = 0;
+    private double finalHorizontal = 0;
     public double deltaLeftDistance;
     public double deltaRightDistance;
     public double deltaCenterDistance;
     private double deltaAngle;
+    private double deltaHorizontal;
     private double horizontalChange;
     private int sleepTime;
     private double robotEncoderWheelDistance = 14;
@@ -103,24 +106,25 @@ public class Robot {
         finalRightDistance = (getRightTicks() / COUNTS_PER_INCH);
         finalCenterDistance = (getCenterTicks() / COUNTS_PER_INCH);
         finalAngle = imu.getAngularOrientation().firstAngle;
+        finalHorizontal = deltaCenterDistance - (worldAngle * horizontalEncoderInchesPerDegreeOffset);
 
         deltaLeftDistance = finalLeftDistance - initialLeftDistance;
         deltaRightDistance = finalRightDistance - initialRightDistance;
         deltaCenterDistance = finalCenterDistance - initialCenterDistance;
         deltaAngle = finalAngle - initialAngle;
+        deltaHorizontal = finalHorizontal - initialHorizontal;
 
         worldAngle += deltaAngle;
 
-        horizontalChange = deltaCenterDistance - (worldAngle * horizontalEncoderInchesPerDegreeOffset);
+        worldXPosition += ((((deltaLeftDistance + deltaRightDistance) / 2.0)) * Math.sin(Math.toRadians(worldAngle))) + (deltaHorizontal * Math.cos(Math.toRadians(worldAngle)));
 
-        worldXPosition += ((((deltaLeftDistance + deltaRightDistance) / 2.0)) * Math.sin(Math.toRadians(worldAngle))) + (horizontalChange * Math.cos(Math.toRadians(worldAngle)));
-
-        worldYPosition += ((((deltaLeftDistance + deltaRightDistance) / 2.0)) * Math.cos(Math.toRadians(worldAngle))) - (horizontalChange * Math.sin(Math.toRadians(worldAngle)));
+        worldYPosition += ((((deltaLeftDistance + deltaRightDistance) / 2.0)) * Math.cos(Math.toRadians(worldAngle))) - (deltaHorizontal * Math.sin(Math.toRadians(worldAngle)));
 
         initialLeftDistance = finalLeftDistance;
         initialRightDistance = finalRightDistance;
         initialCenterDistance = finalCenterDistance;
         initialAngle = finalAngle;
+        initialHorizontal = finalHorizontal;
 
     }
 
