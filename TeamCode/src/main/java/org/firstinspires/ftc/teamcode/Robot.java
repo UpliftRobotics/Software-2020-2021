@@ -183,9 +183,10 @@ public class Robot {
             // hypotenuse of the triangle is the distance
             distanceToPoint = Math.hypot(xPosition - worldXPosition, yPosition - worldYPosition);
             // arctan is the direction
-            double absoluteAngle = Math.atan2(yPosition - worldYPosition, xPosition - worldXPosition);
+            double absoluteAngle = Math.toDegrees(Math.atan2(yPosition - worldYPosition, xPosition - worldXPosition));
             // if angle is above pi and below negative pi
-            double relativeAngle = absoluteAngle - MathFunctions.AngleRestrictions(worldAngle - Math.toRadians(90));
+
+            double relativeAngle = absoluteAngle - MathFunctions.AngleRestrictions(worldAngle - 90);
 
 //          // because I subtract the xposition and yposiion inputed by the current position of the robot
 //          double relativeXToPoint = Math.cos(relativeAngle)*distanceToPoint;
@@ -198,7 +199,7 @@ public class Robot {
 //          movement_y = movementYPower * movementSpeed;
 
             // add or subtract from the current robot position and get the relative angle of it
-            double relativeTurnAngle = relativeAngle - Math.toRadians(180) + preferredAngle;
+            double relativeTurnAngle = relativeAngle - 180 + preferredAngle;
 
 //          // adjust turn speed throughout the curve
 //          movement_turn = Range.clip(relativeTurnAngle/Math.toRadians(30),-1,1) * turnSpeed;
@@ -229,7 +230,8 @@ public class Robot {
         double closestAngle = Double.MAX_VALUE;
 
         for(Point thisIntersection : intersections) {
-            double angle = Math.atan2(thisIntersection.y - worldYPosition, thisIntersection.x - worldXPosition);
+
+            double angle = Math.toDegrees(Math.atan2(thisIntersection.y - worldYPosition, thisIntersection.x - worldXPosition));
             double deltaAngle = Math.abs(MathFunctions.AngleRestrictions(angle - worldAngle));
 
             if(deltaAngle < closestAngle) {
