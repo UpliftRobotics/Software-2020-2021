@@ -5,11 +5,11 @@ import java.util.ArrayList;
 public class MathFunctions {
 
     public static double AngleRestrictions(double angle) {
-        while (angle < -Math.PI) {
-            angle += 2 * Math.PI;
+        while (angle < -180) {
+            angle += 2 * 180;
         }
-        while (angle > Math.PI) {
-            angle -= 2 * Math.PI;
+        while (angle > 180) {
+            angle -= 2 * 180;
         }
         return angle;
     }
