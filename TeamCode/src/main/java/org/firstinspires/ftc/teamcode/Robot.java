@@ -179,10 +179,15 @@ public class Robot {
         double xDistanceToPoint = xPosition - worldXPosition;
         double yDistanceToPoint = yPosition - worldYPosition;
         double distanceToPoint = Math.hypot(xDistanceToPoint, yDistanceToPoint);
+        double relativeAngle = Math.toDegrees((Math.atan2(yDistanceToPoint, xDistanceToPoint)));
 
         while(distanceToPoint > 5) {
-            double relativeAngle = Math.toDegrees(Math.atan2(yDistanceToPoint, xDistanceToPoint));
             slideDirection(movementSpeed, relativeAngle, 0);
+
+            relativeAngle = Math.toDegrees(Math.atan2(yDistanceToPoint, xDistanceToPoint));
+
+            slideDirection(0.7, relativeAngle, 0);
+
             xDistanceToPoint = xPosition - worldXPosition;
             yDistanceToPoint = yPosition - worldYPosition;
             distanceToPoint = Math.hypot(xDistanceToPoint, yDistanceToPoint);
