@@ -21,27 +21,19 @@ public class TestAuto extends ULLinearOpMode {
         waitForStart();
 
         //set up Text files through control hub
-        while(robot.worldYPosition < 24){
-            robot.globalCoordinatePositionUpdate();
-            robot.leftBack.setPower(0.3);
-            robot.leftFront.setPower(0.3);
-            robot.rightFront.setPower(0.3);
-            robot.rightBack.setPower(0.3);
+
+
+        ArrayList<CurvePoint> allPoints = new ArrayList<>();
+
+        // add each CurvePoint to the ArrayList
+
+        allPoints.add(new CurvePoint(24, 0, .7, 0.5, 5, 5.0, 0, 0));
+
+//        // tell the robot to map out the path and follow it
+        for (CurvePoint target : allPoints) {
+            robot.goToPosition(target.x, target.y, target.moveSpeed, 0, 0);
         }
         robot.stopMotors();
-
-
-//        ArrayList<CurvePoint> allPoints = new ArrayList<>();
-//
-//        // add each CurvePoint to the ArrayList
-//
-//        allPoints.add(new CurvePoint(0, 0, .7, 0.5, 5, 5.0, 0, 0));
-//
-////        // tell the robot to map out the path and follow it
-//        for (CurvePoint target : allPoints) {
-//            robot.goToPosition(target.x, target.y, target.moveSpeed, 0, 0);
-//        }
-//        robot.stopMotors();
 
     }
 

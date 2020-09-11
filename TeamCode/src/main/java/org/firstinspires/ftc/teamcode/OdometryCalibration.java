@@ -28,7 +28,7 @@ public class OdometryCalibration extends ULLinearOpMode {
 
     // Text files to write the values to. The files are stored in the robot controller under Internal Storage\FIRST\settings
 //    File wheelBaseSeparationFile = AppUtil.getInstance().getSettingsFile("wheelBaseSeparation.txt");
-//    File horizontalTickOffsetFile = AppUtil.getInstance().getSettingsFile("horizontalTickOffset.txt");
+//    File horizontalTickOffsetFile = AppUtil.getInstance().getSetfhtingsFile("horizontalTickOffset.txt");
 
 
 
