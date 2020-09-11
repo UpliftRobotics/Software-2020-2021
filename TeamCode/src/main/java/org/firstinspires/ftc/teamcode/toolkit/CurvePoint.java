@@ -9,8 +9,9 @@ public class CurvePoint {
     public double pointLength;
     public double slowDownTurnRad;
     public double slowDownTurnAmount;
+    public double error;
 
-    public CurvePoint(double x, double y, double moveSpeed, double turnSpeed, double followDistance, double pointLength, double slowDownTurnRad, double slowDownTurnAmount) {
+    public CurvePoint(double x, double y, double moveSpeed, double turnSpeed, double followDistance, double pointLength, double slowDownTurnRad, double slowDownTurnAmount, double error) {
 
         this.x = x;
         this.y = y;
@@ -20,6 +21,7 @@ public class CurvePoint {
         this.pointLength = pointLength;
         this.slowDownTurnRad = slowDownTurnRad;
         this.slowDownTurnAmount = slowDownTurnAmount;
+        this.error = error;
     }
 
     public CurvePoint(CurvePoint thisPoint) {
@@ -31,6 +33,7 @@ public class CurvePoint {
         pointLength = thisPoint.pointLength;
         slowDownTurnRad = thisPoint.slowDownTurnRad;
         slowDownTurnAmount = thisPoint.slowDownTurnAmount;
+        error = thisPoint.error;
     }
 
     public Point toPoint() {

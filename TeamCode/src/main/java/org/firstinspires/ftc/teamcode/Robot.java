@@ -174,22 +174,18 @@ public class Robot {
         rightBack.setPower(0);
     }
 
-    public void goToPosition(double xPosition, double yPosition,double movementSpeed,double preferredAngle,double turnSpeed){
+    public void goToPosition(double xPosition, double yPosition,double movementSpeed,double preferredAngle,double turnspeed , double allowDistanceError){
         globalCoordinatePositionUpdate();
         double xDistanceToPoint = xPosition - worldXPosition;
         double yDistanceToPoint = yPosition - worldYPosition;
         double distanceToPoint = Math.hypot(xDistanceToPoint, yDistanceToPoint);
-        double relativeAngle = Math.toDegrees((Math.atan2(yDistanceToPoint, xDistanceToPoint)));
 
-        while(distanceToPoint > 5) {
-            slideDirection(movementSpeed, relativeAngle, 0);
-
-            relativeAngle = Math.toDegrees(Math.atan2(yDistanceToPoint, xDistanceToPoint));
-
-            slideDirection(0.7, relativeAngle, 0);
-
+        while(distanceToPoint > allowDistanceError) {
+            globalCoordinatePositionUpdate();
             xDistanceToPoint = xPosition - worldXPosition;
             yDistanceToPoint = yPosition - worldYPosition;
+            double relativeAngle = Math.toDegrees(Math.atan2(yDistanceToPoint, xDistanceToPoint));
+            slideDirection(movementSpeed, relativeAngle, 0);
             distanceToPoint = Math.hypot(xDistanceToPoint, yDistanceToPoint);
         }
 
@@ -232,7 +228,7 @@ public class Robot {
 
             CurvePoint followPt = getFollowPointPath(allPoints.get(i), allPoints.get(i + 1), new Point(worldXPosition, worldYPosition), allPoints.get(i).followDistance);
 
-            goToPosition(followPt.x, followPt.y, followPt.moveSpeed, followAngle, followPt.turnSpeed);
+            goToPosition(followPt.x, followPt.y, followPt.moveSpeed, followAngle, followPt.turnSpeed,followPt.error);
 
         }
         stopMotors();

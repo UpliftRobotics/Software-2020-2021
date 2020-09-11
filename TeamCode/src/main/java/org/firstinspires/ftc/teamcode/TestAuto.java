@@ -19,7 +19,7 @@ public class TestAuto extends ULLinearOpMode {
         robot.globalCoordinatePositionUpdate();
 
         waitForStart();
-        robot.goToPosition(0, 24, 0.7, 0, 0);
+        robot.goToPosition(0, 24, 0.7, 0, 0,5);
 
         //set up Text files through control hub
 

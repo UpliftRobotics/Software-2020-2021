@@ -23,7 +23,7 @@ public class Auto extends ULLinearOpMode {
         ArrayList<CurvePoint> allPoints = new ArrayList<>();
 
         // add each CurvePoint to the ArrayList
-        allPoints.add(new CurvePoint(0, 24, 0.7, 0.5, 2.0, 5.0, 0.5235987755982988, 0.2));
+        allPoints.add(new CurvePoint(0, 24, 0.7, 0.5, 2.0, 5.0, 0.5235987755982988, 0.2,5));
 
         // tell the robot to map out the path and follow it
         robot.followCurve(allPoints, Math.toRadians(90));
