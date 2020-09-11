@@ -106,13 +106,12 @@ public class Robot {
         finalRightDistance = (getRightTicks() / COUNTS_PER_INCH);
         finalCenterDistance = (getCenterTicks() / COUNTS_PER_INCH);
         finalAngle = imu.getAngularOrientation().firstAngle;
-        finalHorizontal = deltaCenterDistance - (worldAngle * horizontalEncoderInchesPerDegreeOffset);
 
         deltaLeftDistance = finalLeftDistance - initialLeftDistance;
         deltaRightDistance = finalRightDistance - initialRightDistance;
         deltaCenterDistance = finalCenterDistance - initialCenterDistance;
         deltaAngle = finalAngle - initialAngle;
-        deltaHorizontal = finalHorizontal - initialHorizontal;
+        deltaHorizontal = deltaCenterDistance - (deltaAngle * horizontalEncoderInchesPerDegreeOffset);
 
         worldAngle += deltaAngle;
 
@@ -124,7 +123,6 @@ public class Robot {
         initialRightDistance = finalRightDistance;
         initialCenterDistance = finalCenterDistance;
         initialAngle = finalAngle;
-        initialHorizontal = finalHorizontal;
 
     }
 
