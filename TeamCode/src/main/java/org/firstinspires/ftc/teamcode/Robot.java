@@ -111,7 +111,7 @@ public class Robot {
 
         worldAngle += deltaAngle;
 
-        horizontalChange = deltaCenterDistance - (deltaAngle * horizontalEncoderInchesPerDegreeOffset);
+        horizontalChange = deltaCenterDistance + (deltaAngle * horizontalEncoderInchesPerDegreeOffset);
 
         worldXPosition += ((((deltaLeftDistance + deltaRightDistance) / 2.0)) * Math.sin(Math.toRadians(worldAngle))) + (horizontalChange * Math.sin(Math.toRadians(worldAngle)));
 
