@@ -225,8 +225,11 @@ public class Robot {
     }
 
     public void followCurve(ArrayList<CurvePoint> allPoints, double followAngle) {
+        globalCoordinatePositionUpdate();
 
         for(int i = 0; i < allPoints.size() - 1; i++) {
+            globalCoordinatePositionUpdate();
+
 
             CurvePoint followPt = getFollowPointPath(allPoints.get(i), allPoints.get(i + 1), new Point(worldXPosition, worldYPosition), allPoints.get(i).followDistance);
 
