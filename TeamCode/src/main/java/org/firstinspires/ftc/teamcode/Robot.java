@@ -7,7 +7,6 @@ import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.util.Range;
 
-import org.firstinspires.ftc.teamcode.toolkit.CurvePoint;
 import org.firstinspires.ftc.teamcode.toolkit.MathFunctions;
 import org.firstinspires.ftc.teamcode.toolkit.Point;
 import org.firstinspires.ftc.teamcode.toolkit.ULLinearOpMode;
@@ -200,42 +199,5 @@ public class Robot {
         globalCoordinatePositionUpdate();
         double distanceToPoint = Math.hypot(xPosition - worldXPosition, yPosition - worldYPosition);
         return distanceToPoint;
-    }
-
-    public CurvePoint getFollowPointPath(CurvePoint startLine, CurvePoint endLine, Point robotLocation, double followRadius) {
-        CurvePoint followPt = new CurvePoint(startLine);
-
-        ArrayList<Point> intersections = lineCircleIntersect(robotLocation, followRadius, startLine.toPoint(), endLine.toPoint());
-
-        double closestAngle = Double.MAX_VALUE;
-
-        for(Point thisIntersection : intersections) {
-
-            double angle = Math.toDegrees(Math.atan2(thisIntersection.y - worldYPosition, thisIntersection.x - worldXPosition));
-            double deltaAngle = Math.abs(MathFunctions.AngleRestrictions(angle - worldAngle));
-
-            if(deltaAngle < closestAngle) {
-                closestAngle = deltaAngle;
-                followPt.setPoint(thisIntersection);
-            }
-        }
-
-        return followPt;
-
-    }
-
-    public void followCurve(ArrayList<CurvePoint> allPoints, double followAngle) {
-        globalCoordinatePositionUpdate();
-
-        for(int i = 0; i < allPoints.size() - 1; i++) {
-            globalCoordinatePositionUpdate();
-
-
-            CurvePoint followPt = getFollowPointPath(allPoints.get(i), allPoints.get(i + 1), new Point(worldXPosition, worldYPosition), allPoints.get(i).followDistance);
-
-            goToPosition(followPt.x, followPt.y, followPt.moveSpeed, followAngle, followPt.turnSpeed,followPt.error);
-
-        }
-        stopMotors();
     }
 }
