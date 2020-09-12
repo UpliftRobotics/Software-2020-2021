@@ -4,14 +4,11 @@ import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.util.Range;
 import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
 import org.firstinspires.ftc.teamcode.Robot;
-import org.firstinspires.ftc.teamcode.toolkit.CurvePoint;
+import org.firstinspires.ftc.teamcode.toolkit.PathPoint;
 import org.firstinspires.ftc.teamcode.toolkit.MathFunctions;
 import org.firstinspires.ftc.teamcode.toolkit.Point;
 import java.util.ArrayList;
 import static org.firstinspires.ftc.teamcode.toolkit.MathFunctions.lineCircleIntersect;
-import static org.firstinspires.ftc.teamcode.toolkit.MovementVars.movement_turn;
-import static org.firstinspires.ftc.teamcode.toolkit.MovementVars.movement_x;
-import static org.firstinspires.ftc.teamcode.toolkit.MovementVars.movement_y;
 
 
 @Disabled

@@ -6,11 +6,7 @@ import com.qualcomm.hardware.bosch.JustLoggingAccelerationIntegrator;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
-import org.firstinspires.ftc.robotcore.internal.system.AppUtil;
 import org.firstinspires.ftc.teamcode.toolkit.ULLinearOpMode;
-import org.firstinspires.ftc.teamcode.toolkit.ULOpMode;
-
-import java.io.File;
 
 /*
     Note: this class was inspired by the odometry calibration program made by Wizard.exe, FTC Team 9794

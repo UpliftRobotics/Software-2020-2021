@@ -1,11 +1,9 @@
 package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
-import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
-import org.firstinspires.ftc.teamcode.toolkit.CurvePoint;
+import org.firstinspires.ftc.teamcode.toolkit.PathPoint;
 import org.firstinspires.ftc.teamcode.toolkit.ULLinearOpMode;
-import org.firstinspires.ftc.teamcode.toolkit.ULOpMode;
 
 import java.util.ArrayList;
 
@@ -19,13 +17,16 @@ public class Auto extends ULLinearOpMode {
         robot = new Robot();
 
         waitForStart();
+
         // declare and initialize an empty list of CurvePoints
-        ArrayList<CurvePoint> allPoints = new ArrayList<>();
+        ArrayList<PathPoint> allPoints = new ArrayList<>();
 
         // add each CurvePoint to the ArrayList
-        allPoints.add(new CurvePoint(0, 24, 0.7, 0.5, 2.0, 5.0, 0.5235987755982988, 0.2,5));
+        allPoints.add(new PathPoint(0, 24, 0.5, 5));
 
         // tell the robot to map out the path and follow it
-        robot.followCurve(allPoints, Math.toRadians(90));
+        for(PathPoint pt : allPoints) {
+            robot.goToPosition(pt.x, pt.y, pt.moveSpeed, 0, pt.errorDistance);
+        }
     }
 }

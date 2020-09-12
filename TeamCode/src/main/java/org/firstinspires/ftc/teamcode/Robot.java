@@ -7,14 +7,7 @@ import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.util.Range;
 
-import org.firstinspires.ftc.teamcode.toolkit.MathFunctions;
-import org.firstinspires.ftc.teamcode.toolkit.Point;
 import org.firstinspires.ftc.teamcode.toolkit.ULLinearOpMode;
-import org.firstinspires.ftc.teamcode.toolkit.ULOpMode;
-
-import java.util.ArrayList;
-
-import static org.firstinspires.ftc.teamcode.toolkit.MathFunctions.lineCircleIntersect;
 
 public class Robot {
 
@@ -40,19 +33,16 @@ public class Robot {
     private double initialRightDistance = 0;
     private double initialCenterDistance = 0;
     private double initialAngle = 0;
-    private double initialHorizontal = 0;
     private double finalLeftDistance = 0;
     private double finalRightDistance = 0;
     private double finalCenterDistance = 0;
     private double finalAngle = 0;
-    private double finalHorizontal = 0;
     public double deltaLeftDistance;
     public double deltaRightDistance;
     public double deltaCenterDistance;
     private double deltaAngle;
     private double deltaHorizontal;
-    private double horizontalChange;
-    private int sleepTime;
+    private int timeOutTime;
     private double robotEncoderWheelDistance = 14;
     private double horizontalEncoderInchesPerDegreeOffset = 0.02386;
 
@@ -157,15 +147,14 @@ public class Robot {
         return worldAngle;
     }
 
-    //last update time
-    private long lastUpdateTime = 0;
 
     public void slideDirection(double speedVal, double angle, double turnVal) {
+        // NOTE: Set turnVal to 0 if you are not turning at all. (ie. Auto)
         // set the powers using the 2 specific equations and clip the result
-        leftFront.setPower(Range.clip((Math.sin(Math.toRadians(angle) + (0.25 * Math.PI)) * speedVal) + turnVal, -1, 1));
-        rightFront.setPower(Range.clip((Math.sin(Math.toRadians(angle) - (0.25 * Math.PI)) * speedVal) - turnVal, -1, 1));
-        leftBack.setPower(Range.clip((Math.sin(Math.toRadians(angle) - (0.25 * Math.PI)) * speedVal) + turnVal, -1, 1));
-        rightBack.setPower(Range.clip((Math.sin(Math.toRadians(angle) + (0.25 * Math.PI)) * speedVal) - turnVal, -1, 1));
+        leftFront.setPower(Range.clip((Math.sin(Math.toRadians(angle) + (0.25 * Math.PI)) * speedVal + turnVal), -1, 1));
+        rightFront.setPower(Range.clip((Math.sin(Math.toRadians(angle) - (0.25 * Math.PI)) * speedVal - turnVal), -1, 1));
+        leftBack.setPower(Range.clip((Math.sin(Math.toRadians(angle) - (0.25 * Math.PI)) * speedVal + turnVal), -1, 1));
+        rightBack.setPower(Range.clip((Math.sin(Math.toRadians(angle) + (0.25 * Math.PI)) * speedVal - turnVal), -1, 1));
     }
 
     public void stopMotors() {
@@ -175,7 +164,7 @@ public class Robot {
         rightBack.setPower(0);
     }
 
-    public void goToPosition(double xPosition, double yPosition,double movementSpeed,double preferredAngle,double turnspeed , double allowDistanceError){
+    public void goToPosition(double xPosition, double yPosition,double movementSpeed,double preferredAngle, double allowDistanceError){
         globalCoordinatePositionUpdate();
         double xDistanceToPoint = xPosition - worldXPosition;
         double yDistanceToPoint = yPosition - worldYPosition;

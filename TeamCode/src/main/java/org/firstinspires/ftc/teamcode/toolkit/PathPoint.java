@@ -1,12 +1,12 @@
 package org.firstinspires.ftc.teamcode.toolkit;
 
-public class ULPoint {
+public class PathPoint {
     public double x;
     public double y;
     public double moveSpeed;
     public double errorDistance;
 
-    public ULPoint(double x, double y, double moveSpeed, double errorDistance) {
+    public PathPoint(double x, double y, double moveSpeed, double errorDistance) {
 
         this.x = x;
         this.y = y;
@@ -14,7 +14,7 @@ public class ULPoint {
         this.errorDistance = errorDistance;
     }
 
-    public ULPoint(ULPoint thisPoint) {
+    public PathPoint(PathPoint thisPoint) {
         x = thisPoint.x;
         y = thisPoint.y;
         moveSpeed = thisPoint.moveSpeed;
