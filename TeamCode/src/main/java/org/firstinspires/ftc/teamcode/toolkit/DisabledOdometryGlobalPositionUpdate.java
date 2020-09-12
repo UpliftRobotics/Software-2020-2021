@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode;
+package org.firstinspires.ftc.teamcode.toolkit;
 
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.ReadWriteFile;
@@ -8,7 +8,7 @@ import org.firstinspires.ftc.teamcode.Robot;
 
 import java.io.File;
 
-public class OdometryGlobalPositionUpdate implements Runnable {
+public class DisabledOdometryGlobalPositionUpdate implements Runnable {
     // create boolean that becomes true the instant the program begins
     private boolean isRunning = true;
 
@@ -28,7 +28,7 @@ public class OdometryGlobalPositionUpdate implements Runnable {
 //    private File horizontalTickOffsetFile = AppUtil.getInstance().getSettingsFile("horizontalTickOffset.txt");
 
     // constructor for this class that initializes the encoders, delay, and wheel constants
-    public OdometryGlobalPositionUpdate(Robot bot, double COUNTS_PER_INCH, int threadSleepDelay){
+    public DisabledOdometryGlobalPositionUpdate(Robot bot, double COUNTS_PER_INCH, int threadSleepDelay){
         myRobot = bot;
         leftFront = myRobot.leftFront;
         rightFront = myRobot.rightFront;
@@ -91,4 +91,4 @@ public class OdometryGlobalPositionUpdate implements Runnable {
         }
     }
 
-} // end of class OdometryGlobalPositionUpdate
+} // end of class DisabledOdometryGlobalPositionUpdate

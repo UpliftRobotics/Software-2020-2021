@@ -25,10 +25,10 @@ public class Robot {
     public double worldYPosition = 0;
     public double worldAngle = 0;
 
-    static final double oneRotationTicks = 720;
-    static final double wheelRadius = 19/25.4; // in meters (change this later)
-    static final double wheelCircumference = wheelRadius*2*Math.PI; // inches
-    static final double COUNTS_PER_INCH = 720*4/wheelCircumference;
+    public static final double oneRotationTicks = 720;
+    public static final double wheelRadius = 19/25.4; // in meters (change this later)
+    public static final double wheelCircumference = wheelRadius*2*Math.PI; // inches
+    public static final double COUNTS_PER_INCH = 720*4/wheelCircumference;
     private double initialLeftDistance = 0;
     private double initialRightDistance = 0;
     private double initialCenterDistance = 0;
@@ -43,8 +43,8 @@ public class Robot {
     private double deltaAngle;
     private double deltaHorizontal;
     private int timeOutTime;
-    private double robotEncoderWheelDistance = 14;
-    private double horizontalEncoderInchesPerDegreeOffset = 0.02386;
+    public double robotEncoderWheelDistance = 14;
+    public double horizontalEncoderInchesPerDegreeOffset = 0.02386;
 
     // access files created and written to in the calibration program
 //    private File wheelBaseSeparationFile = AppUtil.getInstance().getSettingsFile("wheelBaseSeparation.txt");
@@ -69,6 +69,7 @@ public class Robot {
         parameters.angleUnit = BNO055IMU.AngleUnit.DEGREES;
         imu.initialize(parameters);
 
+        //setup the motors
         rightFront.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         rightBack.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         leftFront.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -84,13 +85,38 @@ public class Robot {
         leftFront.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         leftBack.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
-        //Note: may need to change direction of some motors
+    }
 
+    // getter method for the left encoder ticks
+    public int getLeftTicks() {
+        return leftFront.getCurrentPosition();
+    }
+
+    // getter method for the right encoder ticks
+    public int getRightTicks() {
+        return rightFront.getCurrentPosition();
+    }
+
+    // getter method for the center encoder ticks
+    public int getCenterTicks() {
+        return leftBack.getCurrentPosition();
+    }
+
+    public double getXPos() {
+        return worldXPosition;
+    }
+
+    public double getYPos() {
+        return worldYPosition;
+    }
+
+    public double getWorldAngle() {
+        return worldAngle; // this is in degrees
     }
 
     // method to update the robot's position
     public void globalCoordinatePositionUpdate(){
-        
+
         finalLeftDistance = (getLeftTicks() / COUNTS_PER_INCH);
         finalRightDistance = (getRightTicks() / COUNTS_PER_INCH);
         finalCenterDistance = (getCenterTicks() / COUNTS_PER_INCH);
@@ -115,39 +141,7 @@ public class Robot {
 
     }
 
-    // getter method for the left encoder ticks
-    public int getLeftTicks() {
-        return leftFront.getCurrentPosition();
-
-    }
-
-    // getter method for the right encoder ticks
-    public int getRightTicks() {
-
-        return rightFront.getCurrentPosition();
-
-    }
-
-    // getter method for the center encoder ticks
-    public int getCenterTicks() {
-
-        return leftBack.getCurrentPosition();
-
-    }
-
-    public double getXPos() {
-        return worldXPosition;
-    }
-
-    public double getYPos() {
-        return worldYPosition;
-    }
-
-    public double getWorldAngle() {
-        return worldAngle;
-    }
-
-
+    // method to slide to an area (for TeleOp, turnVal changes and the robot can turn; for Auto, turnVal is always 0 as diagonal sliding is used only)
     public void slideDirection(double speedVal, double angle, double turnVal) {
         // NOTE: Set turnVal to 0 if you are not turning at all. (ie. Auto)
         // set the powers using the 2 specific equations and clip the result
@@ -155,13 +149,6 @@ public class Robot {
         rightFront.setPower(Range.clip((Math.sin(Math.toRadians(angle) - (0.25 * Math.PI)) * speedVal - turnVal), -1, 1));
         leftBack.setPower(Range.clip((Math.sin(Math.toRadians(angle) - (0.25 * Math.PI)) * speedVal + turnVal), -1, 1));
         rightBack.setPower(Range.clip((Math.sin(Math.toRadians(angle) + (0.25 * Math.PI)) * speedVal - turnVal), -1, 1));
-    }
-
-    public void stopMotors() {
-        leftFront.setPower(0);
-        leftBack.setPower(0);
-        rightFront.setPower(0);
-        rightBack.setPower(0);
     }
 
     public void goToPosition(double xPosition, double yPosition,double movementSpeed,double preferredAngle, double allowDistanceError){
@@ -184,9 +171,17 @@ public class Robot {
         return;
     }
 
+    //method to get the distance away from point (not used in robot, but can be used in another class if printing value)
     public double getDistanceToPoint(double xPosition, double yPosition,double movementSpeed,double preferredAngle,double turnSpeed) {
         globalCoordinatePositionUpdate();
         double distanceToPoint = Math.hypot(xPosition - worldXPosition, yPosition - worldYPosition);
         return distanceToPoint;
+    }
+
+    public void stopMotors() {
+        leftFront.setPower(0);
+        leftBack.setPower(0);
+        rightFront.setPower(0);
+        rightBack.setPower(0);
     }
 }

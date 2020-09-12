@@ -23,15 +23,15 @@ public class TestAuto extends ULLinearOpMode {
         //set up Text files through control hub
 
 
-//        ArrayList<PathPoint> allPoints = new ArrayList<>();
+//        ArrayList<CurvePoint> allPoints = new ArrayList<>();
 //
-//        // add each PathPoint to the ArrayList
+//        // add each CurvePoint to the ArrayList
 //
-//        allPoints.add(new PathPoint(0, 24, .7, 0.5, 5, 5.0, 0, 0));
+//        allPoints.add(new CurvePoint(0, 24, .7, 0.5, 5, 5.0, 0, 0));
 //
 ////        // tell the robot to map out the path and follow it
-//        for (PathPoint target : allPoints) {
-//            robot.goToPosition(target.x, target.y, target.moveSpeed, 0, 5);
+//        for (CurvePoint target : allPoints) {
+//            robot.goToPosition(target.x, target.y, target.moveSpeed, 0, 0);
 //        }
 //        robot.stopMotors();
 //
