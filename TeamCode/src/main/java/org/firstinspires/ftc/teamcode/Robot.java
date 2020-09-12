@@ -14,6 +14,9 @@ public class Robot {
     // Declare HardwareMap and hardware devices
     public HardwareMap hardwareMap;
 
+    // Declare the odometry object
+    public Odometry odom;
+
     public DcMotor leftFront; // links to Left Encoder Motor
     public DcMotor leftBack; // links to Center Encoder Motor
     public DcMotor rightFront; // links to Right Encoder Motor
@@ -29,22 +32,9 @@ public class Robot {
     public static final double wheelRadius = 19/25.4; // in meters (change this later)
     public static final double wheelCircumference = wheelRadius*2*Math.PI; // inches
     public static final double COUNTS_PER_INCH = 720*4/wheelCircumference;
-    private double initialLeftDistance = 0;
-    private double initialRightDistance = 0;
-    private double initialCenterDistance = 0;
-    private double initialAngle = 0;
-    private double finalLeftDistance = 0;
-    private double finalRightDistance = 0;
-    private double finalCenterDistance = 0;
-    private double finalAngle = 0;
-    public double deltaLeftDistance;
-    public double deltaRightDistance;
-    public double deltaCenterDistance;
-    private double deltaAngle;
-    private double deltaHorizontal;
+    public static final double robotEncoderWheelDistance = 14;
+    public static final double horizontalEncoderInchesPerDegreeOffset = 0.02386;
     private int timeOutTime;
-    public double robotEncoderWheelDistance = 14;
-    public double horizontalEncoderInchesPerDegreeOffset = 0.02386;
 
     // access files created and written to in the calibration program
 //    private File wheelBaseSeparationFile = AppUtil.getInstance().getSettingsFile("wheelBaseSeparation.txt");
@@ -85,103 +75,5 @@ public class Robot {
         leftFront.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         leftBack.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
-    }
-
-    // getter method for the left encoder ticks
-    public int getLeftTicks() {
-        return leftFront.getCurrentPosition();
-    }
-
-    // getter method for the right encoder ticks
-    public int getRightTicks() {
-        return rightFront.getCurrentPosition();
-    }
-
-    // getter method for the center encoder ticks
-    public int getCenterTicks() {
-        return leftBack.getCurrentPosition();
-    }
-
-    public double getXPos() {
-        return worldXPosition;
-    }
-
-    public double getYPos() {
-        return worldYPosition;
-    }
-
-    public double getWorldAngle() {
-        return worldAngle; // this is in degrees
-    }
-
-    // method to update the robot's position
-    public void globalCoordinatePositionUpdate(){
-
-        finalLeftDistance = (getLeftTicks() / COUNTS_PER_INCH);
-        finalRightDistance = (getRightTicks() / COUNTS_PER_INCH);
-        finalCenterDistance = (getCenterTicks() / COUNTS_PER_INCH);
-        finalAngle = imu.getAngularOrientation().firstAngle;
-
-        deltaLeftDistance = finalLeftDistance - initialLeftDistance;
-        deltaRightDistance = finalRightDistance - initialRightDistance;
-        deltaCenterDistance = finalCenterDistance - initialCenterDistance;
-        deltaAngle = finalAngle - initialAngle;
-        deltaHorizontal = deltaCenterDistance + (deltaAngle * horizontalEncoderInchesPerDegreeOffset);
-
-        worldAngle += deltaAngle;
-
-        worldXPosition += ((((deltaLeftDistance + deltaRightDistance) / 2.0)) * Math.sin(Math.toRadians(worldAngle))) + (deltaHorizontal * Math.cos(Math.toRadians(worldAngle)));
-
-        worldYPosition += ((((deltaLeftDistance + deltaRightDistance) / 2.0)) * Math.cos(Math.toRadians(worldAngle))) - (deltaHorizontal * Math.sin(Math.toRadians(worldAngle)));
-
-        initialLeftDistance = finalLeftDistance;
-        initialRightDistance = finalRightDistance;
-        initialCenterDistance = finalCenterDistance;
-        initialAngle = finalAngle;
-
-    }
-
-    // method to slide to an area (for TeleOp, turnVal changes and the robot can turn; for Auto, turnVal is always 0 as diagonal sliding is used only)
-    public void slideDirection(double speedVal, double angle, double turnVal) {
-        // NOTE: Set turnVal to 0 if you are not turning at all. (ie. Auto)
-        // set the powers using the 2 specific equations and clip the result
-        leftFront.setPower(Range.clip((Math.sin(Math.toRadians(angle) + (0.25 * Math.PI)) * speedVal + turnVal), -1, 1));
-        rightFront.setPower(Range.clip((Math.sin(Math.toRadians(angle) - (0.25 * Math.PI)) * speedVal - turnVal), -1, 1));
-        leftBack.setPower(Range.clip((Math.sin(Math.toRadians(angle) - (0.25 * Math.PI)) * speedVal + turnVal), -1, 1));
-        rightBack.setPower(Range.clip((Math.sin(Math.toRadians(angle) + (0.25 * Math.PI)) * speedVal - turnVal), -1, 1));
-    }
-
-    public void goToPosition(double xPosition, double yPosition,double movementSpeed,double preferredAngle, double allowDistanceError){
-        globalCoordinatePositionUpdate();
-        double xDistanceToPoint = xPosition - worldXPosition;
-        double yDistanceToPoint = yPosition - worldYPosition;
-        double distanceToPoint = Math.hypot(xDistanceToPoint, yDistanceToPoint);
-
-        while(distanceToPoint > allowDistanceError) {
-            globalCoordinatePositionUpdate();
-            xDistanceToPoint = xPosition - worldXPosition;
-            yDistanceToPoint = yPosition - worldYPosition;
-            double relativeAngle = Math.toDegrees(Math.atan2(yDistanceToPoint, xDistanceToPoint));
-            slideDirection(movementSpeed, relativeAngle, 0);
-            distanceToPoint = Math.hypot(xDistanceToPoint, yDistanceToPoint);
-        }
-
-        stopMotors();
-
-        return;
-    }
-
-    //method to get the distance away from point (not used in robot, but can be used in another class if printing value)
-    public double getDistanceToPoint(double xPosition, double yPosition,double movementSpeed,double preferredAngle,double turnSpeed) {
-        globalCoordinatePositionUpdate();
-        double distanceToPoint = Math.hypot(xPosition - worldXPosition, yPosition - worldYPosition);
-        return distanceToPoint;
-    }
-
-    public void stopMotors() {
-        leftFront.setPower(0);
-        leftBack.setPower(0);
-        rightFront.setPower(0);
-        rightBack.setPower(0);
     }
 }
