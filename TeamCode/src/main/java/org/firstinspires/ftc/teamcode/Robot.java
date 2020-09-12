@@ -111,7 +111,7 @@ public class Robot {
         deltaRightDistance = finalRightDistance - initialRightDistance;
         deltaCenterDistance = finalCenterDistance - initialCenterDistance;
         deltaAngle = finalAngle - initialAngle;
-        deltaHorizontal = deltaCenterDistance + (deltaAngle * horizontalEncoderInchesPerDegreeOffset);
+        deltaHorizontal = deltaCenterDistance - (deltaAngle * horizontalEncoderInchesPerDegreeOffset);
 
         worldAngle += deltaAngle;
 
