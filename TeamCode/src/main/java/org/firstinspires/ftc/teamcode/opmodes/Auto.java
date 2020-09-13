@@ -1,7 +1,9 @@
-package org.firstinspires.ftc.teamcode;
+package org.firstinspires.ftc.teamcode.opmodes;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 
+import org.firstinspires.ftc.teamcode.Odometry;
+import org.firstinspires.ftc.teamcode.Robot;
 import org.firstinspires.ftc.teamcode.toolkit.PathPoint;
 import org.firstinspires.ftc.teamcode.toolkit.ULLinearOpMode;
 
@@ -11,10 +13,12 @@ import java.util.ArrayList;
 public class Auto extends ULLinearOpMode {
 
     Robot robot;
+    Odometry odom;
 
     @Override
     public void runOpMode() {
         robot = new Robot();
+        odom = new Odometry(robot);
 
         waitForStart();
 
@@ -26,7 +30,7 @@ public class Auto extends ULLinearOpMode {
 
         // tell the robot to map out the path and follow it
         for(PathPoint pt : allPoints) {
-            robot.goToPosition(pt.x, pt.y, pt.moveSpeed, 0, pt.errorDistance);
+            odom.goToPosition(pt.x, pt.y, pt.moveSpeed, 0, pt.errorDistance);
         }
     }
 }

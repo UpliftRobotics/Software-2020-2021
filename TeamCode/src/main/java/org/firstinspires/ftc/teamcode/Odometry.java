@@ -2,10 +2,19 @@ package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.util.Range;
 
-public class Odometry {
+public class Odometry implements Runnable{
+
+    private boolean isRunning = true;
+    private int sleepTime = 10;
 
     private Robot robot;
 
+    // initialize starting position and orientation
+    public double worldXPosition = 0;
+    public double worldYPosition = 0;
+    public double worldAngle = 0;
+
+    // declare and initialize needed variables to calculate position
     private double initialLeftDistance = 0;
     private double initialRightDistance = 0;
     private double initialCenterDistance = 0;
@@ -20,9 +29,11 @@ public class Odometry {
     private double deltaAngle;
     private double deltaHorizontal;
 
+    // class constructor for Odometry
     public Odometry(Robot robot) {
         this.robot = robot;
     }
+
     // getter method for the left encoder ticks
     public int getLeftTicks() {
         return robot.leftFront.getCurrentPosition();
@@ -39,7 +50,7 @@ public class Odometry {
     }
 
     // method to update the robot's position
-    public void globalCoordinatePositionUpdate(){
+    public void positionUpdate(){
 
         finalLeftDistance = (getLeftTicks() / Robot.COUNTS_PER_INCH);
         finalRightDistance = (getRightTicks() / Robot.COUNTS_PER_INCH);
@@ -52,11 +63,11 @@ public class Odometry {
         deltaAngle = finalAngle - initialAngle;
         deltaHorizontal = deltaCenterDistance + (deltaAngle * Robot.horizontalEncoderInchesPerDegreeOffset);
 
-        robot.worldAngle += deltaAngle;
+        worldAngle += deltaAngle;
 
-        robot.worldXPosition += ((((deltaLeftDistance + deltaRightDistance) / 2.0)) * Math.sin(Math.toRadians(robot.worldAngle))) + (deltaHorizontal * Math.cos(Math.toRadians(robot.worldAngle)));
+        worldXPosition += ((((deltaLeftDistance + deltaRightDistance) / 2.0)) * Math.sin(Math.toRadians(worldAngle))) + (deltaHorizontal * Math.cos(Math.toRadians(worldAngle)));
 
-        robot.worldYPosition += ((((deltaLeftDistance + deltaRightDistance) / 2.0)) * Math.cos(Math.toRadians(robot.worldAngle))) - (deltaHorizontal * Math.sin(Math.toRadians(robot.worldAngle)));
+        worldYPosition += ((((deltaLeftDistance + deltaRightDistance) / 2.0)) * Math.cos(Math.toRadians(worldAngle))) - (deltaHorizontal * Math.sin(Math.toRadians(worldAngle)));
 
         initialLeftDistance = finalLeftDistance;
         initialRightDistance = finalRightDistance;
@@ -67,33 +78,19 @@ public class Odometry {
 
     //method to get the distance away from point (not used in robot, but can be used in another class if printing value)
     public double getDistanceToPoint(double xPosition, double yPosition,double movementSpeed,double preferredAngle,double turnSpeed) {
-        globalCoordinatePositionUpdate();
-        double distanceToPoint = Math.hypot(xPosition - robot.worldXPosition, yPosition - robot.worldYPosition);
-        return distanceToPoint;
-    }
-
-    // method to slide to an area (for TeleOp, turnVal changes and the robot can turn; for Auto, turnVal is always 0 as diagonal sliding is used only)
-    public void slideDirection(double speedVal, double angle, double turnVal) {
-        // NOTE: Set turnVal to 0 if you are not turning at all. (ie. Auto)
-        // set the powers using the 2 specific equations and clip the result
-        robot.leftFront.setPower(Range.clip((Math.sin(Math.toRadians(angle) + (0.25 * Math.PI)) * speedVal + turnVal), -1, 1));
-        robot.rightFront.setPower(Range.clip((Math.sin(Math.toRadians(angle) - (0.25 * Math.PI)) * speedVal - turnVal), -1, 1));
-        robot.leftBack.setPower(Range.clip((Math.sin(Math.toRadians(angle) - (0.25 * Math.PI)) * speedVal + turnVal), -1, 1));
-        robot.rightBack.setPower(Range.clip((Math.sin(Math.toRadians(angle) + (0.25 * Math.PI)) * speedVal - turnVal), -1, 1));
+        return Math.hypot(xPosition - worldXPosition, yPosition - worldYPosition);
     }
 
     public void goToPosition(double xPosition, double yPosition,double movementSpeed,double preferredAngle, double allowDistanceError){
-        globalCoordinatePositionUpdate();
-        double xDistanceToPoint = xPosition - robot.worldXPosition;
-        double yDistanceToPoint = yPosition - robot.worldYPosition;
+        double xDistanceToPoint = xPosition - worldXPosition;
+        double yDistanceToPoint = yPosition - worldYPosition;
         double distanceToPoint = Math.hypot(xDistanceToPoint, yDistanceToPoint);
 
         while(distanceToPoint > allowDistanceError) {
-            globalCoordinatePositionUpdate();
-            xDistanceToPoint = xPosition - robot.worldXPosition;
-            yDistanceToPoint = yPosition - robot.worldYPosition;
+            xDistanceToPoint = xPosition - worldXPosition;
+            yDistanceToPoint = yPosition - worldYPosition;
             double relativeAngle = Math.toDegrees(Math.atan2(yDistanceToPoint, xDistanceToPoint));
-            slideDirection(movementSpeed, relativeAngle, 0);
+            robot.drive(movementSpeed, relativeAngle, 0);
             distanceToPoint = Math.hypot(xDistanceToPoint, yDistanceToPoint);
         }
 
@@ -107,5 +104,25 @@ public class Odometry {
         robot.leftBack.setPower(0);
         robot.rightFront.setPower(0);
         robot.rightBack.setPower(0);
+    }
+
+    // method to "stop" the program by setting the boolean isRunning to false
+    public void stop(){
+        isRunning = false;
+    }
+
+
+    @Override
+    // method that runs in the background
+    public void run() {
+        while(isRunning) {
+            positionUpdate();
+            try {
+                Thread.sleep(sleepTime);
+            } catch (InterruptedException e) {
+                System.out.println("Couldn't sleep...");
+                e.printStackTrace();
+            }
+        }
     }
 }

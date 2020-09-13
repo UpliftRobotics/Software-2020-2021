@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode;
+package org.firstinspires.ftc.teamcode.opmodes;
 
 
 import com.qualcomm.hardware.bosch.BNO055IMU;
@@ -6,6 +6,8 @@ import com.qualcomm.hardware.bosch.JustLoggingAccelerationIntegrator;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
+import org.firstinspires.ftc.teamcode.Odometry;
+import org.firstinspires.ftc.teamcode.Robot;
 import org.firstinspires.ftc.teamcode.toolkit.ULLinearOpMode;
 
 /*
@@ -15,10 +17,10 @@ import org.firstinspires.ftc.teamcode.toolkit.ULLinearOpMode;
 @TeleOp(name = "OdometryCalibration", group = "Odometry")
 public class OdometryCalibration extends ULLinearOpMode {
     Robot robot;
+    Odometry odom;
 
     // declare and init class variables/constants
     final double PIVOT_SPEED = 0.5;
-    final double COUNTS_PER_INCH = 76.595410103; // CHANGE WHEN ROBOT READY
     ElapsedTime timer = new ElapsedTime();
     double horizontalTickOffset = 0;
 
@@ -26,16 +28,10 @@ public class OdometryCalibration extends ULLinearOpMode {
 //    File wheelBaseSeparationFile = AppUtil.getInstance().getSettingsFile("wheelBaseSeparation.txt");
 //    File horizontalTickOffsetFile = AppUtil.getInstance().getSetfhtingsFile("horizontalTickOffset.txt");
 
-
-
-
-
-    // declare and initialize instance of the Robot class (Object-oriented programming)
-
-
     @Override
     public void runOpMode() {
         robot = new Robot();
+        odom = new Odometry(robot);
 
         waitForStart();
 
@@ -68,13 +64,13 @@ public class OdometryCalibration extends ULLinearOpMode {
             double angle = getZAngle();
 
 
-            double encoderDifference = Math.abs(robot.getLeftTicks()) + (Math.abs(robot.getRightTicks()));
+            double encoderDifference = Math.abs(odom.getLeftTicks()) + (Math.abs(odom.getRightTicks()));
 
             double verticalEncoderTickOffsetPerDegree = encoderDifference / angle;
 
-            double wheelBaseSeparation = (2 * 90 * verticalEncoderTickOffsetPerDegree) / (Math.PI * COUNTS_PER_INCH);
+            double wheelBaseSeparation = (2 * 90 * verticalEncoderTickOffsetPerDegree) / (Math.PI * Robot.COUNTS_PER_INCH);
 
-            horizontalTickOffset = robot.getCenterTicks() / Math.toRadians(getZAngle());
+            horizontalTickOffset = odom.getCenterTicks() / Math.toRadians(getZAngle());
 
 
             telemetry.addData("Odometry System Calibration Status", "Calibration Complete");
@@ -84,8 +80,8 @@ public class OdometryCalibration extends ULLinearOpMode {
 
             //Display raw values
             telemetry.addData("IMU Angle", getZAngle());
-            telemetry.addData("Vertical Left Position", robot.getLeftTicks());
-            telemetry.addData("Vertical Right Position", robot.getRightTicks());
+            telemetry.addData("Vertical Left Position", odom.getLeftTicks());
+            telemetry.addData("Vertical Right Position", odom.getRightTicks());
             telemetry.addData("Horizontal Position", robot.leftBack.getCurrentPosition());
             telemetry.addData("Vertical Encoder Offset", verticalEncoderTickOffsetPerDegree);
             telemetry.addData("Wheel distance", wheelBaseSeparation);
@@ -101,8 +97,6 @@ public class OdometryCalibration extends ULLinearOpMode {
 //                telemetry.update();
 //            }
     }
-
-
 
     private double getZAngle(){
         return (-robot.imu.getAngularOrientation().firstAngle);

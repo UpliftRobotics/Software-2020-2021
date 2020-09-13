@@ -14,9 +14,7 @@ public class Robot {
     // Declare HardwareMap and hardware devices
     public HardwareMap hardwareMap;
 
-    // Declare the odometry object
-    public Odometry odom;
-
+    //declare all pieces of hardware on the robot
     public DcMotor leftFront; // links to Left Encoder Motor
     public DcMotor leftBack; // links to Center Encoder Motor
     public DcMotor rightFront; // links to Right Encoder Motor
@@ -24,28 +22,23 @@ public class Robot {
 
     public BNO055IMU imu;
 
-    public double worldXPosition = 0;
-    public double worldYPosition = 0;
-    public double worldAngle = 0;
+    // values specific to the drivetrain
+    public static double oneRotationTicks = 720;
+    public static double wheelRadius = 19/25.4; // in meters (change this later)
+    public static double wheelCircumference = wheelRadius * (2 * Math.PI); // inches
+    public static double COUNTS_PER_INCH = (720 * 4) / wheelCircumference;
+    public static double robotEncoderWheelDistance = 14;   //unknown
+    public static double horizontalEncoderInchesPerDegreeOffset = 0.02386;
 
-    public static final double oneRotationTicks = 720;
-    public static final double wheelRadius = 19/25.4; // in meters (change this later)
-    public static final double wheelCircumference = wheelRadius*2*Math.PI; // inches
-    public static final double COUNTS_PER_INCH = 720*4/wheelCircumference;
-    public static final double robotEncoderWheelDistance = 14;
-    public static final double horizontalEncoderInchesPerDegreeOffset = 0.02386;
-    private int timeOutTime;
-
-    // access files created and written to in the calibration program
+//    // access files created and written to in the calibration program
 //    private File wheelBaseSeparationFile = AppUtil.getInstance().getSettingsFile("wheelBaseSeparation.txt");
 //    private File horizontalTickOffsetFile = AppUtil.getInstance().getSettingsFile("horizontalTickOffset.txt");
 
     public Robot() {
+        //create the hardware map
         hardwareMap = ULLinearOpMode.getInstance().hardwareMap;
-        worldXPosition = 0;
-        worldYPosition = 0;
-        worldAngle = 0;
 
+        //initialize the motors into the hardware map
         leftFront = hardwareMap.get(DcMotor.class,"lf_motor");//Declares two left motors
         leftBack = hardwareMap.get(DcMotor.class,"lb_motor");
         rightFront = hardwareMap.get(DcMotor.class,"rf_motor"); //Declares two right motors
@@ -54,6 +47,7 @@ public class Robot {
         leftFront.setDirection(DcMotorSimple.Direction.REVERSE);
         leftBack.setDirection(DcMotorSimple.Direction.REVERSE);
 
+        //setup imu (gyro)
         imu = hardwareMap.get(BNO055IMU.class, "imu");
         BNO055IMU.Parameters parameters = new BNO055IMU.Parameters();
         parameters.angleUnit = BNO055IMU.AngleUnit.DEGREES;
@@ -75,5 +69,13 @@ public class Robot {
         leftFront.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         leftBack.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
+    }
+
+    // method to move a certain direction at a given speed
+    public void drive(double speedVal, double angle, double turnVal) {
+        leftFront.setPower(Range.clip((Math.sin(Math.toRadians(angle) + (0.25 * Math.PI)) * speedVal + turnVal), -1, 1));
+        rightFront.setPower(Range.clip((Math.sin(Math.toRadians(angle) - (0.25 * Math.PI)) * speedVal - turnVal), -1, 1));
+        leftBack.setPower(Range.clip((Math.sin(Math.toRadians(angle) - (0.25 * Math.PI)) * speedVal + turnVal), -1, 1));
+        rightBack.setPower(Range.clip((Math.sin(Math.toRadians(angle) + (0.25 * Math.PI)) * speedVal - turnVal), -1, 1));
     }
 }
