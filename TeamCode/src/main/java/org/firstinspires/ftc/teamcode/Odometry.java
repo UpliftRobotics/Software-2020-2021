@@ -2,11 +2,12 @@ package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.util.Range;
 
+import org.firstinspires.ftc.teamcode.toolkit.OdometryUpdater;
 import org.firstinspires.ftc.teamcode.toolkit.PathPoint;
 
 import java.util.ArrayList;
 
-public class Odometry implements Runnable{
+public class Odometry {
 
     private boolean isRunning = true;
     private int sleepTime = 10;
@@ -36,6 +37,7 @@ public class Odometry implements Runnable{
     // class constructor for Odometry
     public Odometry(Robot robot) {
         this.robot = robot;
+        new OdometryUpdater(robot, this);
     }
 
     // getter method for the left encoder ticks
@@ -122,18 +124,4 @@ public class Odometry implements Runnable{
         isRunning = false;
     }
 
-
-    @Override
-    // method that runs in the background
-    public void run() {
-        while(isRunning) {
-            positionUpdate();
-            try {
-                Thread.sleep(sleepTime);
-            } catch (InterruptedException e) {
-                System.out.println("Couldn't sleep...");
-                e.printStackTrace();
-            }
-        }
-    }
 }

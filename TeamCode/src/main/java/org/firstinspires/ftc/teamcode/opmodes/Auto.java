@@ -25,7 +25,12 @@ public class Auto extends ULLinearOpMode {
         // declare and initialize an empty list of CurvePoints
         ArrayList<PathPoint> allPoints = new ArrayList<>();
 
+        allPoints.add(new PathPoint(-24, 32, 0.5, 3));
+
+
         // add each CurvePoint to the ArrayList
-        odom.followPath(allPoints);
+        for(PathPoint pt : allPoints) {
+            odom.goToPosition(pt.x, pt.y, pt.moveSpeed, 0, pt.errorDistance);
+        }
     }
 }
