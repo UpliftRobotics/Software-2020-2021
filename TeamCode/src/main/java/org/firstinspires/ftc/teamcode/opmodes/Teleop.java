@@ -28,9 +28,10 @@ public class Teleop extends ULLinearOpMode {
         waitForStart();
         robot = new Robot();
         odom = new Odometry(robot);
-        odom.run();
 
         while(opModeIsActive()) {
+
+            
 
             // initialize the gamepad stick values to the three needed axes
             leftY = Range.clip(-gamepad1.left_stick_y, -1, 1);

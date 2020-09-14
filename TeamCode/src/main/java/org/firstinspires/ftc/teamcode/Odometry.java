@@ -9,9 +9,6 @@ import java.util.ArrayList;
 
 public class Odometry {
 
-    private boolean isRunning = true;
-    private int sleepTime = 10;
-
     private Robot robot;
 
     // initialize starting position and orientation
@@ -117,11 +114,6 @@ public class Odometry {
         robot.leftBack.setPower(0);
         robot.rightFront.setPower(0);
         robot.rightBack.setPower(0);
-    }
-
-    // method to "stop" the program by setting the boolean isRunning to false
-    public void stop(){
-        isRunning = false;
     }
 
 }
