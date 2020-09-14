@@ -2,6 +2,10 @@ package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.util.Range;
 
+import org.firstinspires.ftc.teamcode.toolkit.PathPoint;
+
+import java.util.ArrayList;
+
 public class Odometry implements Runnable{
 
     private boolean isRunning = true;
@@ -97,6 +101,13 @@ public class Odometry implements Runnable{
         stopMotors();
 
         return;
+    }
+
+    public void followPath(ArrayList<PathPoint> path) {
+        // tell the robot to map out the path and follow it
+        for(PathPoint pt : path) {
+            goToPosition(pt.x, pt.y, pt.moveSpeed, 0, pt.errorDistance);
+        }
     }
 
     public void stopMotors() {

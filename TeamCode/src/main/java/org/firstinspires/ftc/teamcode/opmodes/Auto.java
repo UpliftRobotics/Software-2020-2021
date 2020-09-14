@@ -26,11 +26,6 @@ public class Auto extends ULLinearOpMode {
         ArrayList<PathPoint> allPoints = new ArrayList<>();
 
         // add each CurvePoint to the ArrayList
-        allPoints.add(new PathPoint(0, 24, 0.5, 5));
-
-        // tell the robot to map out the path and follow it
-        for(PathPoint pt : allPoints) {
-            odom.goToPosition(pt.x, pt.y, pt.moveSpeed, 0, pt.errorDistance);
-        }
+        odom.followPath(allPoints);
     }
 }
