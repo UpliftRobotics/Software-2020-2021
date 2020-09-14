@@ -34,7 +34,7 @@ public class Odometry {
     // class constructor for Odometry
     public Odometry(Robot robot) {
         this.robot = robot;
-        new OdometryUpdater(robot, this);
+        positionUpdate();
     }
 
     // getter method for the left encoder ticks
@@ -85,11 +85,13 @@ public class Odometry {
     }
 
     public void goToPosition(double xPosition, double yPosition,double movementSpeed,double preferredAngle, double allowDistanceError){
+        positionUpdate();
         double xDistanceToPoint = xPosition - worldXPosition;
         double yDistanceToPoint = yPosition - worldYPosition;
         double distanceToPoint = Math.hypot(xDistanceToPoint, yDistanceToPoint);
 
         while(distanceToPoint > allowDistanceError) {
+            positionUpdate();
             xDistanceToPoint = xPosition - worldXPosition;
             yDistanceToPoint = yPosition - worldYPosition;
             double relativeAngle = Math.toDegrees(Math.atan2(yDistanceToPoint, xDistanceToPoint));

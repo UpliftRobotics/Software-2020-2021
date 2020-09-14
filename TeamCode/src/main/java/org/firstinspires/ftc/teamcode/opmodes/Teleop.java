@@ -7,6 +7,7 @@ import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.Odometry;
 import org.firstinspires.ftc.teamcode.Robot;
 import org.firstinspires.ftc.teamcode.toolkit.MathFunctions;
+import org.firstinspires.ftc.teamcode.toolkit.OdometryUpdater;
 import org.firstinspires.ftc.teamcode.toolkit.TelemetryOutput;
 import org.firstinspires.ftc.teamcode.toolkit.ULLinearOpMode;
 
@@ -31,7 +32,7 @@ public class Teleop extends ULLinearOpMode {
 
         while(opModeIsActive()) {
 
-            
+            odom.positionUpdate();
 
             // initialize the gamepad stick values to the three needed axes
             leftY = Range.clip(-gamepad1.left_stick_y, -1, 1);

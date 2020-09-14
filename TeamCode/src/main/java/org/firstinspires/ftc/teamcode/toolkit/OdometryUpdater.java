@@ -15,12 +15,14 @@ public class OdometryUpdater implements Runnable{
 
     @Override
     public void run() {
-        odom.positionUpdate();
-        try {
-            Thread.sleep(100);
-        } catch (InterruptedException e) {
-            System.out.println("Couldn't sleep...");
-            e.printStackTrace();
+        while(true) {
+            odom.positionUpdate();
+            try {
+                Thread.sleep(100);
+            } catch (InterruptedException e) {
+                System.out.println("Couldn't sleep...");
+                e.printStackTrace();
+            }
         }
     }
 }
