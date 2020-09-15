@@ -89,14 +89,12 @@ public class Odometry {
         double relativeAngle = Math.toDegrees(Math.atan2(yDistanceToPoint, xDistanceToPoint));
 
         while (distanceToPoint > allowDistanceError) {
-            positionUpdate();
-
-
             if(distanceToPoint <= (5 + allowDistanceError)){
                 robot.drive(movementSpeed/2,relativeAngle,0);
             } else {
                 robot.drive(movementSpeed, relativeAngle, 0);
             }
+            positionUpdate();
             xDistanceToPoint = xPosition - worldXPosition;
             yDistanceToPoint = yPosition - worldYPosition;
             distanceToPoint = Math.hypot(xDistanceToPoint, yDistanceToPoint);
@@ -123,11 +121,11 @@ public class Odometry {
     }
 
 
-    private class PositionUpdateThread {
-        @Override
-        public void run() {
-
-        }
-    }
+//    private class PositionUpdateThread {
+//        @Override
+//        public void run() {
+//
+//        }
+//    }
 
 }
