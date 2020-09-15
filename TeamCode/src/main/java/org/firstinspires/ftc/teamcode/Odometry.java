@@ -94,6 +94,9 @@ public class Odometry {
             yDistanceToPoint = yPosition - worldYPosition;
             robot.drive(movementSpeed, relativeAngle, 0);
             distanceToPoint = Math.hypot(xDistanceToPoint, yDistanceToPoint);
+            if(distanceToPoint == (5+allowDistanceError)){
+                robot.drive(movementSpeed/2,relativeAngle,0);
+            }
         }
 
         stopMotors();
