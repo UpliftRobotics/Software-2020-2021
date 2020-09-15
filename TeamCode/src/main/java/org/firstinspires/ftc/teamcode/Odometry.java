@@ -1,5 +1,8 @@
 package org.firstinspires.ftc.teamcode;
 
+import android.app.ActivityManager;
+
+import org.firstinspires.ftc.teamcode.toolkit.MathFunctions;
 import org.firstinspires.ftc.teamcode.toolkit.PathPoint;
 
 import java.util.ArrayList;
@@ -81,7 +84,7 @@ public class Odometry {
         return Math.hypot(xPosition - worldXPosition, yPosition - worldYPosition);
     }
 
-    public void goToPosition(double xPosition, double yPosition, double movementSpeed, double preferredAngle, double allowDistanceError) {
+    public void goToPosition(double xPosition, double yPosition, double movementSpeed, double preferredAngle, double approachZone, double allowDistanceError) {
         positionUpdate();
         double xDistanceToPoint = xPosition - worldXPosition;
         double yDistanceToPoint = yPosition - worldYPosition;
@@ -89,8 +92,10 @@ public class Odometry {
         double relativeAngle = Math.toDegrees(Math.atan2(yDistanceToPoint, xDistanceToPoint));
 
         while (distanceToPoint > allowDistanceError) {
-            if(distanceToPoint <= (5 + allowDistanceError)){
-                robot.drive(movementSpeed/2,relativeAngle,0);
+            //if it enters the approach zone
+            if (distanceToPoint <= (approachZone + allowDistanceError)) {
+                robot.drive(MathFunctions.slowApproach(movementSpeed, distanceToPoint, approachZone + allowDistanceError), relativeAngle, 0);
+                //if it is not in the approach zone
             } else {
                 robot.drive(movementSpeed, relativeAngle, 0);
             }
@@ -101,6 +106,7 @@ public class Odometry {
             relativeAngle = Math.toDegrees(Math.atan2(yDistanceToPoint, xDistanceToPoint));
         }
 
+        positionUpdate();
         stopMotors();
 
         return;
@@ -109,7 +115,7 @@ public class Odometry {
     public void followPath(ArrayList<PathPoint> path) {
         // tell the robot to map out the path and follow it
         for (PathPoint pt : path) {
-            goToPosition(pt.x, pt.y, pt.moveSpeed, 0, pt.errorDistance);
+            goToPosition(pt.x, pt.y, pt.moveSpeed, 0, 10, pt.errorDistance);
         }
     }
 
@@ -120,12 +126,18 @@ public class Odometry {
         robot.rightBack.setPower(0);
     }
 
+    private class PositionUpdateThread implements Runnable {
 
-//    private class PositionUpdateThread {
-//        @Override
-//        public void run() {
-//
-//        }
-//    }
+        @Override
+        public void run() {
+            try {
+                positionUpdate();
+                Thread.sleep(10);
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
+        }
+
+    }
 
 }

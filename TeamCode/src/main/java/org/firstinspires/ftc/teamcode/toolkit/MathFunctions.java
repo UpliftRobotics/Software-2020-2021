@@ -4,6 +4,12 @@ import java.util.ArrayList;
 
 public class MathFunctions {
 
+    public static double slowApproach(double moveSpeed, double distToTarget, double approachZoneRadius) {
+        double val = distToTarget / (approachZoneRadius);
+        moveSpeed = (2 * (1 - (1 / (1 + val)))) * moveSpeed;
+        return moveSpeed;
+    }
+
     public static double truncate(double val) {
         return (((int)(val * 1000)) / 1000.0);
     }
