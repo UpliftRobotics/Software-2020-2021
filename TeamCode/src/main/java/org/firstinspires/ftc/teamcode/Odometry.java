@@ -50,7 +50,7 @@ public class Odometry {
     }
 
     // method to update the robot's position
-    public void positionUpdate(){
+    public void positionUpdate() {
 
         finalLeftDistance = (getLeftTicks() / Robot.COUNTS_PER_INCH);
         finalRightDistance = (getRightTicks() / Robot.COUNTS_PER_INCH);
@@ -77,21 +77,21 @@ public class Odometry {
     }
 
     //method to get the distance away from point (not used in robot, but can be used in another class if printing value)
-    public double getDistanceToPoint(double xPosition, double yPosition,double movementSpeed,double preferredAngle,double turnSpeed) {
+    public double getDistanceToPoint(double xPosition, double yPosition, double movementSpeed, double preferredAngle, double turnSpeed) {
         return Math.hypot(xPosition - worldXPosition, yPosition - worldYPosition);
     }
 
-    public void goToPosition(double xPosition, double yPosition,double movementSpeed,double preferredAngle, double allowDistanceError){
+    public void goToPosition(double xPosition, double yPosition, double movementSpeed, double preferredAngle, double allowDistanceError) {
         positionUpdate();
         double xDistanceToPoint = xPosition - worldXPosition;
         double yDistanceToPoint = yPosition - worldYPosition;
         double distanceToPoint = Math.hypot(xDistanceToPoint, yDistanceToPoint);
+        double relativeAngle = Math.toDegrees(Math.atan2(yDistanceToPoint, xDistanceToPoint));
 
-        while(distanceToPoint > allowDistanceError) {
+        while (distanceToPoint > allowDistanceError) {
             positionUpdate();
             xDistanceToPoint = xPosition - worldXPosition;
             yDistanceToPoint = yPosition - worldYPosition;
-            double relativeAngle = Math.toDegrees(Math.atan2(yDistanceToPoint, xDistanceToPoint));
             robot.drive(movementSpeed, relativeAngle, 0);
             distanceToPoint = Math.hypot(xDistanceToPoint, yDistanceToPoint);
         }
@@ -103,7 +103,7 @@ public class Odometry {
 
     public void followPath(ArrayList<PathPoint> path) {
         // tell the robot to map out the path and follow it
-        for(PathPoint pt : path) {
+        for (PathPoint pt : path) {
             goToPosition(pt.x, pt.y, pt.moveSpeed, 0, pt.errorDistance);
         }
     }
@@ -113,6 +113,14 @@ public class Odometry {
         robot.leftBack.setPower(0);
         robot.rightFront.setPower(0);
         robot.rightBack.setPower(0);
+    }
+
+
+    private class PositionUpdateThread {
+        @Override
+        public void run() {
+
+        }
     }
 
 }
