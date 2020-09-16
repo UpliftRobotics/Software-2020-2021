@@ -1,9 +1,9 @@
 package org.firstinspires.ftc.teamcode;
 
-import android.app.ActivityManager;
 
 import org.firstinspires.ftc.teamcode.toolkit.MathFunctions;
 import org.firstinspires.ftc.teamcode.toolkit.PathPoint;
+import org.firstinspires.ftc.teamcode.toolkit.Point;
 
 import java.util.ArrayList;
 
@@ -52,6 +52,12 @@ public class Odometry {
         return robot.leftBack.getCurrentPosition();
     }
 
+    public void setStartPosition(Point pt, double angle) {
+        worldXPosition = pt.x;
+        worldYPosition = pt.y;
+        worldAngle = angle; // in degrees
+    }
+
     // method to update the robot's position
     public void positionUpdate() {
 
@@ -84,21 +90,23 @@ public class Odometry {
         return Math.hypot(xPosition - worldXPosition, yPosition - worldYPosition);
     }
 
-    public void goToPosition(double xPosition, double yPosition, double movementSpeed, double preferredAngle, double approachZone, double allowDistanceError) {
+    public void goToPosition(double xPosition, double yPosition, double movementSpeed, double preferredAngle, double allowedDistError, double allowedAngleError) {
         positionUpdate();
         double xDistanceToPoint = xPosition - worldXPosition;
         double yDistanceToPoint = yPosition - worldYPosition;
         double distanceToPoint = Math.hypot(xDistanceToPoint, yDistanceToPoint);
         double relativeAngle = Math.toDegrees(Math.atan2(yDistanceToPoint, xDistanceToPoint));
+        double approachZone = allowedDistError * 5;
 
-        while (distanceToPoint > allowDistanceError) {
+        while (distanceToPoint > allowedDistError) {
             //if it enters the approach zone
-            if (distanceToPoint <= (approachZone + allowDistanceError)) {
-                robot.drive(MathFunctions.slowApproach(movementSpeed, distanceToPoint, approachZone + allowDistanceError), relativeAngle, 0);
+            if (distanceToPoint <= (approachZone + allowedDistError)) {
+                robot.drive(MathFunctions.slowApproach(movementSpeed, distanceToPoint, approachZone + allowedDistError), relativeAngle, 0);
                 //if it is not in the approach zone
             } else {
                 robot.drive(movementSpeed, relativeAngle, 0);
             }
+
             positionUpdate();
             xDistanceToPoint = xPosition - worldXPosition;
             yDistanceToPoint = yPosition - worldYPosition;
@@ -107,7 +115,24 @@ public class Odometry {
         }
 
         positionUpdate();
+
         stopMotors();
+
+        if(worldAngle > MathFunctions.AngleRestrictions(preferredAngle + allowedAngleError)) {
+            while(worldAngle > MathFunctions.AngleRestrictions(preferredAngle + (allowedAngleError / 4))) {
+                robot.spin(-0.2);
+                positionUpdate();
+            }
+            stopMotors();
+        } else if(worldAngle < MathFunctions.AngleRestrictions(preferredAngle - allowedAngleError)) {
+            while(worldAngle < MathFunctions.AngleRestrictions(preferredAngle - (allowedAngleError / 4))) {
+                robot.spin(0.2);
+                positionUpdate();
+            }
+            stopMotors();
+        }
+
+        positionUpdate();
 
         return;
     }
@@ -115,7 +140,7 @@ public class Odometry {
     public void followPath(ArrayList<PathPoint> path) {
         // tell the robot to map out the path and follow it
         for (PathPoint pt : path) {
-            goToPosition(pt.x, pt.y, pt.moveSpeed, 0, 10, pt.errorDistance);
+            goToPosition(pt.x, pt.y, pt.moveSpeed, 0, pt.errorDistance, pt.errorAngle);
         }
     }
 

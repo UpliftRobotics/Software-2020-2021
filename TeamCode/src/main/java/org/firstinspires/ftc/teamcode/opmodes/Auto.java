@@ -5,6 +5,7 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import org.firstinspires.ftc.teamcode.Odometry;
 import org.firstinspires.ftc.teamcode.Robot;
 import org.firstinspires.ftc.teamcode.toolkit.PathPoint;
+import org.firstinspires.ftc.teamcode.toolkit.Point;
 import org.firstinspires.ftc.teamcode.toolkit.ULLinearOpMode;
 
 import java.util.ArrayList;
@@ -19,13 +20,14 @@ public class Auto extends ULLinearOpMode {
     public void runOpMode() {
         robot = new Robot();
         odom = new Odometry(robot);
+        odom.setStartPosition(new Point(0, 0), 0);
 
         waitForStart();
 
         // declare and initialize an empty list of CurvePoints
         ArrayList<PathPoint> allPoints = new ArrayList<>();
 
-        allPoints.add(new PathPoint(-24, 32, 0.5, 3));
+        allPoints.add(new PathPoint(-24, 32, 0.5, 3, 10));
 
         //follow the path
         odom.followPath(allPoints);

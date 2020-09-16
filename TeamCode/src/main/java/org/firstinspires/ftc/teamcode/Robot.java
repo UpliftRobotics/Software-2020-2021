@@ -78,4 +78,13 @@ public class Robot {
         leftBack.setPower(Range.clip((Math.sin(Math.toRadians(angle) - (0.25 * Math.PI)) * speedVal + turnVal), -1, 1));
         rightBack.setPower(Range.clip((Math.sin(Math.toRadians(angle) + (0.25 * Math.PI)) * speedVal - turnVal), -1, 1));
     }
+
+    // method to spin at a certain speed (clockwise if positive, counter-clockwise if negative)
+    public void spin(double turnVal) {
+        leftFront.setPower(turnVal);
+        rightFront.setPower(-turnVal);
+        leftBack.setPower(turnVal);
+        rightBack.setPower(-turnVal);
+    }
+
 }
