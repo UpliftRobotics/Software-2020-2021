@@ -55,9 +55,9 @@ public class Odometry {
     }
 
     public void setStartPosition(Point pt, double angle) {
-        worldXPosition = pt.x;
-        worldYPosition = pt.y;
-        worldAngle = angle; // in degrees
+        worldXPosition += pt.x;
+        worldYPosition += pt.y;
+        worldAngle += angle; // in degrees
     }
 
     // method to update the robot's position
