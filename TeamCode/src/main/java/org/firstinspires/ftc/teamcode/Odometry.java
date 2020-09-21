@@ -10,6 +10,7 @@ import java.util.ArrayList;
 public class Odometry {
 
     private Robot robot;
+    private PositionUpdateThread posRun;
 
     // initialize starting position and orientation
     public double worldXPosition = 0;
@@ -34,7 +35,8 @@ public class Odometry {
     // class constructor for Odometry
     public Odometry(Robot robot) {
         this.robot = robot;
-        positionUpdate();
+//        positionUpdate();
+        posRun.run();
     }
 
     // getter method for the left encoder ticks
@@ -91,7 +93,7 @@ public class Odometry {
     }
 
     public void goToPosition(double xPosition, double yPosition, double movementSpeed, double preferredAngle, double allowedDistError, double allowedAngleError) {
-        positionUpdate();
+//        positionUpdate();
         double xDistanceToPoint = xPosition - worldXPosition;
         double yDistanceToPoint = yPosition - worldYPosition;
         double distanceToPoint = Math.hypot(xDistanceToPoint, yDistanceToPoint);
@@ -114,7 +116,7 @@ public class Odometry {
             relativeAngle = Math.toDegrees(Math.atan2(yDistanceToPoint, xDistanceToPoint));
         }
 
-        positionUpdate();
+//        positionUpdate();
 
         stopMotors();
 
@@ -132,7 +134,7 @@ public class Odometry {
             stopMotors();
         }
 
-        positionUpdate();
+//        positionUpdate();
 
         return;
     }
@@ -155,8 +157,8 @@ public class Odometry {
 
         @Override
         public void run() {
+            positionUpdate();
             try {
-                positionUpdate();
                 Thread.sleep(10);
             } catch (Exception ex) {
                 ex.printStackTrace();
