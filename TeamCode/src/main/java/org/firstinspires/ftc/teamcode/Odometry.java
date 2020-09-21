@@ -100,30 +100,30 @@ public class Odometry {
         double relativeAngle = Math.toDegrees(Math.atan2(yDistanceToPoint, xDistanceToPoint));
         double approachZone = allowedDistError * 5;
 
-        while(distanceToPoint > allowedDistError) {
-            robot.drive(movementSpeed, relativeAngle, 0);
-            positionUpdate();
-            xDistanceToPoint = xPosition - worldXPosition;
-            yDistanceToPoint = yPosition - worldYPosition;
-            distanceToPoint = Math.hypot(xDistanceToPoint, yDistanceToPoint);
-            relativeAngle = Math.toDegrees(Math.atan2(yDistanceToPoint, xDistanceToPoint));
-        }
-
-//        while (distanceToPoint > allowedDistError) {
-//            //if it enters the approach zone
-//            if (distanceToPoint <= (approachZone + allowedDistError)) {
-//                robot.drive(MathFunctions.slowApproach(movementSpeed, distanceToPoint, approachZone + allowedDistError), relativeAngle, 0);
-//                //if it is not in the approach zone
-//            } else {
-//                robot.drive(movementSpeed, relativeAngle, 0);
-//            }
-//
+//        while(distanceToPoint > allowedDistError) {
+//            robot.drive(movementSpeed, relativeAngle, 0);
 //            positionUpdate();
 //            xDistanceToPoint = xPosition - worldXPosition;
 //            yDistanceToPoint = yPosition - worldYPosition;
 //            distanceToPoint = Math.hypot(xDistanceToPoint, yDistanceToPoint);
 //            relativeAngle = Math.toDegrees(Math.atan2(yDistanceToPoint, xDistanceToPoint));
 //        }
+
+        while (distanceToPoint > allowedDistError) {
+            //if it enters the approach zone
+            if (distanceToPoint <= (approachZone + allowedDistError)) {
+                robot.drive(MathFunctions.slowApproach(movementSpeed, distanceToPoint, approachZone + allowedDistError), relativeAngle, 0);
+                //if it is not in the approach zone
+            } else {
+                robot.drive(movementSpeed, relativeAngle, 0);
+            }
+
+            positionUpdate();
+            xDistanceToPoint = xPosition - worldXPosition;
+            yDistanceToPoint = yPosition - worldYPosition;
+            distanceToPoint = Math.hypot(xDistanceToPoint, yDistanceToPoint);
+            relativeAngle = Math.toDegrees(Math.atan2(yDistanceToPoint, xDistanceToPoint));
+        }
 
         positionUpdate();
 
