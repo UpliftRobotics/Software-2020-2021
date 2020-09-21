@@ -120,19 +120,19 @@ public class Odometry {
 
         stopMotors();
 
-        if(worldAngle > MathFunctions.AngleRestrictions(preferredAngle + allowedAngleError)) {
-            while(worldAngle > MathFunctions.AngleRestrictions(preferredAngle + (allowedAngleError / 4))) {
-                robot.spin(-0.2);
-                positionUpdate();
-            }
-            stopMotors();
-        } else if(worldAngle < MathFunctions.AngleRestrictions(preferredAngle - allowedAngleError)) {
-            while(worldAngle < MathFunctions.AngleRestrictions(preferredAngle - (allowedAngleError / 4))) {
-                robot.spin(0.2);
-                positionUpdate();
-            }
-            stopMotors();
-        }
+//        if(worldAngle > MathFunctions.AngleRestrictions(preferredAngle + allowedAngleError)) {
+//            while(worldAngle > MathFunctions.AngleRestrictions(preferredAngle + (allowedAngleError / 4))) {
+//                robot.spin(-0.2);
+//                positionUpdate();
+//            }
+//            stopMotors();
+//        } else if(worldAngle < MathFunctions.AngleRestrictions(preferredAngle - allowedAngleError)) {
+//            while(worldAngle < MathFunctions.AngleRestrictions(preferredAngle - (allowedAngleError / 4))) {
+//                robot.spin(0.2);
+//                positionUpdate();
+//            }
+//            stopMotors();
+//        }
 
         positionUpdate();
 
