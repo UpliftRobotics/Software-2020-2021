@@ -27,7 +27,7 @@ public class Auto extends ULLinearOpMode {
         ArrayList<PathPoint> allPoints = new ArrayList<>();
 
         allPoints.add(new PathPoint(0, 72, 0.7, 3, 5));
-        allPoints.add(new PathPoint(-48, 72, 0.7, 3, 5));
+        allPoints.add(new PathPoint(-36, 72, 0.7, 3, 5));
 
         //follow the path
         odom.followPath(allPoints);
