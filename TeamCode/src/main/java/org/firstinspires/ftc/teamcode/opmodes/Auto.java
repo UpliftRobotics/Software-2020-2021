@@ -20,7 +20,6 @@ public class Auto extends ULLinearOpMode {
     public void runOpMode() {
         robot = new Robot();
         odom = new Odometry(robot);
-        odom.setStartPosition(new Point(0, 0), 0);
 
         waitForStart();
 
