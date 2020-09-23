@@ -111,8 +111,8 @@ public class Odometry {
 
         while (distanceToPoint > allowedDistError) {
             //if it enters the approach zone
-            if (distanceToPoint <= (approachZone + allowedDistError)) {
-                robot.drive(MathFunctions.slowApproach(movementSpeed, distanceToPoint, approachZone + allowedDistError), relativeAngle, 0);
+            if (distanceToPoint <= approachZone) {
+                robot.drive(MathFunctions.slowApproach(movementSpeed, distanceToPoint, approachZone), relativeAngle, 0);
                 //if it is not in the approach zone
             } else {
                 robot.drive(movementSpeed, relativeAngle, 0);
