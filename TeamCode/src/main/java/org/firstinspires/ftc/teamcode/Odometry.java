@@ -1,6 +1,8 @@
 package org.firstinspires.ftc.teamcode;
 
 
+import android.util.Log;
+
 import org.firstinspires.ftc.teamcode.toolkit.MathFunctions;
 import org.firstinspires.ftc.teamcode.toolkit.PathPoint;
 import org.firstinspires.ftc.teamcode.toolkit.Point;
@@ -40,7 +42,8 @@ public class Odometry {
     public Odometry(Robot robot) {
         this.robot = robot;
         positionUpdate();
-//        posRun.run();
+        posRun = new PositionUpdateThread();
+        posRun.run();
     }
 
     // getter method for the left encoder ticks
@@ -163,9 +166,11 @@ public class Odometry {
 
         @Override
         public void run() {
-            positionUpdate();
+//            positionUpdate();
+            Log.i("Thread", "THREAD WORKING");
             try {
-                Thread.sleep(10);
+                Thread.sleep(2000);
+                Log.i("Thread", "THREAD SLEEPING... SHHHHHHH");
             } catch (Exception ex) {
                 ex.printStackTrace();
             }
