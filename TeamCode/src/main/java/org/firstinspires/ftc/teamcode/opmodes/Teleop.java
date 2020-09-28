@@ -11,10 +11,11 @@ import org.firstinspires.ftc.teamcode.toolkit.ULLinearOpMode;
 @TeleOp(name = "TeleOp", group = "OpModes")
 public class Teleop extends ULLinearOpMode {
 
-    // Declare robot and variables.
+    // declare robot and variables.
     Robot robot;
     Odometry odom;
 
+    // declare joystick values
     double rightX;
     double leftY;
     double leftX;
@@ -23,9 +24,10 @@ public class Teleop extends ULLinearOpMode {
     @Override
     public void runOpMode() {
 
-        waitForStart();
         robot = new Robot();
         odom = new Odometry(robot);
+
+        waitForStart();
 
         while(opModeIsActive()) {
 
@@ -41,10 +43,10 @@ public class Teleop extends ULLinearOpMode {
             // find the angle of the left joystick
             double joystickAngle = Math.toDegrees(Math.atan2(leftY, leftX));
 
-            // find the magnitude, or hypotenuse of the left joystick and scale it down by dividing by the max it could be
+            // find the magnitude, or hypotenuse of the left joystick and scale it down by dividing by the max
             double magnitude = Math.sqrt(Math.pow(leftX, 2) + Math.pow(leftY, 2));
 
-            // find the turnValue directly from the rightX input value (halved for smoothness)
+            // find the turnValue directly from the rightX input value (scaled for smoothness)
             double turnValue = 0.75 * rightX;
 
             // set the powers using the 2 specific equations and clip the result

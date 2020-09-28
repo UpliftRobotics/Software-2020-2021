@@ -21,6 +21,7 @@ public class PathPoint {
         y = thisPoint.y;
         moveSpeed = thisPoint.moveSpeed;
         errorDistance = thisPoint.errorDistance;
+        errorAngle = thisPoint.errorAngle;
     }
 
     public Point toPoint() {

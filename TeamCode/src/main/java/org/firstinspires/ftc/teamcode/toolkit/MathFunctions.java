@@ -4,6 +4,8 @@ import java.util.ArrayList;
 
 public class MathFunctions {
 
+    // https://www.desmos.com/calculator/s4qbf5gnoy
+
     public static double slowApproach(double moveSpeed, double distToTarget, double approachZoneRadius) {
         double val = distToTarget / (approachZoneRadius);
         moveSpeed = (2 * (1 - (1 / (1 + val)))) * moveSpeed;
