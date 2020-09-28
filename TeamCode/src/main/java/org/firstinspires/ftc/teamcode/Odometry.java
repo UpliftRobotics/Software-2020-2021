@@ -87,11 +87,7 @@ public class Odometry {
 
     }
 
-    //method to get the distance away from point (not used in robot, but can be used in another class if printing value)
-    public double getDistanceToPoint(double xPosition, double yPosition, double movementSpeed, double preferredAngle, double turnSpeed) {
-        return Math.hypot(xPosition - worldXPosition, yPosition - worldYPosition);
-    }
-
+    // method to go to a given point
     public void goToPosition(double xPosition, double yPosition, double movementSpeed, double preferredAngle, double allowedDistError, double allowedAngleError) {
         positionUpdate();
         double xDistanceToPoint = xPosition - worldXPosition;
@@ -99,15 +95,6 @@ public class Odometry {
         double distanceToPoint = Math.hypot(xDistanceToPoint, yDistanceToPoint);
         double relativeAngle = Math.toDegrees(Math.atan2(yDistanceToPoint, xDistanceToPoint));
         double approachZone = allowedDistError * 5;
-
-//        while(distanceToPoint > allowedDistError) {
-//            robot.drive(movementSpeed, relativeAngle, 0);
-//            positionUpdate();
-//            xDistanceToPoint = xPosition - worldXPosition;
-//            yDistanceToPoint = yPosition - worldYPosition;
-//            distanceToPoint = Math.hypot(xDistanceToPoint, yDistanceToPoint);
-//            relativeAngle = Math.toDegrees(Math.atan2(yDistanceToPoint, xDistanceToPoint));
-//        }
 
         while (distanceToPoint > allowedDistError) {
             //if it enters the approach zone
