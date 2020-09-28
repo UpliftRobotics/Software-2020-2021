@@ -26,7 +26,7 @@ public class Auto extends ULLinearOpMode {
         // declare and initialize an empty list of CurvePoints
         ArrayList<PathPoint> allPoints = new ArrayList<>();
 
-        allPoints.add(new PathPoint(0, 72, 0.7, 3, 5));
+        allPoints.add(new PathPoint(0, 72, 1.0, 6, 5));
 
         //follow the path
         odom.followPath(allPoints);
