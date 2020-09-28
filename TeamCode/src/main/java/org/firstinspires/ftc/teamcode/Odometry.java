@@ -35,7 +35,6 @@ public class Odometry {
     private double deltaHorizontal;
     private double changeInRobotOrientation;
     private double robotOrientationRadians;
-    private double robotEncoderWheelDistance  = 15.286;
 
 
     // class constructor for Odometry
@@ -73,21 +72,15 @@ public class Odometry {
         finalLeftDistance = (getLeftTicks() / Robot.COUNTS_PER_INCH);
         finalRightDistance = (getRightTicks() / Robot.COUNTS_PER_INCH);
         finalCenterDistance = (getCenterTicks() / Robot.COUNTS_PER_INCH);
-//        finalAngle = robot.imu.getAngularOrientation().firstAngle;
-
-
 
         deltaLeftDistance = finalLeftDistance - initialLeftDistance;
         deltaRightDistance = finalRightDistance - initialRightDistance;
         deltaCenterDistance = finalCenterDistance - initialCenterDistance;
-//        deltaAngle = finalAngle - initialAngle;
 
-        changeInRobotOrientation = (deltaLeftDistance - deltaRightDistance) / (robotEncoderWheelDistance);
-        worldAngle = ((worldAngle + changeInRobotOrientation));
+        changeInRobotOrientation = (deltaLeftDistance - deltaRightDistance) / (Robot.robotEncoderWheelDistance);
+        worldAngle = (worldAngle + changeInRobotOrientation);
+
         deltaHorizontal = deltaCenterDistance + (changeInRobotOrientation * Robot.horizontalEncoderInchesPerDegreeOffset);
-
-
-//        worldAngle += deltaAngle;
 
         worldXPosition += ((((deltaLeftDistance + deltaRightDistance) / 2.0)) * Math.sin(Math.toRadians(worldAngle))) + (deltaHorizontal * Math.cos(Math.toRadians(worldAngle)));
 
