@@ -12,14 +12,14 @@ public class TelemetryOutput {
         telemetry.addData("Center Encoder pos:\t", odom.getCenterTicks() / Robot.COUNTS_PER_INCH);
         telemetry.addData("WorldX:\t", MathFunctions.truncate(odom.worldXPosition));
         telemetry.addData("WorldY:\t", MathFunctions.truncate(odom.worldYPosition));
-        telemetry.addData("WorldOrientationAngle\t", Math.toDegrees(odom.worldAngle));
+        telemetry.addData("WorldOrientationAngle\t", odom.worldAngle);
         telemetry.update();
     }
 
     public static void printWorldData(Telemetry telemetry, Odometry odom) {
         telemetry.addData("WorldX:\t", MathFunctions.truncate(odom.worldXPosition));
         telemetry.addData("WorldY:\t", MathFunctions.truncate(odom.worldYPosition));
-        telemetry.addData("WorldOrientationAngle\t", Math.toDegrees(odom.worldAngle));
+        telemetry.addData("WorldOrientationAngle\t", odom.worldAngle);
         telemetry.update();
     }
 

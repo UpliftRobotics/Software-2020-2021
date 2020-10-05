@@ -76,11 +76,10 @@ public class Odometry {
         deltaLeftDistance = finalLeftDistance - initialLeftDistance;
         deltaRightDistance = finalRightDistance - initialRightDistance;
         deltaCenterDistance = finalCenterDistance - initialCenterDistance;
-
-        changeInRobotOrientation = (deltaLeftDistance - deltaRightDistance) / (Robot.robotEncoderWheelDistance);
-        worldAngle = (worldAngle + changeInRobotOrientation);
-
+        changeInRobotOrientation = Math.toDegrees((deltaLeftDistance - deltaRightDistance) / (Robot.robotEncoderWheelDistance));
         deltaHorizontal = deltaCenterDistance + (changeInRobotOrientation * Robot.horizontalEncoderInchesPerDegreeOffset);
+
+        worldAngle = (worldAngle + changeInRobotOrientation);
 
         worldXPosition += ((((deltaLeftDistance + deltaRightDistance) / 2.0)) * Math.sin(Math.toRadians(worldAngle))) + (deltaHorizontal * Math.cos(Math.toRadians(worldAngle)));
 
@@ -89,7 +88,6 @@ public class Odometry {
         initialLeftDistance = finalLeftDistance;
         initialRightDistance = finalRightDistance;
         initialCenterDistance = finalCenterDistance;
-        initialAngle = finalAngle;
 
     }
 
