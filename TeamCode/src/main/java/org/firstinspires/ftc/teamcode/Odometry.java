@@ -13,6 +13,7 @@ public class Odometry {
 
     private Robot robot;
     private PositionUpdateThread posRun;
+    public boolean updateValid;
 
     // initialize starting position and orientation
     public double worldXPosition = 0;
@@ -42,6 +43,7 @@ public class Odometry {
         this.robot = robot;
         positionUpdate();
         posRun = new PositionUpdateThread();
+        updateValid = true;
         posRun.run();
     }
 
@@ -153,17 +155,23 @@ public class Odometry {
         robot.rightBack.setPower(0);
     }
 
+    public void stopUpdateThread() {
+        updateValid = false;
+    }
+
     private class PositionUpdateThread implements Runnable {
 
         @Override
         public void run() {
+            while(updateValid) {
 //            positionUpdate();
-            Log.i("Thread", "THREAD WORKING");
-            try {
-                Thread.sleep(2000);
-                Log.i("Thread", "THREAD SLEEPING... SHHHHHHH");
-            } catch (Exception ex) {
-                ex.printStackTrace();
+                Log.i("Thread", "THREAD WORKING");
+                try {
+                    Thread.sleep(1000);
+                    Log.i("Thread", "THREAD SLEEPING... SHHHHHHH");
+                } catch (Exception ex) {
+                    ex.printStackTrace();
+                }
             }
         }
 
