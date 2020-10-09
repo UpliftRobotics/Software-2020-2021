@@ -41,10 +41,10 @@ public class Odometry {
     // class constructor for Odometry
     public Odometry(Robot robot) {
         this.robot = robot;
-        positionUpdate();
+//        positionUpdate();
         posRun = new PositionUpdateThread();
         updateValid = true;
-        posRun.run();
+        posRun.start();
     }
 
     // getter method for the left encoder ticks
@@ -78,7 +78,7 @@ public class Odometry {
         deltaLeftDistance = finalLeftDistance - initialLeftDistance;
         deltaRightDistance = finalRightDistance - initialRightDistance;
         deltaCenterDistance = finalCenterDistance - initialCenterDistance;
-        changeInRobotOrientation = Math.toDegrees((deltaLeftDistance - deltaRightDistance) / (Robot.robotEncoderWheelDistance));
+        changeInRobotOrientation = 2 * Math.toDegrees((deltaLeftDistance - deltaRightDistance) / (Robot.robotEncoderWheelDistance));
         deltaHorizontal = deltaCenterDistance + (changeInRobotOrientation * Robot.horizontalEncoderInchesPerDegreeOffset);
 
         worldAngle = MathFunctions.AngleRestrictions(worldAngle + changeInRobotOrientation);
@@ -95,7 +95,7 @@ public class Odometry {
 
     // method to go to a given point
     public void goToPosition(double xPosition, double yPosition, double movementSpeed, double preferredAngle, double allowedDistError, double allowedAngleError) {
-        positionUpdate();
+//        positionUpdate();
         double xDistanceToPoint = xPosition - worldXPosition;
         double yDistanceToPoint = yPosition - worldYPosition;
         double distanceToPoint = Math.hypot(xDistanceToPoint, yDistanceToPoint);
@@ -111,14 +111,14 @@ public class Odometry {
                 robot.drive(movementSpeed, relativeAngle, 0);
             }
 
-            positionUpdate();
+//            positionUpdate();
             xDistanceToPoint = xPosition - worldXPosition;
             yDistanceToPoint = yPosition - worldYPosition;
             distanceToPoint = Math.hypot(xDistanceToPoint, yDistanceToPoint);
             relativeAngle = Math.toDegrees(Math.atan2(yDistanceToPoint, xDistanceToPoint));
         }
 
-        positionUpdate();
+//        positionUpdate();
 
         stopMotors();
 
@@ -136,7 +136,7 @@ public class Odometry {
 //            stopMotors();
 //        }
 
-        positionUpdate();
+//        positionUpdate();
 
         return;
     }
@@ -159,15 +159,15 @@ public class Odometry {
         updateValid = false;
     }
 
-    private class PositionUpdateThread implements Runnable {
+    private class PositionUpdateThread extends Thread {
 
         @Override
         public void run() {
             while(updateValid) {
-//            positionUpdate();
+                positionUpdate();
                 Log.i("Thread", "THREAD WORKING");
                 try {
-                    Thread.sleep(1000);
+                    Thread.sleep(10);
                     Log.i("Thread", "THREAD SLEEPING... SHHHHHHH");
                 } catch (Exception ex) {
                     ex.printStackTrace();
