@@ -3,6 +3,7 @@ package org.firstinspires.ftc.teamcode;
 
 import android.util.Log;
 
+import org.firstinspires.ftc.robotcore.internal.tfod.Timer;
 import org.firstinspires.ftc.teamcode.toolkit.MathFunctions;
 import org.firstinspires.ftc.teamcode.toolkit.PathPoint;
 import org.firstinspires.ftc.teamcode.toolkit.Point;
@@ -141,6 +142,15 @@ public class Odometry {
         return;
     }
 
+    public double getDistanceToPoint(PathPoint pt) {
+        double xPosition = pt.x;
+        double yPosition = pt.y;
+        double xDistanceToPoint = xPosition - worldXPosition;
+        double yDistanceToPoint = yPosition - worldYPosition;
+        double distanceToPoint = Math.hypot(xDistanceToPoint, yDistanceToPoint);
+        return distanceToPoint;
+    }
+
     public void followPath(ArrayList<PathPoint> path) {
         // tell the robot to map out the path and follow it
         for (PathPoint pt : path) {
@@ -172,6 +182,26 @@ public class Odometry {
                 } catch (Exception ex) {
                     ex.printStackTrace();
                 }
+            }
+        }
+
+    }
+
+    private class VelocityUpdateThread extends Thread {
+
+        @Override
+        public void run() {
+            int timeIncr = 100;
+            int millisecondsElapsed = 0;
+
+            while(updateValid) {
+                try {
+                    Thread.sleep(timeIncr);
+                    millisecondsElapsed += timeIncr;
+                } catch (Exception ex) {
+                    ex.printStackTrace();
+                }
+
             }
         }
 
