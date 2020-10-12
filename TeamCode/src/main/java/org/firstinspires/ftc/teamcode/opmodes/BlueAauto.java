@@ -9,28 +9,28 @@ import org.firstinspires.ftc.teamcode.toolkit.ULLinearOpMode;
 
 import java.util.ArrayList;
 
-@Autonomous(name = "Auto", group = "OpModes")
-public class Auto extends ULLinearOpMode {
+@Autonomous(name = "BlueAauto", group = "OpModes")
+
+public class BlueAauto extends ULLinearOpMode {
 
     Robot robot;
     Odometry odom;
 
     @Override
     public void runOpMode() {
-        robot = new Robot();
-        odom = new Odometry(robot);
+        robot = new Robot ();
+        odom = new Odometry (robot);
 
         waitForStart();
 
-        // declare and initialize an empty list of PathPoints
         ArrayList<PathPoint> allPoints = new ArrayList<>();
 
         allPoints.add(new PathPoint(0, 72, 1.0, 4, 5));
-        allPoints.add(new PathPoint(-38, 72, 1.0, 6, 10));
+        allPoints.add(new PathPoint(-38, 72, 0.7, 6, 5));
 
-        //allPoints.add(new PathPoint(0, -30, 0.5, , 10));
-
-        //follow the path
         odom.followPath(allPoints);
     }
 }
+
+
+
