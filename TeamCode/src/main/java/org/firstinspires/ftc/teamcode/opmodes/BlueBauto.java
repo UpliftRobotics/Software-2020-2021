@@ -26,6 +26,8 @@ public class BlueBauto extends ULLinearOpMode {
 
         ArrayList<PathPoint> allPoints = new ArrayList<>();
 
-        allPoints.add(new PathPoint(0, 72, 1.0, 4, 5));
+        allPoints.add(new PathPoint(0, 96, 0.7, 4, 5));
+
+        odom.followPath(allPoints);
     }
 }

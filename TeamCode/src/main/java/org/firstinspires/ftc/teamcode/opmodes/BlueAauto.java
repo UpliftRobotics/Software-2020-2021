@@ -25,8 +25,8 @@ public class BlueAauto extends ULLinearOpMode {
 
         ArrayList<PathPoint> allPoints = new ArrayList<>();
 
-        allPoints.add(new PathPoint(0, 72, 1.0, 4, 5));
-        allPoints.add(new PathPoint(-38, 72, 0.7, 6, 5));
+        allPoints.add(new PathPoint(0, 72, 0.7, 4, 5));
+        allPoints.add(new PathPoint(-38, 72, 0.7, 4, 5));
 
         odom.followPath(allPoints);
     }
