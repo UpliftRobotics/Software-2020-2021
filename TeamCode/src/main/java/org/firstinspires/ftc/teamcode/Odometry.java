@@ -187,24 +187,4 @@ public class Odometry {
 
     }
 
-    private class VelocityUpdateThread extends Thread {
-
-        @Override
-        public void run() {
-            int timeIncr = 100;
-            int millisecondsElapsed = 0;
-
-            while(updateValid) {
-                try {
-                    Thread.sleep(timeIncr);
-                    millisecondsElapsed += timeIncr;
-                } catch (Exception ex) {
-                    ex.printStackTrace();
-                }
-
-            }
-        }
-
-    }
-
 }
