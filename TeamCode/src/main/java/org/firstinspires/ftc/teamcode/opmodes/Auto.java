@@ -25,12 +25,17 @@ public class Auto extends ULLinearOpMode {
         // declare and initialize an empty list of PathPoints
         ArrayList<PathPoint> allPoints = new ArrayList<>();
 
+
         allPoints.add(new PathPoint(0, 72, 1.0, 4, 5));
         allPoints.add(new PathPoint(-38, 72, 1.0, 6, 10));
 
         //allPoints.add(new PathPoint(0, -30, 0.5, , 10));
 
+
+
         //follow the path
         odom.followPath(allPoints);
+
+        odom.updateValid = false;
     }
 }

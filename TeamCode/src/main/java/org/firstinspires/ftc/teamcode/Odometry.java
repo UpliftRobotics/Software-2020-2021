@@ -1,6 +1,9 @@
 package org.firstinspires.ftc.teamcode;
 
 
+import android.util.Log;
+
+import org.firstinspires.ftc.robotcore.internal.tfod.Timer;
 import org.firstinspires.ftc.teamcode.toolkit.MathFunctions;
 import org.firstinspires.ftc.teamcode.toolkit.PathPoint;
 import org.firstinspires.ftc.teamcode.toolkit.Point;
@@ -11,6 +14,7 @@ public class Odometry {
 
     private Robot robot;
     private PositionUpdateThread posRun;
+    public boolean updateValid;
 
     // initialize starting position and orientation
     public double worldXPosition = 0;
@@ -31,12 +35,17 @@ public class Odometry {
     public double deltaCenterDistance;
     private double deltaAngle;
     private double deltaHorizontal;
+    private double changeInRobotOrientation;
+    private double robotOrientationRadians;
+
 
     // class constructor for Odometry
     public Odometry(Robot robot) {
         this.robot = robot;
-        positionUpdate();
-//        posRun.run();
+//        positionUpdate();
+        posRun = new PositionUpdateThread();
+        updateValid = true;
+        posRun.start();
     }
 
     // getter method for the left encoder ticks
@@ -66,15 +75,14 @@ public class Odometry {
         finalLeftDistance = (getLeftTicks() / Robot.COUNTS_PER_INCH);
         finalRightDistance = (getRightTicks() / Robot.COUNTS_PER_INCH);
         finalCenterDistance = (getCenterTicks() / Robot.COUNTS_PER_INCH);
-        finalAngle = robot.imu.getAngularOrientation().firstAngle;
 
         deltaLeftDistance = finalLeftDistance - initialLeftDistance;
         deltaRightDistance = finalRightDistance - initialRightDistance;
         deltaCenterDistance = finalCenterDistance - initialCenterDistance;
-        deltaAngle = finalAngle - initialAngle;
-        deltaHorizontal = deltaCenterDistance + (deltaAngle * Robot.horizontalEncoderInchesPerDegreeOffset);
+        changeInRobotOrientation = Math.toDegrees((deltaLeftDistance - deltaRightDistance) / (Robot.robotEncoderWheelDistance));
+        deltaHorizontal = deltaCenterDistance - (changeInRobotOrientation * Robot.horizontalEncoderInchesPerDegreeOffset);
 
-        worldAngle += deltaAngle;
+        worldAngle = MathFunctions.AngleRestrictions(worldAngle + changeInRobotOrientation);
 
         worldXPosition += ((((deltaLeftDistance + deltaRightDistance) / 2.0)) * Math.sin(Math.toRadians(worldAngle))) + (deltaHorizontal * Math.cos(Math.toRadians(worldAngle)));
 
@@ -83,13 +91,12 @@ public class Odometry {
         initialLeftDistance = finalLeftDistance;
         initialRightDistance = finalRightDistance;
         initialCenterDistance = finalCenterDistance;
-        initialAngle = finalAngle;
 
     }
 
     // method to go to a given point
     public void goToPosition(double xPosition, double yPosition, double movementSpeed, double preferredAngle, double allowedDistError, double allowedAngleError) {
-        positionUpdate();
+//        positionUpdate();
         double xDistanceToPoint = xPosition - worldXPosition;
         double yDistanceToPoint = yPosition - worldYPosition;
         double distanceToPoint = Math.hypot(xDistanceToPoint, yDistanceToPoint);
@@ -105,14 +112,14 @@ public class Odometry {
                 robot.drive(movementSpeed, relativeAngle, 0);
             }
 
-            positionUpdate();
+//            positionUpdate();
             xDistanceToPoint = xPosition - worldXPosition;
             yDistanceToPoint = yPosition - worldYPosition;
             distanceToPoint = Math.hypot(xDistanceToPoint, yDistanceToPoint);
             relativeAngle = Math.toDegrees(Math.atan2(yDistanceToPoint, xDistanceToPoint));
         }
 
-        positionUpdate();
+//        positionUpdate();
 
         stopMotors();
 
@@ -130,9 +137,18 @@ public class Odometry {
 //            stopMotors();
 //        }
 
-        positionUpdate();
+//        positionUpdate();
 
         return;
+    }
+
+    public double getDistanceToPoint(PathPoint pt) {
+        double xPosition = pt.x;
+        double yPosition = pt.y;
+        double xDistanceToPoint = xPosition - worldXPosition;
+        double yDistanceToPoint = yPosition - worldYPosition;
+        double distanceToPoint = Math.hypot(xDistanceToPoint, yDistanceToPoint);
+        return distanceToPoint;
     }
 
     public void followPath(ArrayList<PathPoint> path) {
@@ -149,15 +165,43 @@ public class Odometry {
         robot.rightBack.setPower(0);
     }
 
-    private class PositionUpdateThread implements Runnable {
+    public void stopUpdateThread() {
+        updateValid = false;
+    }
+
+    private class PositionUpdateThread extends Thread {
 
         @Override
         public void run() {
-            positionUpdate();
-            try {
-                Thread.sleep(10);
-            } catch (Exception ex) {
-                ex.printStackTrace();
+            while(updateValid) {
+                positionUpdate();
+                Log.i("Thread", "THREAD WORKING");
+                try {
+                    Thread.sleep(10);
+                    Log.i("Thread", "THREAD SLEEPING... SHHHHHHH");
+                } catch (Exception ex) {
+                    ex.printStackTrace();
+                }
+            }
+        }
+
+    }
+
+    private class VelocityUpdateThread extends Thread {
+
+        @Override
+        public void run() {
+            int timeIncr = 100;
+            int millisecondsElapsed = 0;
+
+            while(updateValid) {
+                try {
+                    Thread.sleep(timeIncr);
+                    millisecondsElapsed += timeIncr;
+                } catch (Exception ex) {
+                    ex.printStackTrace();
+                }
+
             }
         }
 

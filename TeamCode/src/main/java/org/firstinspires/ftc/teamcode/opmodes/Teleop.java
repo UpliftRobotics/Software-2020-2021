@@ -1,5 +1,7 @@
 package org.firstinspires.ftc.teamcode.opmodes;
 
+import android.util.Log;
+
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.util.Range;
 
@@ -31,7 +33,13 @@ public class Teleop extends ULLinearOpMode {
 
         while(opModeIsActive()) {
 
-            odom.positionUpdate();
+            Log.i("Thread", "OG THREAD Working");
+
+            if(!opModeIsActive()) {
+                odom.updateValid = false;
+            }
+
+//            odom.positionUpdate();
 
             // initialize the gamepad stick values to the three needed axes
             leftY = Range.clip(-gamepad1.left_stick_y, -1, 1);
