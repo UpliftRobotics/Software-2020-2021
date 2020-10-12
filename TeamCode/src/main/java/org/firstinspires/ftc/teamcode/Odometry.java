@@ -79,7 +79,7 @@ public class Odometry {
         deltaRightDistance = finalRightDistance - initialRightDistance;
         deltaCenterDistance = finalCenterDistance - initialCenterDistance;
         changeInRobotOrientation = 2 * Math.toDegrees((deltaLeftDistance - deltaRightDistance) / (Robot.robotEncoderWheelDistance));
-        deltaHorizontal = deltaCenterDistance + (changeInRobotOrientation * Robot.horizontalEncoderInchesPerDegreeOffset);
+        deltaHorizontal = deltaCenterDistance - (changeInRobotOrientation * Robot.horizontalEncoderInchesPerDegreeOffset);
 
         worldAngle = MathFunctions.AngleRestrictions(worldAngle + changeInRobotOrientation);
 
