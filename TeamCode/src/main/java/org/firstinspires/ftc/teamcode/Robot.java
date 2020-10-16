@@ -25,7 +25,7 @@ public class Robot {
 
     // values specific to the drivetrain
     public static double oneRotationTicks = 720;
-    public static double wheelRadius = 19/25.4; // in meters (change this later)
+    public static double wheelRadius = 19/25.4; // in meters (change thi later)
     public static double wheelCircumference = wheelRadius * (2 * Math.PI); // inches
     public static double COUNTS_PER_INCH = (720 * 4) / wheelCircumference;
     public static double robotEncoderWheelDistance = 14.5;
