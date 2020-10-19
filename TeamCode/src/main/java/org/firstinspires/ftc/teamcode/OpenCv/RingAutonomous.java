@@ -25,6 +25,7 @@ public class RingAutonomous extends ULLinearOpMode {
             position = detector.position;
             telemetry.addData("position",position);
         }
+
         
     }
 }
