@@ -7,6 +7,7 @@ import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.util.Range;
 
+import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
 import org.firstinspires.ftc.teamcode.toolkit.ULLinearOpMode;
 
 public class Robot {
@@ -21,6 +22,7 @@ public class Robot {
     public DcMotor rightBack;
 
     public BNO055IMU imu;
+    public WebcamName webcamName;
 
     // values specific to the drivetrain
     public static double oneRotationTicks = 720;
@@ -68,6 +70,8 @@ public class Robot {
         rightBack.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         leftFront.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         leftBack.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+
+        webcamName=hardwareMap.get(WebcamName.class,"webcam");
 
     }
 
