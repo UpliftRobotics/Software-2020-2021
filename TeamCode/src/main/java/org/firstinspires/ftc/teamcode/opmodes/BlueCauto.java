@@ -9,10 +9,9 @@ import org.firstinspires.ftc.teamcode.toolkit.ULLinearOpMode;
 
 import java.util.ArrayList;
 
+@Autonomous(name = "BlueCauto", group = "Opmodes")
 
-@Autonomous(name = "BlueBauto", group= "Opmodes" )
-
-public class BlueBauto extends ULLinearOpMode {
+public class BlueCauto extends ULLinearOpMode {
 
     Robot robot;
     Odometry odom;
@@ -26,9 +25,11 @@ public class BlueBauto extends ULLinearOpMode {
 
         ArrayList<PathPoint> allPoints = new ArrayList<>();
 
-        allPoints.add(new PathPoint(0, 86, 0.7, 2, 5));
-       //allPoints.add(new PathPoint(-20, 86, 0.3, 2, 5));
+        allPoints.add(new PathPoint(0, 124, 0.7, 2, 5));
+        //allPoints.add(new PathPoint(-42, 124, 0.5, 2, 5));
 
         odom.followPath(allPoints);
+
     }
+
 }
