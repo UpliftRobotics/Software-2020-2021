@@ -24,13 +24,13 @@ public class VelocityTester extends ULLinearOpMode {
     Odometry odom;
 
     @Override
-    public void runOpMode() {
+    public void runOpMode() throws InterruptedException {
         robot = new Robot();
         odom = new Odometry(robot);
 
         waitForStart();
 
-        PathPoint pt = new PathPoint(0, 120, 0.7, 2, 10);
+        PathPoint pt = new PathPoint(0, 60, 0.7, 2, 10);
 
         double yPosition = pt.y;
         double movementSpeed = pt.moveSpeed;
@@ -45,6 +45,8 @@ public class VelocityTester extends ULLinearOpMode {
 
         ElapsedTime timer = new ElapsedTime();
 
+        telemetry.addData("WorldAngle", odom.worldAngle);
+
         while (yDistanceToPoint > allowedDistError) {
             timer.reset();
             //if it enters the approach zone
@@ -52,8 +54,9 @@ public class VelocityTester extends ULLinearOpMode {
                 robot.drive(MathFunctions.slowApproach(movementSpeed, yDistanceToPoint, approachZone), 0, 0);
                 //if it is not in the approach zone
             } else {
-                robot.drive(movementSpeed, 0, 0);
+                robot.drive(movementSpeed, 90, 0);
             }
+            Thread.sleep(100);
             yDistanceToPoint = yPosition - odom.worldYPosition;
             double timeElapsedSec = timer.milliseconds() / 1000;
             times.add(timeElapsedSec);
@@ -62,6 +65,8 @@ public class VelocityTester extends ULLinearOpMode {
         }
 
         odom.stopMotors();
+
+        Log.i("Thread", "STOPPED");
 
         String velocityStr = "";
         for(int i = 0; i < velocities.size(); i++) {
@@ -78,11 +83,15 @@ public class VelocityTester extends ULLinearOpMode {
             distanceStr += (distances.get(i) + ", ");
         }
 
-        Log.println(1, "Velocity", velocityStr);
-        Log.println(1, "Times", timeStr);
-        Log.println(1, "Distances", distanceStr);
+        Log.w("Velocity", velocityStr);
+        Log.w("Times", timeStr);
+        Log.w("Distances", distanceStr);
 
         odom.updateValid = false;
+
+        stop();
+
+        Log.i("STOP PROGRAM", "STOP");
 
     }
 

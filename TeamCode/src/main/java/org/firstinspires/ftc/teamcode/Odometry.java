@@ -175,10 +175,10 @@ public class Odometry {
         public void run() {
             while(updateValid) {
                 positionUpdate();
-                Log.i("Thread", "THREAD WORKING");
+//                Log.i("Thread", "THREAD WORKING");
                 try {
                     Thread.sleep(10);
-                    Log.i("Thread", "THREAD SLEEPING... SHHHHHHH");
+//                    Log.i("Thread", "THREAD SLEEPING... SHHHHHHH");
                 } catch (Exception ex) {
                     ex.printStackTrace();
                 }
