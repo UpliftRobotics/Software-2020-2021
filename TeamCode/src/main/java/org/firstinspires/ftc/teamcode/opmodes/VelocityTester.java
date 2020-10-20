@@ -47,6 +47,8 @@ public class VelocityTester extends ULLinearOpMode {
 
         ElapsedTime timer = new ElapsedTime();
 
+        double totalTimeSec = 0;
+
         telemetry.addData("WorldAngle", odom.worldAngle);
 
         while (finalYDistanceToPoint > allowedDistError) {
@@ -62,7 +64,8 @@ public class VelocityTester extends ULLinearOpMode {
             double deltaDistance = initialYDistanceToPoint - finalYDistanceToPoint;
 
             if(timeElapsedSec > 0.1) {
-                times.add(timeElapsedSec);
+                totalTimeSec += timeElapsedSec;
+                times.add(totalTimeSec);
                 distances.add(deltaDistance);
                 velocities.add(deltaDistance / timeElapsedSec);
                 initialYDistanceToPoint = finalYDistanceToPoint;
