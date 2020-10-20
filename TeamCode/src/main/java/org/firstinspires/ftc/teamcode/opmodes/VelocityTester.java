@@ -61,7 +61,7 @@ public class VelocityTester extends ULLinearOpMode {
             double timeElapsedSec = timer.milliseconds() / 1000;
             double deltaDistance = initialYDistanceToPoint - finalYDistanceToPoint;
 
-            if(deltaDistance > 1) {
+            if(timeElapsedSec > 0.1) {
                 times.add(timeElapsedSec);
                 distances.add(deltaDistance);
                 velocities.add(deltaDistance / timeElapsedSec);
