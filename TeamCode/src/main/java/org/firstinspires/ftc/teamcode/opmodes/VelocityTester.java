@@ -36,7 +36,9 @@ public class VelocityTester extends ULLinearOpMode {
         double movementSpeed = pt.moveSpeed;
         double allowedDistError = pt.errorDistance;
 
-        double yDistanceToPoint = yPosition - odom.worldYPosition;
+        double initialYDistanceToPoint = yPosition - odom.worldYPosition;
+        double finalYDistanceToPoint = initialYDistanceToPoint;
+
         double approachZone = allowedDistError * 5;
 
         ArrayList<Double> velocities = new ArrayList<>();
@@ -47,21 +49,25 @@ public class VelocityTester extends ULLinearOpMode {
 
         telemetry.addData("WorldAngle", odom.worldAngle);
 
-        while (yDistanceToPoint > allowedDistError) {
-            timer.reset();
+        while (finalYDistanceToPoint > allowedDistError) {
+            finalYDistanceToPoint = yPosition - odom.worldYPosition;
             //if it enters the approach zone
-            if (yDistanceToPoint <= approachZone) {
-                robot.drive(MathFunctions.slowApproach(movementSpeed, yDistanceToPoint, approachZone), 0, 0);
+            if (finalYDistanceToPoint <= approachZone) {
+                robot.drive(MathFunctions.slowApproach(movementSpeed, finalYDistanceToPoint, approachZone), 90, 0);
                 //if it is not in the approach zone
             } else {
                 robot.drive(movementSpeed, 90, 0);
             }
-            Thread.sleep(100);
-            yDistanceToPoint = yPosition - odom.worldYPosition;
             double timeElapsedSec = timer.milliseconds() / 1000;
-            times.add(timeElapsedSec);
-            distances.add(yDistanceToPoint);
-            velocities.add(yDistanceToPoint / timeElapsedSec);
+            double deltaDistance = initialYDistanceToPoint - finalYDistanceToPoint;
+
+            if(deltaDistance > 1) {
+                times.add(timeElapsedSec);
+                distances.add(deltaDistance);
+                velocities.add(deltaDistance / timeElapsedSec);
+                initialYDistanceToPoint = finalYDistanceToPoint;
+                timer.reset();
+            }
         }
 
         odom.stopMotors();
