@@ -5,16 +5,12 @@ import android.util.Log;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
-import org.firstinspires.ftc.robotcore.internal.tfod.Timer;
 import org.firstinspires.ftc.teamcode.Odometry;
 import org.firstinspires.ftc.teamcode.Robot;
 import org.firstinspires.ftc.teamcode.toolkit.MathFunctions;
 import org.firstinspires.ftc.teamcode.toolkit.PathPoint;
 import org.firstinspires.ftc.teamcode.toolkit.ULLinearOpMode;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.PrintWriter;
 import java.util.ArrayList;
 
 @Autonomous
@@ -49,16 +45,14 @@ public class VelocityTester extends ULLinearOpMode {
 
         double totalTimeSec = 0;
 
-        telemetry.addData("WorldAngle", odom.worldAngle);
-
         while (finalYDistanceToPoint > allowedDistError) {
             finalYDistanceToPoint = yPosition - odom.worldYPosition;
             //if it enters the approach zone
             if (finalYDistanceToPoint <= approachZone) {
-                robot.drive(MathFunctions.slowApproach(movementSpeed, finalYDistanceToPoint, approachZone), 90, 0);
+                robot.drive(MathFunctions.slowApproach(movementSpeed, finalYDistanceToPoint, approachZone), 0, 0);
                 //if it is not in the approach zone
             } else {
-                robot.drive(movementSpeed, 90, 0);
+                robot.drive(movementSpeed, 0, 0);
             }
             double timeElapsedSec = timer.milliseconds() / 1000;
             double deltaDistance = initialYDistanceToPoint - finalYDistanceToPoint;
