@@ -30,6 +30,7 @@ public class AutoRedC extends ULLinearOpMode {
 
         odom.followPath(allPoints);
 
+        odom.stopUpdateThread();
     }
 
 }

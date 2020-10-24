@@ -30,6 +30,7 @@ public class AutoBlueC extends ULLinearOpMode {
 
         odom.followPath(allPoints);
 
+        odom.stopUpdateThread();
     }
 
 }

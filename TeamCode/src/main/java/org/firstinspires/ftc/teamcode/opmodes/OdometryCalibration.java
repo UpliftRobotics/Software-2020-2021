@@ -45,48 +45,51 @@ public class OdometryCalibration extends ULLinearOpMode {
         telemetry.clear();
 
         // Odometry System Calibration Init Complete
-        telemetry.addData("Odometry System Calibration Status", "Init Complete");
+        telemetry.addData("Odometry System Calibration Status: ", "Init Complete");
         telemetry.update();
 
-
+        // keep looping until angle equals, or exceeds 90 degrees
         while (getZAngle() < 90) {
-            setPowerAll(-PIVOT_SPEED, -PIVOT_SPEED, PIVOT_SPEED, PIVOT_SPEED);
-
+            // if angle greater than 60 degrees, drop power by factor of 1/2
             if (getZAngle() < 60) {
                 setPowerAll(-PIVOT_SPEED, -PIVOT_SPEED, PIVOT_SPEED, PIVOT_SPEED);
             } else {
                 setPowerAll(-PIVOT_SPEED / 2, -PIVOT_SPEED / 2, PIVOT_SPEED / 2, PIVOT_SPEED / 2);
             }
-            double angle = getZAngle();
-
-            double encoderDifference = Math.abs(odom.getLeftTicks()) + Math.abs(odom.getRightTicks());
-
-            double verticalEncoderTickOffsetPerDegree = encoderDifference / angle;
-
-            double wheelBaseSeparation = (2 * 90 * verticalEncoderTickOffsetPerDegree) / (Math.PI * Robot.COUNTS_PER_INCH);
-
-            horizontalTickOffset = odom.getCenterTicks() / Math.toRadians(getZAngle());
-
-            // Calibration complete
-            telemetry.addData("Odometry System Calibration Status", "Calibration Complete");
-
-            // Display calculated constants
-            telemetry.addData("Wheel Base Separation", wheelBaseSeparation);
-            telemetry.addData("Horizontal Encoder Offset", horizontalTickOffset);
-
-            // Display raw values
-            telemetry.addData("IMU Angle", getZAngle());
-            telemetry.addData("Vertical Left Position", odom.getLeftTicks());
-            telemetry.addData("Vertical Right Position", odom.getRightTicks());
-            telemetry.addData("Horizontal Position", robot.leftBack.getCurrentPosition());
-            telemetry.addData("Vertical Encoder Offset", verticalEncoderTickOffsetPerDegree);
-            telemetry.addData("Wheel distance", wheelBaseSeparation);
-            telemetry.update();
         }
 
+        setPowerAll(0,0, 0, 0);
 
-        setPowerAll(0, 0, 0, 0);
+        // update angle value (in degrees)
+        double angle = getZAngle();
+
+        double encoderTotal = Math.abs(odom.getLeftTicks()) + Math.abs(odom.getRightTicks());
+
+        double verticalEncoderTickOffsetPerDegree = encoderTotal / angle;
+
+        double wheelBaseSeparation = (180 * verticalEncoderTickOffsetPerDegree) / (Math.PI * Robot.COUNTS_PER_INCH);
+
+        horizontalTickOffset = odom.getCenterTicks() / angle;
+
+        // Calibration complete
+        telemetry.addData("Odometry System Calibration Status", "Calibration Complete");
+
+        // Display calculated constants
+        telemetry.addData("Wheel Base Separation", wheelBaseSeparation);
+        telemetry.addData("Horizontal Encoder Tick offset per degree", horizontalTickOffset);
+
+        // Display raw values
+        telemetry.addData("IMU Angle", getZAngle());
+        telemetry.addData("Vertical Left Position", odom.getLeftTicks());
+        telemetry.addData("Vertical Right Position", odom.getRightTicks());
+        telemetry.addData("Horizontal Position", robot.leftBack.getCurrentPosition());
+        telemetry.addData("Vertical Encoder Offset", verticalEncoderTickOffsetPerDegree);
+        telemetry.addData("Wheel distance", wheelBaseSeparation);
+        telemetry.update();
+
+        odom.stopUpdateThread();
         stop();
+
     }
 
     private double getZAngle(){

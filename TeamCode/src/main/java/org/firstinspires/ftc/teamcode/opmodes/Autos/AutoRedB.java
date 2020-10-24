@@ -29,5 +29,7 @@ public class AutoRedB extends ULLinearOpMode {
         //allPoints.add(new PathPoint(20, 86, 0.3, 2, 5));
 
         odom.followPath(allPoints);
+
+        odom.stopUpdateThread();
     }
 }

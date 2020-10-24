@@ -1,9 +1,5 @@
 package org.firstinspires.ftc.teamcode;
 
-
-import android.util.Log;
-
-import org.firstinspires.ftc.robotcore.internal.tfod.Timer;
 import org.firstinspires.ftc.teamcode.toolkit.MathFunctions;
 import org.firstinspires.ftc.teamcode.toolkit.PathPoint;
 import org.firstinspires.ftc.teamcode.toolkit.Point;
@@ -25,24 +21,19 @@ public class Odometry {
     private double initialLeftDistance = 0;
     private double initialRightDistance = 0;
     private double initialCenterDistance = 0;
-    private double initialAngle = 0;
     private double finalLeftDistance = 0;
     private double finalRightDistance = 0;
     private double finalCenterDistance = 0;
-    private double finalAngle = 0;
     public double deltaLeftDistance;
     public double deltaRightDistance;
     public double deltaCenterDistance;
-    private double deltaAngle;
     private double deltaHorizontal;
     private double changeInRobotOrientation;
-    private double robotOrientationRadians;
 
 
     // class constructor for Odometry
     public Odometry(Robot robot) {
         this.robot = robot;
-//        positionUpdate();
         posRun = new PositionUpdateThread();
         updateValid = true;
         posRun.start();
@@ -63,10 +54,17 @@ public class Odometry {
         return robot.leftBack.getCurrentPosition();
     }
 
+    // overloaded method to set initial position and angle
     public void setStartPosition(Point pt, double angle) {
         worldXPosition += pt.x;
         worldYPosition += pt.y;
         worldAngle += angle; // in degrees
+    }
+
+    // overloaded method to set the initial position (not angle)
+    public void setStartPosition(double x, double y) {
+        worldXPosition += x;
+        worldYPosition += y;
     }
 
     // method to update the robot's position
@@ -94,15 +92,8 @@ public class Odometry {
 
     }
 
-    // method to set the initial position
-    public void setStartPosition(double x, double y) {
-        worldXPosition += x;
-        worldYPosition += y;
-    }
-
     // method to go to a given point
     public void goToPosition(double xPosition, double yPosition, double movementSpeed, double preferredAngle, double allowedDistError, double allowedAngleError) {
-//        positionUpdate();
         double xDistanceToPoint = xPosition - worldXPosition;
         double yDistanceToPoint = yPosition - worldYPosition;
         double distanceToPoint = Math.hypot(xDistanceToPoint, yDistanceToPoint);
@@ -118,34 +109,22 @@ public class Odometry {
                 robot.drive(movementSpeed, relativeAngle, 0);
             }
 
-//            positionUpdate();
             xDistanceToPoint = xPosition - worldXPosition;
             yDistanceToPoint = yPosition - worldYPosition;
             distanceToPoint = Math.hypot(xDistanceToPoint, yDistanceToPoint);
             relativeAngle = Math.toDegrees(Math.atan2(yDistanceToPoint, xDistanceToPoint));
         }
 
-//        positionUpdate();
-
         stopMotors();
 
-//        if(worldAngle > MathFunctions.AngleRestrictions(preferredAngle + allowedAngleError)) {
-//            while(worldAngle > MathFunctions.AngleRestrictions(preferredAngle + (allowedAngleError / 4))) {
-//                robot.spin(-0.2);
-//                positionUpdate();
-//            }
-//            stopMotors();
-//        } else if(worldAngle < MathFunctions.AngleRestrictions(preferredAngle - allowedAngleError)) {
-//            while(worldAngle < MathFunctions.AngleRestrictions(preferredAngle - (allowedAngleError / 4))) {
-//                robot.spin(0.2);
-//                positionUpdate();
-//            }
-//            stopMotors();
-//        }
-
-//        positionUpdate();
-
         return;
+    }
+
+    public void followPath(ArrayList<PathPoint> path) {
+        // tell the robot to map out the path and follow it
+        for (PathPoint pt : path) {
+            goToPosition(pt.x, pt.y, pt.moveSpeed, 0, pt.errorDistance, pt.errorAngle);
+        }
     }
 
     public double getDistanceToPoint(PathPoint pt) {
@@ -155,13 +134,6 @@ public class Odometry {
         double yDistanceToPoint = yPosition - worldYPosition;
         double distanceToPoint = Math.hypot(xDistanceToPoint, yDistanceToPoint);
         return distanceToPoint;
-    }
-
-    public void followPath(ArrayList<PathPoint> path) {
-        // tell the robot to map out the path and follow it
-        for (PathPoint pt : path) {
-            goToPosition(pt.x, pt.y, pt.moveSpeed, 0, pt.errorDistance, pt.errorAngle);
-        }
     }
 
     public void stopMotors() {

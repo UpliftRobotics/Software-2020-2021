@@ -36,6 +36,6 @@ public class TestAuto extends ULLinearOpMode {
         //follow the path
         odom.followPath(allPoints);
 
-        odom.updateValid = false;
+        odom.stopUpdateThread();
     }
 }
