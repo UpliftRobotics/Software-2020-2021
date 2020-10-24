@@ -94,6 +94,12 @@ public class Odometry {
 
     }
 
+    // method to set the initial position
+    public void setStartPosition(double x, double y) {
+        worldXPosition += x;
+        worldYPosition += y;
+    }
+
     // method to go to a given point
     public void goToPosition(double xPosition, double yPosition, double movementSpeed, double preferredAngle, double allowedDistError, double allowedAngleError) {
 //        positionUpdate();

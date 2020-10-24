@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.opmodes;
+package org.firstinspires.ftc.teamcode.opmodes.Autos;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 
@@ -9,27 +9,33 @@ import org.firstinspires.ftc.teamcode.toolkit.ULLinearOpMode;
 
 import java.util.ArrayList;
 
-@Autonomous(name = "BlueCauto", group = "Opmodes")
-
-public class BlueCauto extends ULLinearOpMode {
+@Autonomous(name = "TestAuto", group = "OpModes")
+public class TestAuto extends ULLinearOpMode {
 
     Robot robot;
     Odometry odom;
 
     @Override
-    public void runOpMode(){
+    public void runOpMode() {
         robot = new Robot();
         odom = new Odometry(robot);
 
         waitForStart();
 
+        // declare and initialize an empty list of PathPoints
         ArrayList<PathPoint> allPoints = new ArrayList<>();
 
-        allPoints.add(new PathPoint(0, 124, 0.7, 2, 5));
-        //allPoints.add(new PathPoint(-42, 124, 0.5, 2, 5));
 
+        allPoints.add(new PathPoint(0, 72, 1.0, 4, 5));
+        allPoints.add(new PathPoint(-38, 72, 1.0, 6, 5));
+
+        //allPoints.add(new PathPoint(0, -30, 0.5, , 10));
+
+
+
+        //follow the path
         odom.followPath(allPoints);
 
+        odom.updateValid = false;
     }
-
 }
