@@ -13,7 +13,10 @@ import org.openftc.easyopencv.OpenCvPipeline;
 public class RingDetector extends OpenCvPipeline {
     private Mat workingMatrix = new Mat();
     public String position= "";
-
+    public double bottomTotal;
+    public double centerBottomTotal;
+    public double centerTopTotal;
+    public double TopTotal;
     public RingDetector() {
 
     }
@@ -37,10 +40,10 @@ public class RingDetector extends OpenCvPipeline {
         Imgproc.rectangle(workingMatrix,new Rect(10,180,40,30),new Scalar(0,255,0));
         Imgproc.rectangle(workingMatrix,new Rect(10,210,40,30),new Scalar(0,255,0));
 
-        double bottomTotal = Core.sumElems(matBottom).val[2];
-        double centerBottomTotal = Core.sumElems(matCenterBottom).val[2];
-        double centerTopTotal = Core.sumElems(matCenterTop).val[2];
-        double TopTotal = Core.sumElems(matTop).val[2];
+         bottomTotal = Core.sumElems(matBottom).val[2];
+         centerBottomTotal = Core.sumElems(matCenterBottom).val[2];
+         centerTopTotal = Core.sumElems(matCenterTop).val[2];
+         TopTotal = Core.sumElems(matTop).val[2];
 
 
         return workingMatrix;

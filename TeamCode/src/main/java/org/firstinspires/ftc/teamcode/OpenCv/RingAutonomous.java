@@ -27,6 +27,13 @@ public class RingAutonomous extends ULLinearOpMode {
         while (!isStarted()){
             position = detector.position;
             telemetry.addData("position",position);
+            telemetry.addData("top", detector.TopTotal);
+            telemetry.addData("topcenter", detector.centerTopTotal);
+            telemetry.addData("bottomcenter", detector.centerBottomTotal);
+            telemetry.addData("bottom", detector.bottomTotal);
+
+
+
         }
 
         
