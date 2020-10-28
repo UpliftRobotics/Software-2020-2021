@@ -48,6 +48,12 @@ public class RingDetector extends OpenCvPipeline {
          if(bottomTotal> centerBottomTotal && bottomTotal>centerTopTotal && bottomTotal> TopTotal){
              ringCount =  "1";
          }
+         if (56000>(bottomTotal+centerBottomTotal+centerTopTotal+TopTotal)){
+             ringCount = "0";
+         }
+        if (56000<(bottomTotal+centerBottomTotal+centerTopTotal+TopTotal)){
+            ringCount = "4";
+        }
 
 
         return workingMatrix;
