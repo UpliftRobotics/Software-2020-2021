@@ -30,15 +30,15 @@ public class RingDetector extends OpenCvPipeline {
         }
         Imgproc.cvtColor(workingMatrix, workingMatrix, Imgproc.COLOR_RGB2YCrCb);
 
-        Mat matBottom = workingMatrix.submat(120, 150, 80, 120);
-        Mat matCenterBottom = workingMatrix.submat(150, 180, 80, 120);
-        Mat matCenterTop = workingMatrix.submat(180, 210, 80, 120);
-        Mat matTop = workingMatrix.submat(210, 240, 80, 120);
+        Mat matBottom = workingMatrix.submat(140, 180, 120, 180);
+        Mat matCenterBottom = workingMatrix.submat(140, 180, 150,210 );
+        Mat matCenterTop = workingMatrix.submat(140, 180, 180, 240);
+        Mat matTop = workingMatrix.submat(140, 180, 210, 270);
 
-        Imgproc.rectangle(workingMatrix,new Rect(10,120,40,30),new Scalar(0,255,0));
-        Imgproc.rectangle(workingMatrix,new Rect(10,150,40,30),new Scalar(0,255,0));
-        Imgproc.rectangle(workingMatrix,new Rect(10,180,40,30),new Scalar(0,255,0));
-        Imgproc.rectangle(workingMatrix,new Rect(10,210,40,30),new Scalar(0,255,0));
+        Imgproc.rectangle(workingMatrix,new Rect(140,120,40,60),new Scalar(0,255,0));
+        Imgproc.rectangle(workingMatrix,new Rect(140,150,40,60),new Scalar(0,255,0));
+        Imgproc.rectangle(workingMatrix,new Rect(140,180,40,60),new Scalar(0,255,0));
+        Imgproc.rectangle(workingMatrix,new Rect(140,210,40,60),new Scalar(0,255,0));
 
          bottomTotal = Core.sumElems(matBottom).val[2];
          centerBottomTotal = Core.sumElems(matCenterBottom).val[2];
