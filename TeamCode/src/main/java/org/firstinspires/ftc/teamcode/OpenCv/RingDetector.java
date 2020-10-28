@@ -12,7 +12,6 @@ import org.openftc.easyopencv.OpenCvPipeline;
 
 public class RingDetector extends OpenCvPipeline {
     private Mat workingMatrix = new Mat();
-    public String position= "";
     public double bottomTotal;
     public double centerBottomTotal;
     public double centerTopTotal;
