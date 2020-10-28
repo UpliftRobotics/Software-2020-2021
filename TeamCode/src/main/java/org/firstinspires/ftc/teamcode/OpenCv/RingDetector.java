@@ -16,6 +16,7 @@ public class RingDetector extends OpenCvPipeline {
     public double centerBottomTotal;
     public double centerTopTotal;
     public double TopTotal;
+    String ringCount = "";
     public RingDetector() {
 
     }
@@ -43,6 +44,10 @@ public class RingDetector extends OpenCvPipeline {
          centerBottomTotal = Core.sumElems(matCenterBottom).val[2];
          centerTopTotal = Core.sumElems(matCenterTop).val[2];
          TopTotal = Core.sumElems(matTop).val[2];
+
+         if(bottomTotal> centerBottomTotal && bottomTotal>centerTopTotal && bottomTotal> TopTotal){
+             ringCount =  "1";
+         }
 
 
         return workingMatrix;
