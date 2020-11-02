@@ -29,6 +29,7 @@ public class RingAutonomous extends LinearOpMode {
             telemetry.addData("topcenter", detector.centerTopTotal);
             telemetry.addData("bottomcenter", detector.centerBottomTotal);
             telemetry.addData("bottom", detector.bottomTotal);
+            telemetry.addData("postiton", detector.ringCount);
             telemetry.update();
 
         }

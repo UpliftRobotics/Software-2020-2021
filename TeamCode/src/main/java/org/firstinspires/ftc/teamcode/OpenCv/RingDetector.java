@@ -28,7 +28,7 @@ public class RingDetector extends OpenCvPipeline {
         if (workingMatrix.empty()) {
             return input;
         }
-        Imgproc.cvtColor(workingMatrix, workingMatrix, Imgproc.COLOR_RGB2YCrCb);
+        Imgproc.cvtColor(workingMatrix, workingMatrix, Imgproc.COLOR_BGR2BGRA);
 
         Mat matBottom = workingMatrix.submat(140, 180, 120, 180);
         Mat matCenterBottom = workingMatrix.submat(140, 180, 150,210 );
@@ -45,14 +45,14 @@ public class RingDetector extends OpenCvPipeline {
          centerTopTotal = Core.sumElems(matCenterTop).val[2];
          TopTotal = Core.sumElems(matTop).val[2];
 
-         if(bottomTotal> centerBottomTotal && bottomTotal>centerTopTotal && bottomTotal> TopTotal){
+         if(bottomTotal< centerBottomTotal && bottomTotal<centerTopTotal && bottomTotal< TopTotal){
              ringCount =  "1";
          }
-         if (56000>(bottomTotal+centerBottomTotal+centerTopTotal+TopTotal)){
-             ringCount = "0";
-         }
-        if (56000<(bottomTotal+centerBottomTotal+centerTopTotal+TopTotal)){
-            ringCount = "4";
+         if(bottomTotal<20000){
+             ringCount = "4";
+
+         } else{
+            ringCount = "0";
         }
 
 
