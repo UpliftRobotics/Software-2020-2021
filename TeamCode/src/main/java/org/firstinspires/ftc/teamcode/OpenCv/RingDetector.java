@@ -28,7 +28,7 @@ public class RingDetector extends OpenCvPipeline {
         if (workingMatrix.empty()) {
             return input;
         }
-        Imgproc.cvtColor(workingMatrix, workingMatrix, Imgproc.COLOR_BGR2BGRA);
+        Imgproc.cvtColor(workingMatrix, workingMatrix, Imgproc.COLOR_BGR2HSV);
 
         Mat matBottom = workingMatrix.submat(140, 180, 120, 180);
         Mat matCenterBottom = workingMatrix.submat(140, 180, 150,210 );
