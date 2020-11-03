@@ -25,14 +25,16 @@ public class RingAutonomous extends LinearOpMode {
         camera.startStreaming(320,240, OpenCvCameraRotation.UPRIGHT);
 
         while (!isStarted()){
-            telemetry.addData("Main Rectangle Raw Value", (int) detector.mainMatRaw);
-            telemetry.addData("Main Rectangle Percent", Math.round(detector.mainMatValue * 100) + "%");
+            telemetry.addData("Top Rectangle Raw Value", (int) detector.TopMatRaw);
+            telemetry.addData("Top Rectangle Percent", Math.round(detector.TopMatValue * 100) + "%");
+            telemetry.addData("Bottom Rectangle Raw Value", (int) detector.BottomMatRaw);
+            telemetry.addData("Bottom Rectangle Percent", Math.round(detector.BottomValue * 100) + "%");
+            telemetry.addData("postiton", detector.ringCount);
             telemetry.update();
 //            telemetry.addData("top", detector.TopTotal);
 //            telemetry.addData("topcenter", detector.centerTopTotal);
 //            telemetry.addData("bottomcenter", detector.centerBottomTotal);
 //            telemetry.addData("bottom", detector.bottomTotal);
-//            telemetry.addData("postiton", detector.ringCount);
 //            telemetry.update();
 
         }
