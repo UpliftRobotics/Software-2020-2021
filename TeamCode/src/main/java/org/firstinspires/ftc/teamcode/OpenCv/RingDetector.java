@@ -13,11 +13,10 @@ public class RingDetector extends OpenCvPipeline {
     private Mat workingMatrix = new Mat();
     public Rect topRect = new Rect(new Point(120, 90), new Point(200, 120));
     public Rect btRect = new Rect(new Point(120, 200), new Point(200, 230));
-    public double bottomTotal;
     public double TopMatRaw;
     public double TopMatValue;
     public double BottomMatRaw;
-    public double BottomValue;
+    public double BottomMatValue;
     String ringCount = "";
     public RingDetector() {
 
@@ -51,17 +50,17 @@ public class RingDetector extends OpenCvPipeline {
 
         BottomMatRaw = Core.sumElems(btMat).val[0];
 
-        BottomValue = ( Core.sumElems(btMat).val[0] / btRect.area() ) / 255;
+        BottomMatValue = ( Core.sumElems(btMat).val[0] / btRect.area() ) / 255;
 
-        if(BottomValue>0.5 && TopMatValue>0.5){
+        if(BottomMatValue >0.5 && TopMatValue>0.5){
              ringCount =  "4";
          }
-        else if(BottomValue>0.5 && TopMatValue<0.5){
+        else if(BottomMatValue >0.5 && TopMatValue<0.5){
              ringCount = "1";
-        } else{
+        }
+        else{
             ringCount = "0";
         }
-
 
         return workingMatrix;
     }

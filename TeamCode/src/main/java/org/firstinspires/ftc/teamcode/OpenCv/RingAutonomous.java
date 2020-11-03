@@ -28,14 +28,9 @@ public class RingAutonomous extends LinearOpMode {
             telemetry.addData("Top Rectangle Raw Value", (int) detector.TopMatRaw);
             telemetry.addData("Top Rectangle Percent", Math.round(detector.TopMatValue * 100) + "%");
             telemetry.addData("Bottom Rectangle Raw Value", (int) detector.BottomMatRaw);
-            telemetry.addData("Bottom Rectangle Percent", Math.round(detector.BottomValue * 100) + "%");
-            telemetry.addData("postiton", detector.ringCount);
+            telemetry.addData("Bottom Rectangle Percent", Math.round(detector.BottomMatValue * 100) + "%");
+            telemetry.addData("position", detector.ringCount);
             telemetry.update();
-//            telemetry.addData("top", detector.TopTotal);
-//            telemetry.addData("topcenter", detector.centerTopTotal);
-//            telemetry.addData("bottomcenter", detector.centerBottomTotal);
-//            telemetry.addData("bottom", detector.bottomTotal);
-//            telemetry.update();
 
         }
 
