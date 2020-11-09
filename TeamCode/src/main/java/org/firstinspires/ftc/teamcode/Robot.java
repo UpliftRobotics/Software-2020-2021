@@ -7,7 +7,10 @@ import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.util.Range;
 
+import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
+import org.firstinspires.ftc.teamcode.toolkit.RingDetector;
 import org.firstinspires.ftc.teamcode.toolkit.ULLinearOpMode;
+import org.openftc.easyopencv.OpenCvCamera;
 
 
 public class Robot {
@@ -22,6 +25,10 @@ public class Robot {
     public DcMotor rightBack;
 
     public BNO055IMU imu;
+
+    public OpenCvCamera camera;
+    WebcamName webcamName;
+
 
     // values specific to the drivetrain
     public static double oneRotationTicks = 720;
