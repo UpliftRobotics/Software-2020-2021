@@ -45,16 +45,17 @@ public class BlueVisionAuto extends ULLinearOpMode {
             // do nothing, something is VERY WRONG!
         }
 
-        while (!isStarted()){
-            telemetry.addData("Top Rectangle Raw Value", (int) robot.detector.TopMatRaw);
-            telemetry.addData("Top Rectangle Percent", Math.round(robot.detector.TopMatValue * 100) + "%");
-            telemetry.addData("Bottom Rectangle Raw Value", (int) robot.detector.BottomMatRaw);
-            telemetry.addData("Bottom Rectangle Percent", Math.round(robot.detector.BottomMatValue * 100) + "%");
-            telemetry.addData("position", robot.detector.ringCount);
-            telemetry.update();
+        telemetry.addData("Top Rectangle Raw Value", (int) robot.detector.TopMatRaw);
+        telemetry.addData("Top Rectangle Percent", Math.round(robot.detector.TopMatValue * 100) + "%");
+        telemetry.addData("Bottom Rectangle Raw Value", (int) robot.detector.BottomMatRaw);
+        telemetry.addData("Bottom Rectangle Percent", Math.round(robot.detector.BottomMatValue * 100) + "%");
+        telemetry.addData("Number of Rings Detected", robot.detector.ringCount);
+        telemetry.update();
 
+        // follow the path designated earlier in the program (only if the path list was filled)
+        if(!path.isEmpty()) {
+            odom.followPath(path);
         }
-
 
     }
 }
