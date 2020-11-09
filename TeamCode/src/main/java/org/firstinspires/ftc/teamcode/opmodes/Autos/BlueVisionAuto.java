@@ -57,5 +57,7 @@ public class BlueVisionAuto extends ULLinearOpMode {
             odom.followPath(path);
         }
 
+        odom.stopUpdateThread();
+
     }
 }
