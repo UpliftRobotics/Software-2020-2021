@@ -25,19 +25,19 @@ public class BlueVisionAuto extends ULLinearOpMode {
         // fill the path with the correct points, dependent on the number of rings detected
         if(robot.detector.ringCount == 0) {
             path.clear();
-            path.add(new PathPoint(53, 132, 0.7, 2, 5));
-            path.add(new PathPoint(53, 60, 0.7, 2, 5));
-            path.add(new PathPoint(10, 60, 0.7, 2, 5));
+            odom.setStartPosition(53, 12);
+            path.add(new PathPoint(53, 84, 0.7, 2, 5));
+            path.add(new PathPoint(10, 84, 0.7, 2, 5));
         } else if(robot.detector.ringCount == 1) {
             path.clear();
-            path.add(new PathPoint(53, 132, 0.7, 2, 5));
-            path.add(new PathPoint(53, 36, 0.7, 2, 5));
-            path.add(new PathPoint(34, 36, 0.7, 2, 5));
+            odom.setStartPosition(53, 12);
+            path.add(new PathPoint(53, 108, 0.7, 2, 5));
+            path.add(new PathPoint(34, 108, 0.7, 2, 5));
         } else if(robot.detector.ringCount == 4) {
             path.clear();
+            odom.setStartPosition(53, 12);
             path.add(new PathPoint(53, 132, 0.7, 2, 5));
-            path.add(new PathPoint(53, 12, 0.7, 2, 5));
-            path.add(new PathPoint(10, 12, 0.7, 2, 5));
+            path.add(new PathPoint(10, 132, 0.7, 2, 5));
         } else {
             // do nothing, something is VERY WRONG!
         }
