@@ -1,9 +1,6 @@
 package org.firstinspires.ftc.teamcode.opmodes.Autos;
 
-
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
-
-import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
 import org.firstinspires.ftc.teamcode.Odometry;
 import org.firstinspires.ftc.teamcode.Robot;
 import org.firstinspires.ftc.teamcode.toolkit.PathPoint;
@@ -55,6 +52,7 @@ public class BlueVisionAuto extends ULLinearOpMode {
         // follow the path designated earlier in the program (only if the path list was filled)
         if(!path.isEmpty()) {
             odom.followPath(path);
+            path.clear();
         }
 
         odom.stopUpdateThread();
