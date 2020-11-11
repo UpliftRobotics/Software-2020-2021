@@ -16,5 +16,4 @@ apply from: '../build.common.gradle'
 
 dependencies {
     implementation 'org.openftc:easyopencv:1.4.1'
-    implementation project(path: ':openCVLibrary3412')
 }
