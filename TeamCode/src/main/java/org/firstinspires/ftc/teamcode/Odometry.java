@@ -51,7 +51,7 @@ public class Odometry {
 
     // getter method for the center encoder ticks
     public int getCenterTicks() {
-        return robot.leftBack.getCurrentPosition();
+        return robot.rightBack.getCurrentPosition();
     }
 
     // overloaded method to set initial position and angle
