@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode.opmodes.Autos;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 
 import org.firstinspires.ftc.teamcode.Odometry;
 import org.firstinspires.ftc.teamcode.Robot;
@@ -9,6 +10,7 @@ import org.firstinspires.ftc.teamcode.toolkit.ULLinearOpMode;
 
 import java.util.ArrayList;
 
+@Disabled
 @Autonomous(name = "AutoBlueA", group = "OpModes")
 
 public class AutoBlueA extends ULLinearOpMode {

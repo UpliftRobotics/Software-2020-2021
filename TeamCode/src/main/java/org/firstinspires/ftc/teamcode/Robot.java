@@ -100,6 +100,14 @@ public class Robot {
         rightBack.setPower(Range.clip((Math.sin(Math.toRadians(angle) + (0.25 * Math.PI)) * speedVal - turnVal), -1, 1));
     }
 
+    // method to stop all motors
+    public void stopMotors() {
+        leftFront.setPower(0);
+        leftBack.setPower(0);
+        rightFront.setPower(0);
+        rightBack.setPower(0);
+    }
+
     // method to spin at a certain speed (clockwise if positive, counter-clockwise if negative)
     public void spin(double turnVal) {
         leftFront.setPower(turnVal);

@@ -67,7 +67,7 @@ public class VelocityTester extends ULLinearOpMode {
             }
         }
 
-        odom.stopMotors();
+        robot.stopMotors();
 
         Log.i("Thread", "STOPPED");
 

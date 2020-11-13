@@ -115,7 +115,7 @@ public class Odometry {
             relativeAngle = Math.toDegrees(Math.atan2(yDistanceToPoint, xDistanceToPoint));
         }
 
-        stopMotors();
+        robot.stopMotors();
 
         return;
     }
@@ -134,13 +134,6 @@ public class Odometry {
         double yDistanceToPoint = yPosition - worldYPosition;
         double distanceToPoint = Math.hypot(xDistanceToPoint, yDistanceToPoint);
         return distanceToPoint;
-    }
-
-    public void stopMotors() {
-        robot.leftFront.setPower(0);
-        robot.leftBack.setPower(0);
-        robot.rightFront.setPower(0);
-        robot.rightBack.setPower(0);
     }
 
     public void stopUpdateThread() {
