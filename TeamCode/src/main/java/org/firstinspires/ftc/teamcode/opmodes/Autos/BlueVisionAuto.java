@@ -17,6 +17,9 @@ public class BlueVisionAuto extends ULLinearOpMode {
     @Override
     public void runOpMode() throws InterruptedException {
 
+        robot = new Robot();
+        odom = new Odometry(robot);
+
         waitForStart();
 
         // create empty path list
@@ -25,17 +28,17 @@ public class BlueVisionAuto extends ULLinearOpMode {
         // fill the path with the correct points, dependent on the number of rings detected
         if(robot.detectorAuto.ringCount == 0) {
             path.clear();
-            odom.setStartPosition(53, 12);
+            odom.setStartPosition(53, 8);
             path.add(new PathPoint(53, 84, 0.7, 2, 5));
             path.add(new PathPoint(10, 84, 0.7, 2, 5));
         } else if(robot.detectorAuto.ringCount == 1) {
             path.clear();
-            odom.setStartPosition(53, 12);
+            odom.setStartPosition(53, 8);
             path.add(new PathPoint(53, 108, 0.7, 2, 5));
             path.add(new PathPoint(34, 108, 0.7, 2, 5));
         } else if(robot.detectorAuto.ringCount == 4) {
             path.clear();
-            odom.setStartPosition(53, 12);
+            odom.setStartPosition(53, 8);
             path.add(new PathPoint(53, 132, 0.7, 2, 5));
             path.add(new PathPoint(10, 132, 0.7, 2, 5));
         } else {
