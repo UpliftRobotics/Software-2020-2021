@@ -9,6 +9,7 @@ import com.qualcomm.robotcore.util.Range;
 
 import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
 import org.firstinspires.ftc.teamcode.toolkit.RingDetector;
+import org.firstinspires.ftc.teamcode.toolkit.RingDetectorTeleop;
 import org.firstinspires.ftc.teamcode.toolkit.ULLinearOpMode;
 import org.openftc.easyopencv.OpenCvCamera;
 import org.openftc.easyopencv.OpenCvCameraFactory;
@@ -30,7 +31,8 @@ public class Robot {
 
     public OpenCvCamera camera;
     WebcamName webcamName;
-    public RingDetector detector = new RingDetector();
+    public RingDetector detectorAuto = new RingDetector();
+    public RingDetectorTeleop detectorTeleop = new RingDetectorTeleop();
 
 
     // values specific to the drivetrain
@@ -68,7 +70,8 @@ public class Robot {
         int cameraMonitorViewId = hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId","id",hardwareMap.appContext.getPackageName());
         camera = OpenCvCameraFactory.getInstance().createWebcam(webcamName, cameraMonitorViewId);
         camera.openCameraDevice();
-        camera.setPipeline(detector);
+        camera.setPipeline(detectorAuto);
+        camera.setPipeline(detectorTeleop);
         camera.startStreaming(320,240, OpenCvCameraRotation.UPRIGHT);
 
         //setup the motors
