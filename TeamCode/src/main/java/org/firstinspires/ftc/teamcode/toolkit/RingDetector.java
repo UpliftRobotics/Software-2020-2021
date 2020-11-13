@@ -1,6 +1,8 @@
 package org.firstinspires.ftc.teamcode.toolkit;
 
 
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
+
 import org.opencv.core.Core;
 import org.opencv.core.Mat;
 import org.opencv.core.MatOfPoint;
@@ -13,7 +15,7 @@ import org.opencv.imgcodecs.*;
 import org.openftc.easyopencv.OpenCvPipeline;
 
 import java.util.List;
-
+@Disabled
 public class RingDetector extends OpenCvPipeline {
     private Mat workingMatrix = new Mat();
     public Rect topRect = new Rect(new Point(120, 90), new Point(200, 120));

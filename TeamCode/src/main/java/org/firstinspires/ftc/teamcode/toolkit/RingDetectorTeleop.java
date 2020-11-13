@@ -1,6 +1,8 @@
 package org.firstinspires.ftc.teamcode.toolkit;
 
 
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
+
 import org.opencv.core.Core;
 import org.opencv.core.Mat;
 import org.opencv.core.Point;
@@ -8,7 +10,7 @@ import org.opencv.core.Rect;
 import org.opencv.core.Scalar;
 import org.opencv.imgproc.Imgproc;
 import org.openftc.easyopencv.OpenCvPipeline;
-
+@Disabled
 public class RingDetectorTeleop extends OpenCvPipeline {
     private Mat workingMatrix = new Mat();
     public Rect topRect = new Rect(new Point(120, 90), new Point(200, 120));

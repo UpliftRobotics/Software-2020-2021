@@ -27,8 +27,7 @@ public class AutoBluePark extends ULLinearOpMode {
         ArrayList<PathPoint> path = new ArrayList<>();
 
         // fill path with points
-        odom.setStartPosition(53, 8);
-        path.add(new PathPoint(53, 84, 0.7, 2, 5));
+        path.add(new PathPoint(0, 10, 0.7, 2, 5));
 
         // follow the path designated earlier in the program (only if the path list was filled)
         if(!path.isEmpty()) {

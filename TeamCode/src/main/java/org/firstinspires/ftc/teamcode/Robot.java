@@ -29,10 +29,10 @@ public class Robot {
 
     public BNO055IMU imu;
 
-    public OpenCvCamera camera;
-    WebcamName webcamName;
-    public RingDetector detectorAuto = new RingDetector();
-    public RingDetectorTeleop detectorTeleop = new RingDetectorTeleop();
+//    public OpenCvCamera camera;
+//    WebcamName webcamName;
+//    public RingDetector detectorAuto = new RingDetector();
+//    public RingDetectorTeleop detectorTeleop = new RingDetectorTeleop();
 
 
     // values specific to the drivetrain
@@ -65,14 +65,14 @@ public class Robot {
         BNO055IMU.Parameters parameters = new BNO055IMU.Parameters();
         parameters.angleUnit = BNO055IMU.AngleUnit.DEGREES;
         imu.initialize(parameters);
-
-        webcamName= hardwareMap.get(WebcamName.class,"webcam");
-        int cameraMonitorViewId = hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId","id",hardwareMap.appContext.getPackageName());
-        camera = OpenCvCameraFactory.getInstance().createWebcam(webcamName, cameraMonitorViewId);
-        camera.openCameraDevice();
-        camera.setPipeline(detectorAuto);
-        camera.setPipeline(detectorTeleop);
-        camera.startStreaming(320,240, OpenCvCameraRotation.UPRIGHT);
+//
+//        webcamName= hardwareMap.get(WebcamName.class,"webcam");
+//        int cameraMonitorViewId = hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId","id",hardwareMap.appContext.getPackageName());
+//        camera = OpenCvCameraFactory.getInstance().createWebcam(webcamName, cameraMonitorViewId);
+//        camera.openCameraDevice();
+//        camera.setPipeline(detectorAuto);
+//        camera.setPipeline(detectorTeleop);
+//        camera.startStreaming(320,240, OpenCvCameraRotation.UPRIGHT);
 
         //setup the motors
         rightFront.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
