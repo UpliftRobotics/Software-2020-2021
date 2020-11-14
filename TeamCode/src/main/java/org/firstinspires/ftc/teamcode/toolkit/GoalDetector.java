@@ -9,14 +9,14 @@ import org.opencv.core.Point;
 import org.opencv.core.Range;
 import org.opencv.core.RotatedRect;
 import org.opencv.core.Scalar;
+import org.opencv.core.Size;
 import org.opencv.imgproc.Imgproc;
 import org.openftc.easyopencv.OpenCvPipeline;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class RingDetector2 extends OpenCvPipeline {
-
+public class GoalDetector extends OpenCvPipeline {
     public Telemetry telemetry;
 
     @Override
@@ -26,12 +26,15 @@ public class RingDetector2 extends OpenCvPipeline {
         input = zoomMat(input, 2);
         double totalMatArea = input.width() * input.height();
         Mat gray = input.clone();
+
+        Imgproc.blur(gray, gray, new Size(2.0, 2.0), new Point(-1, -1));
+
         Mat binary = new Mat(input.rows(), input.cols(), input.type(), new Scalar(0));
 
         Imgproc.cvtColor(input, gray, Imgproc.COLOR_RGB2HSV);
 
         Scalar lowHSV = new Scalar(0, 50, 70);
-        Scalar highHSV = new Scalar(30, 255, 255);
+        Scalar highHSV = new Scalar(10, 255, 255);
 
         Core.inRange(gray, lowHSV, highHSV, gray);
 
@@ -57,7 +60,7 @@ public class RingDetector2 extends OpenCvPipeline {
         MatOfPoint largestContour = contours.get(maxIndex);
 
         // Transform the contour to a different format
-        Point[] points = largestContour.toArray();
+        org.opencv.core.Point[] points = largestContour.toArray();
         MatOfPoint2f contour2f = new MatOfPoint2f(largestContour.toArray());
 
         // Do a rect fit to the contour, and draw it on the screen
@@ -70,12 +73,12 @@ public class RingDetector2 extends OpenCvPipeline {
 //        Imgproc.drawContours(input, contours, -1, color, 2, Imgproc.LINE_8,
 //                hierarchy, 2, new Point() ) ;
 
-        return input;
+        return gray;
     }
 
     static void drawRectOnObject(RotatedRect rect, Mat drawOn)
     {
-        Point[] points = new Point[4];
+        org.opencv.core.Point[] points = new Point[4];
         rect.points(points);
 
         for(int i = 0; i < 4; ++i)
@@ -96,5 +99,4 @@ public class RingDetector2 extends OpenCvPipeline {
 
         return new Mat(inputMat, rowRange, columnRange);
     }
-
 }
