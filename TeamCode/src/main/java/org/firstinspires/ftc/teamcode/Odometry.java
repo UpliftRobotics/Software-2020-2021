@@ -72,7 +72,7 @@ public class Odometry {
 
         finalLeftDistance = (getLeftTicks() / Robot.COUNTS_PER_INCH);
         finalRightDistance = (getRightTicks() / Robot.COUNTS_PER_INCH);
-        finalCenterDistance = (getCenterTicks() / Robot.COUNTS_PER_INCH);
+        finalCenterDistance = -getCenterTicks() / Robot.COUNTS_PER_INCH;
 
         deltaLeftDistance = finalLeftDistance - initialLeftDistance;
         deltaRightDistance = finalRightDistance - initialRightDistance;
@@ -102,12 +102,12 @@ public class Odometry {
 
         while (distanceToPoint > allowedDistError) {
             //if it enters the approach zone
-            if (distanceToPoint <= approachZone) {
-                robot.drive(MathFunctions.slowApproach(movementSpeed, distanceToPoint, approachZone), relativeAngle, 0);
-                //if it is not in the approach zone
-            } else {
-                robot.drive(movementSpeed, relativeAngle, 0);
-            }
+//            if (distanceToPoint <= approachZone) {
+//                robot.drive(movementSpeed, relativeAngle, 0);
+//                //if it is not in the approach zone
+//            } else {
+            robot.drive(movementSpeed, relativeAngle, 0);
+
 
             xDistanceToPoint = xPosition - worldXPosition;
             yDistanceToPoint = yPosition - worldYPosition;

@@ -27,7 +27,9 @@ public class AutoBlueA extends ULLinearOpMode {
 
         ArrayList<PathPoint> allPoints = new ArrayList<>();
 
-        allPoints.add(new PathPoint(0, 72, 0.7, 2, 5));
+        allPoints.add(new PathPoint(0, 76, 0.7, 4, 5));
+        allPoints.add(new PathPoint(-30, 76, 0.7, 4, 5));
+        allPoints.add(new PathPoint(0, 76, 0.7, 4, 5));
         //allPoints.add(new PathPoint(-38, 72, 0.5, 2, 5));
 
         odom.followPath(allPoints);

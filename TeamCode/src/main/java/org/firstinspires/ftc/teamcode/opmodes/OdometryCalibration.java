@@ -88,8 +88,13 @@ public class OdometryCalibration extends ULLinearOpMode {
         telemetry.update();
 
         odom.stopUpdateThread();
-        stop();
 
+        try {
+            Thread.sleep(10000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        stop();
     }
 
     private double getZAngle(){

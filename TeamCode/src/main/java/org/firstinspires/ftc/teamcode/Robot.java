@@ -29,10 +29,9 @@ public class Robot {
 
     public BNO055IMU imu;
 
-//    public OpenCvCamera camera;
-//    WebcamName webcamName;
-//    public RingDetector detectorAuto = new RingDetector();
-//    public RingDetectorTeleop detectorTeleop = new RingDetectorTeleop();
+    public OpenCvCamera camera;
+    WebcamName webcamName;
+    public RingDetector detectorAuto = new RingDetector();
 
 
     // values specific to the drivetrain
@@ -40,7 +39,7 @@ public class Robot {
     public static double wheelRadius = 19/25.4; // in meters (change thi later)
     public static double wheelCircumference = wheelRadius * (2 * Math.PI); // inches
     public static double COUNTS_PER_INCH = (720 * 4) / wheelCircumference;
-    public static double robotEncoderWheelDistance = 14.5;
+    public static double robotEncoderWheelDistance = 16.44;
     public static double horizontalEncoderInchesPerDegreeOffset = 0.02386;
 
 //    // access files created and written to in the calibration program
@@ -66,13 +65,12 @@ public class Robot {
         parameters.angleUnit = BNO055IMU.AngleUnit.DEGREES;
         imu.initialize(parameters);
 //
-//        webcamName= hardwareMap.get(WebcamName.class,"webcam");
-//        int cameraMonitorViewId = hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId","id",hardwareMap.appContext.getPackageName());
-//        camera = OpenCvCameraFactory.getInstance().createWebcam(webcamName, cameraMonitorViewId);
-//        camera.openCameraDevice();
-//        camera.setPipeline(detectorAuto);
-//        camera.setPipeline(detectorTeleop);
-//        camera.startStreaming(320,240, OpenCvCameraRotation.UPRIGHT);
+        webcamName= hardwareMap.get(WebcamName.class,"webcam");
+        int cameraMonitorViewId = hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId","id",hardwareMap.appContext.getPackageName());
+        camera = OpenCvCameraFactory.getInstance().createWebcam(webcamName, cameraMonitorViewId);
+        camera.openCameraDevice();
+        camera.setPipeline(detectorAuto);
+        camera.startStreaming(320,240, OpenCvCameraRotation.UPRIGHT);
 
         //setup the motors
         rightFront.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);

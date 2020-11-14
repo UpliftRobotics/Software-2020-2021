@@ -17,20 +17,20 @@ public class BlueVisionAuto extends ULLinearOpMode {
     @Override
     public void runOpMode() throws InterruptedException {
 
-//        robot = new Robot();
-//        odom = new Odometry(robot);
-//
-//        waitForStart();
-//
-//        // create empty path list
-//        ArrayList<PathPoint> path = new ArrayList<>();
-//
-//        // fill the path with the correct points, dependent on the number of rings detected
-//        if(robot.detectorAuto.ringCount == 0) {
-//            path.clear();
-//            odom.setStartPosition(53, 8);
-//            path.add(new PathPoint(53, 84, 0.7, 2, 5));
-//            path.add(new PathPoint(10, 84, 0.7, 2, 5));
+        robot = new Robot();
+        odom = new Odometry(robot);
+
+        waitForStart();
+
+        // create empty path list
+        ArrayList<PathPoint> path = new ArrayList<>();
+
+        // fill the path with the correct points, dependent on the number of rings detected
+        if(robot.detectorAuto.ringCount == 0) {
+            path.clear();
+            odom.setStartPosition(53, 8);
+            path.add(new PathPoint(53, 84, 0.7, 4, 5));
+            path.add(new PathPoint(12, 84, 0.7, 4, 5));
 //        } else if(robot.detectorAuto.ringCount == 1) {
 //            path.clear();
 //            odom.setStartPosition(53, 8);
@@ -41,24 +41,27 @@ public class BlueVisionAuto extends ULLinearOpMode {
 //            odom.setStartPosition(53, 8);
 //            path.add(new PathPoint(53, 132, 0.7, 2, 5));
 //            path.add(new PathPoint(10, 132, 0.7, 2, 5));
-//        } else {
-//            // do nothing, something is VERY WRONG!
-//        }
-//
-//        telemetry.addData("Top Rectangle Raw Value", (int) robot.detectorAuto.TopMatRaw);
-//        telemetry.addData("Top Rectangle Percent", Math.round(robot.detectorAuto.TopMatValue * 100) + "%");
-//        telemetry.addData("Bottom Rectangle Raw Value", (int) robot.detectorAuto.BottomMatRaw);
-//        telemetry.addData("Bottom Rectangle Percent", Math.round(robot.detectorAuto.BottomMatValue * 100) + "%");
-//        telemetry.addData("Number of Rings Detected", robot.detectorAuto.ringCount);
-//        telemetry.update();
-//
-//        // follow the path designated earlier in the program (only if the path list was filled)
-//        if(!path.isEmpty()) {
-//            odom.followPath(path);
-//            path.clear();
-//        }
-//
-//        odom.stopUpdateThread();
+        } else {
+            path.clear();
+            odom.setStartPosition(53, 8);
+            path.add(new PathPoint(53, 84, 0.7, 4, 5));
+            path.add(new PathPoint(12, 84, 0.7, 4, 5));
+        }
+
+        telemetry.addData("Top Rectangle Raw Value", (int) robot.detectorAuto.TopMatRaw);
+        telemetry.addData("Top Rectangle Percent", Math.round(robot.detectorAuto.TopMatValue * 100) + "%");
+        telemetry.addData("Bottom Rectangle Raw Value", (int) robot.detectorAuto.BottomMatRaw);
+        telemetry.addData("Bottom Rectangle Percent", Math.round(robot.detectorAuto.BottomMatValue * 100) + "%");
+        telemetry.addData("Number of Rings Detected", robot.detectorAuto.ringCount);
+        telemetry.update();
+
+        // follow the path designated earlier in the program (only if the path list was filled)
+        if(!path.isEmpty()) {
+            odom.followPath(path);
+            path.clear();
+        }
+
+        odom.stopUpdateThread();
 
     }
 }

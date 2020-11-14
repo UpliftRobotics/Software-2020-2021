@@ -18,8 +18,8 @@ import java.util.List;
 @Disabled
 public class RingDetector extends OpenCvPipeline {
     private Mat workingMatrix = new Mat();
-    public Rect topRect = new Rect(new Point(120, 90), new Point(200, 120));
-    public Rect btRect = new Rect(new Point(120, 200), new Point(200, 230));
+    public Rect topRect = new Rect(new Point(120, 80), new Point(200, 110));
+    public Rect btRect = new Rect(new Point(120, 140), new Point(200, 170));
     public double TopMatRaw;
     public double TopMatValue;
     public double BottomMatRaw;
