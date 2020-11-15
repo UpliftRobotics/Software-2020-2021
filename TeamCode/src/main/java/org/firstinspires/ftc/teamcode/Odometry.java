@@ -98,7 +98,7 @@ public class Odometry {
         double yDistanceToPoint = yPosition - worldYPosition;
         double distanceToPoint = Math.hypot(xDistanceToPoint, yDistanceToPoint);
         double relativeAngle = Math.toDegrees(Math.atan2(yDistanceToPoint, xDistanceToPoint));
-        double approachZone = allowedDistError * 5;
+//        double approachZone = allowedDistError * 5;
 
         while (distanceToPoint > allowedDistError) {
             //if it enters the approach zone

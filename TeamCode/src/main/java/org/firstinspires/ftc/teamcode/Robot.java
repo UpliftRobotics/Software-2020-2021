@@ -9,7 +9,6 @@ import com.qualcomm.robotcore.util.Range;
 
 import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
 import org.firstinspires.ftc.teamcode.toolkit.RingDetector;
-import org.firstinspires.ftc.teamcode.toolkit.RingDetectorTeleop;
 import org.firstinspires.ftc.teamcode.toolkit.ULLinearOpMode;
 import org.openftc.easyopencv.OpenCvCamera;
 import org.openftc.easyopencv.OpenCvCameraFactory;
@@ -31,8 +30,7 @@ public class Robot {
 
     public OpenCvCamera camera;
     WebcamName webcamName;
-    public RingDetector detectorAuto = new RingDetector();
-
+    public RingDetector detector = new RingDetector();
 
     // values specific to the drivetrain
     public static double oneRotationTicks = 720;
@@ -41,10 +39,6 @@ public class Robot {
     public static double COUNTS_PER_INCH = (720 * 4) / wheelCircumference;
     public static double robotEncoderWheelDistance = 16.44;
     public static double horizontalEncoderInchesPerDegreeOffset = 0.02386;
-
-//    // access files created and written to in the calibration program
-//    private File wheelBaseSeparationFile = AppUtil.getInstance().getSettingsFile("wheelBaseSeparation.txt");
-//    private File horizontalTickOffsetFile = AppUtil.getInstance().getSettingsFile("horizontalTickOffset.txt");
 
     public Robot() {
         //create the hardware map
@@ -64,12 +58,12 @@ public class Robot {
         BNO055IMU.Parameters parameters = new BNO055IMU.Parameters();
         parameters.angleUnit = BNO055IMU.AngleUnit.DEGREES;
         imu.initialize(parameters);
-//
+
         webcamName= hardwareMap.get(WebcamName.class,"webcam");
         int cameraMonitorViewId = hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId","id",hardwareMap.appContext.getPackageName());
         camera = OpenCvCameraFactory.getInstance().createWebcam(webcamName, cameraMonitorViewId);
         camera.openCameraDevice();
-        camera.setPipeline(detectorAuto);
+        camera.setPipeline(detector);
         camera.startStreaming(320,240, OpenCvCameraRotation.UPRIGHT);
 
         //setup the motors
