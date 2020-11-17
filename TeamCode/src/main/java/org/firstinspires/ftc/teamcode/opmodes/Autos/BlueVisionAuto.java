@@ -22,29 +22,38 @@ public class BlueVisionAuto extends ULLinearOpMode {
 
         waitForStart();
 
+        // pull ring count from the detector class immediately at start
+        int ringNum = robot.detector.ringCount;
+
         // create empty path list
         ArrayList<PathPoint> path = new ArrayList<>();
 
+        telemetry.addData("ring count", ringNum);
+        telemetry.update();
+
+
         // fill the path with the correct points, dependent on the number of rings detected
-        if(robot.detector.ringCount == 1) {
+        if(ringNum == 0) {
+            path.clear();
+            odom.setStartPosition(53, 8);
+            path.add(new PathPoint(53, 84, 0.7, 4, 5));
+            path.add(new PathPoint(12, 84, 0.7, 4, 5));
+        } else if(ringNum == 1) {
             path.clear();
             odom.setStartPosition(53, 8);
             path.add(new PathPoint(53, 108, 0.7, 4, 5));
             path.add(new PathPoint(34, 108, 0.7, 4, 5));
-        } else if(robot.detector.ringCount == 4) {
+        } else if(ringNum == 4) {
             path.clear();
             odom.setStartPosition(53, 8);
             path.add(new PathPoint(53, 132, 0.7, 4, 5));
             path.add(new PathPoint(10, 132, 0.7, 4, 5));
         } else {
+            // detection did not work, so just park on the line
             path.clear();
             odom.setStartPosition(53, 8);
             path.add(new PathPoint(53, 84, 0.7, 4, 5));
-            path.add(new PathPoint(12, 84, 0.7, 4, 5));
         }
-
-        telemetry.addData("Number of Rings Detected", robot.detector.ringCount);
-        telemetry.update();
 
         // follow the path designated earlier in the program (only if the path list was filled)
         if(!path.isEmpty()) {
