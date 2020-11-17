@@ -34,7 +34,7 @@ public class RingDetector extends OpenCvPipeline {
         Imgproc.blur(zoomedMat, zoomedMat, new Size(2.0, 2.0), new Point(-1, -1));
         Imgproc.cvtColor(zoomedMat, zoomedMat, Imgproc.COLOR_RGB2HSV);
 
-        Scalar lowHSV = new Scalar(5, 80, 80);
+        Scalar lowHSV = new Scalar(5, 100, 80);
         Scalar highHSV = new Scalar(20, 255, 255);
 
         Core.inRange(zoomedMat, lowHSV, highHSV, zoomedMat);
@@ -143,7 +143,7 @@ public class RingDetector extends OpenCvPipeline {
 
         for(int i = 0; i < contours.size(); i++) {
             double area = Imgproc.contourArea(contours.get(i));
-            if(area < (0.75 * totalMatArea) && area > (0.001 * totalMatArea)) {
+            if(area < (0.75 * totalMatArea) && (area > (0.01 * totalMatArea) || area > 100)) {
                 prunedContours.add(contours.get(i));
             }
         }
