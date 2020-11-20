@@ -34,7 +34,7 @@ public class RingDetector extends OpenCvPipeline {
         Imgproc.blur(zoomedMat, zoomedMat, new Size(2.0, 2.0), new Point(-1, -1));
         Imgproc.cvtColor(zoomedMat, zoomedMat, Imgproc.COLOR_RGB2HSV);
 
-        Scalar lowHSV = new Scalar(5, 100, 80);
+        Scalar lowHSV = new Scalar(10, 100, 80);
         Scalar highHSV = new Scalar(20, 255, 255);
 
         Core.inRange(zoomedMat, lowHSV, highHSV, zoomedMat);
