@@ -1,10 +1,9 @@
 package org.firstinspires.ftc.teamcode.opmodes;
 
-import android.util.Log;
-
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.util.Range;
 
+import org.firstinspires.ftc.teamcode.toolkit.MovementFunctions;
 import org.firstinspires.ftc.teamcode.Odometry;
 import org.firstinspires.ftc.teamcode.Robot;
 import org.firstinspires.ftc.teamcode.toolkit.TelemetryOutput;
@@ -27,19 +26,11 @@ public class Teleop extends ULLinearOpMode {
     public void runOpMode() {
 
         robot = new Robot();
-        odom = new Odometry(robot);
+        odom = robot.odometry;
 
         waitForStart();
 
         while(opModeIsActive()) {
-
-            Log.i("Thread", "OG THREAD Working");
-
-            if(!opModeIsActive()) {
-                odom.updateValid = false;
-            }
-
-//            odom.positionUpdate();
 
             // initialize the gamepad stick values to the three needed axes
             leftY = Range.clip(-gamepad1.left_stick_y, -1, 1);
@@ -58,12 +49,14 @@ public class Teleop extends ULLinearOpMode {
             double turnValue = 0.75 * rightX;
 
             // set the powers using the 2 specific equations and clip the result
-            robot.drive(magnitude, joystickAngle, turnValue);
+            MovementFunctions.driveTowards(magnitude, joystickAngle, turnValue, robot);
 
             // add telemetry data for the encoders
             TelemetryOutput.printFullTelemetry(telemetry, odom);
 
         }
+
+        odom.stopUpdateThread();
 
     }
 }

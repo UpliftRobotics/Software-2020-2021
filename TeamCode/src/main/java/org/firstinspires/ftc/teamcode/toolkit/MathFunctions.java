@@ -16,7 +16,7 @@ public class MathFunctions {
         return (((int)(val * 1000)) / 1000.0);
     }
 
-    public static double AngleRestrictions(double angle) {
+    public static double angleRestrictions(double angle) {
         while (angle < -180) {
             angle += 2 * 180;
         }

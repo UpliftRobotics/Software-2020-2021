@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode;
 
 import org.firstinspires.ftc.teamcode.toolkit.MathFunctions;
+import org.firstinspires.ftc.teamcode.toolkit.MovementFunctions;
 import org.firstinspires.ftc.teamcode.toolkit.PathPoint;
 import org.firstinspires.ftc.teamcode.toolkit.Point;
 
@@ -9,12 +10,14 @@ import java.util.ArrayList;
 public class Odometry {
 
     private Robot robot;
+    private MovementFunctions moveFun;
     private PositionUpdateThread posRun;
     public boolean updateValid;
 
     // initialize starting position and orientation
     public double worldXPosition = 0;
     public double worldYPosition = 0;
+    public double rawAngle = 0;
     public double worldAngle = 0;
 
     // declare and initialize needed variables to calculate position
@@ -80,7 +83,8 @@ public class Odometry {
         changeInRobotOrientation = Math.toDegrees((deltaLeftDistance - deltaRightDistance) / (Robot.robotEncoderWheelDistance));
         deltaHorizontal = deltaCenterDistance - (changeInRobotOrientation * Robot.horizontalEncoderInchesPerDegreeOffset);
 
-        worldAngle = MathFunctions.AngleRestrictions(worldAngle + changeInRobotOrientation);
+        rawAngle = worldAngle + changeInRobotOrientation;
+        worldAngle = MathFunctions.angleRestrictions(rawAngle);
 
         worldXPosition += ((((deltaLeftDistance + deltaRightDistance) / 2.0)) * Math.sin(Math.toRadians(worldAngle))) + (deltaHorizontal * Math.cos(Math.toRadians(worldAngle)));
 
@@ -106,7 +110,7 @@ public class Odometry {
 //                robot.drive(movementSpeed, relativeAngle, 0);
 //                //if it is not in the approach zone
 //            } else {
-            robot.drive(movementSpeed, relativeAngle, 0);
+            MovementFunctions.driveTowards(movementSpeed, relativeAngle, 0, robot);
 
 
             xDistanceToPoint = xPosition - worldXPosition;
@@ -115,7 +119,7 @@ public class Odometry {
             relativeAngle = Math.toDegrees(Math.atan2(yDistanceToPoint, xDistanceToPoint));
         }
 
-        robot.stopMotors();
+        MovementFunctions.stopMotors(robot);
 
         return;
     }
@@ -146,10 +150,8 @@ public class Odometry {
         public void run() {
             while(updateValid) {
                 positionUpdate();
-//                Log.i("Thread", "THREAD WORKING");
                 try {
                     Thread.sleep(10);
-//                    Log.i("Thread", "THREAD SLEEPING... SHHHHHHH");
                 } catch (Exception ex) {
                     ex.printStackTrace();
                 }

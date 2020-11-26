@@ -8,6 +8,7 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.util.Range;
 
 import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
+import org.firstinspires.ftc.teamcode.toolkit.MathFunctions;
 import org.firstinspires.ftc.teamcode.toolkit.RingDetector;
 import org.firstinspires.ftc.teamcode.toolkit.ULLinearOpMode;
 import org.openftc.easyopencv.OpenCvCamera;
@@ -16,6 +17,9 @@ import org.openftc.easyopencv.OpenCvCameraRotation;
 
 
 public class Robot {
+
+    // Declare the odometry object
+    public Odometry odometry;
 
     // Declare HardwareMap and hardware devices
     public HardwareMap hardwareMap;
@@ -66,6 +70,8 @@ public class Robot {
         camera.setPipeline(detector);
         camera.startStreaming(320,240, OpenCvCameraRotation.UPRIGHT);
 
+        odometry = new Odometry(this);
+
         //setup the motors
         rightFront.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         rightBack.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -81,31 +87,6 @@ public class Robot {
         rightBack.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         leftFront.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         leftBack.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-
-    }
-
-    // method to move a certain direction at a given speed
-    public void drive(double speedVal, double angle, double turnVal) {
-        leftFront.setPower(Range.clip((Math.sin(Math.toRadians(angle) + (0.25 * Math.PI)) * speedVal + turnVal), -1, 1));
-        rightFront.setPower(Range.clip((Math.sin(Math.toRadians(angle) - (0.25 * Math.PI)) * speedVal - turnVal), -1, 1));
-        leftBack.setPower(Range.clip((Math.sin(Math.toRadians(angle) - (0.25 * Math.PI)) * speedVal + turnVal), -1, 1));
-        rightBack.setPower(Range.clip((Math.sin(Math.toRadians(angle) + (0.25 * Math.PI)) * speedVal - turnVal), -1, 1));
-    }
-
-    // method to stop all motors
-    public void stopMotors() {
-        leftFront.setPower(0);
-        leftBack.setPower(0);
-        rightFront.setPower(0);
-        rightBack.setPower(0);
-    }
-
-    // method to spin at a certain speed (clockwise if positive, counter-clockwise if negative)
-    public void spin(double turnVal) {
-        leftFront.setPower(turnVal);
-        rightFront.setPower(-turnVal);
-        leftBack.setPower(turnVal);
-        rightBack.setPower(-turnVal);
 
     }
 

@@ -18,7 +18,7 @@ public class BlueVisionAuto extends ULLinearOpMode {
     public void runOpMode() throws InterruptedException {
 
         robot = new Robot();
-        odom = new Odometry(robot);
+        odom = robot.odometry;
 
         waitForStart();
 
