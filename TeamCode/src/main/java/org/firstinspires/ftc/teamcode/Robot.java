@@ -15,7 +15,16 @@ import org.openftc.easyopencv.OpenCvCamera;
 import org.openftc.easyopencv.OpenCvCameraFactory;
 import org.openftc.easyopencv.OpenCvCameraRotation;
 
-
+/**
+ * <h1>Robot</h1>
+ * The Robot class is where all hardware aspects of the robot are declared and initialized. Also,
+ * specific constants and settings are added here.
+ * <p>
+ *
+ * @author  Uplift Robotics FTC Team 18172
+ * @version Meet 1
+ * @since   4/27/2020
+ */
 public class Robot {
 
     // Declare the odometry object
@@ -44,6 +53,11 @@ public class Robot {
     public static double robotEncoderWheelDistance = 16.44;
     public static double horizontalEncoderInchesPerDegreeOffset = 0.02386;
 
+    /**
+     * This is the Robot constructor that initializes all hardware and major software aspects of
+     * the robot. The most important parts of this constructor include its creation of the hardware map
+     * and instantiation of the Odometry object.
+     */
     public Robot() {
         //create the hardware map
         hardwareMap = ULLinearOpMode.getInstance().hardwareMap;
