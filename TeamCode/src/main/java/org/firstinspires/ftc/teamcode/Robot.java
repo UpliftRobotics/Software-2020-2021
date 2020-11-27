@@ -5,11 +5,9 @@ import com.qualcomm.hardware.bosch.BNO055IMU;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
-import com.qualcomm.robotcore.util.Range;
 
 import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
-import org.firstinspires.ftc.teamcode.toolkit.MathFunctions;
-import org.firstinspires.ftc.teamcode.toolkit.RingDetector;
+import org.firstinspires.ftc.teamcode.toolkit.opencvtoolkit.RingDetector;
 import org.firstinspires.ftc.teamcode.toolkit.ULLinearOpMode;
 import org.openftc.easyopencv.OpenCvCamera;
 import org.openftc.easyopencv.OpenCvCameraFactory;

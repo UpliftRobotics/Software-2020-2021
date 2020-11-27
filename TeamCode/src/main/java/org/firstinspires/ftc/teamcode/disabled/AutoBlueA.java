@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.Disabled;
+package org.firstinspires.ftc.teamcode.disabled;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
@@ -11,28 +11,32 @@ import org.firstinspires.ftc.teamcode.toolkit.ULLinearOpMode;
 import java.util.ArrayList;
 
 @Disabled
-@Autonomous(name = "AutoRedC", group = "OpModes")
+@Autonomous(name = "AutoBlueA", group = "OpModes")
 
-public class AutoRedC extends ULLinearOpMode {
+public class AutoBlueA extends ULLinearOpMode {
 
     Robot robot;
     Odometry odom;
 
     @Override
-    public void runOpMode(){
-        robot = new Robot();
-        odom = new Odometry(robot);
+    public void runOpMode() {
+        robot = new Robot ();
+        odom = robot.odometry;
 
         waitForStart();
 
         ArrayList<PathPoint> allPoints = new ArrayList<>();
 
-        allPoints.add(new PathPoint(0, 124, 0.7, 2, 5));
-        //allPoints.add(new PathPoint(42, 124, 0.5, 2, 5));
+        allPoints.add(new PathPoint(0, 76, 0.7, 4, 5));
+        allPoints.add(new PathPoint(-30, 76, 0.7, 4, 5));
+        allPoints.add(new PathPoint(0, 76, 0.7, 4, 5));
+        //allPoints.add(new PathPoint(-38, 72, 0.5, 2, 5));
 
         odom.followPath(allPoints);
 
         odom.stopUpdateThread();
     }
-
 }
+
+
+
