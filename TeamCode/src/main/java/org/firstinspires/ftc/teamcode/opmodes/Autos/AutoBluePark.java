@@ -16,7 +16,7 @@ public class AutoBluePark extends ULLinearOpMode {
     Odometry odom;
 
     @Override
-    public void runOpMode() throws InterruptedException {
+    public void runOpMode() {
 
         robot = new Robot();
         odom = robot.odometry;
@@ -26,16 +26,17 @@ public class AutoBluePark extends ULLinearOpMode {
         // create empty path list
         ArrayList<PathPoint> path = new ArrayList<>();
 
-        // fill path with points
-        path.add(new PathPoint(0, 76, 0.7, 4, 5));
+        // set the initial position
+        odom.setStartPosition(53, 8, 0);
 
+        // fill path with points
+        path.add(new PathPoint(53, 84, 0.7, 4, 5));
 
         // follow the path designated earlier in the program (only if the path list was filled)
         if(!path.isEmpty()) {
             odom.followPath(path);
             path.clear();
         }
-
 
         odom.stopUpdateThread();
 

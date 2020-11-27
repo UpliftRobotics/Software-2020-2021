@@ -8,6 +8,7 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 import org.firstinspires.ftc.teamcode.Odometry;
 import org.firstinspires.ftc.teamcode.Robot;
 import org.firstinspires.ftc.teamcode.toolkit.MathFunctions;
+import org.firstinspires.ftc.teamcode.toolkit.MovementFunctions;
 import org.firstinspires.ftc.teamcode.toolkit.PathPoint;
 import org.firstinspires.ftc.teamcode.toolkit.ULLinearOpMode;
 
@@ -20,13 +21,13 @@ public class VelocityTester extends ULLinearOpMode {
     Odometry odom;
 
     @Override
-    public void runOpMode() throws InterruptedException {
+    public void runOpMode() {
         robot = new Robot();
-        odom = new Odometry(robot);
+        odom = robot.odometry;
 
         waitForStart();
 
-        PathPoint pt = new PathPoint(0, 60, 0.7, 2, 10);
+        PathPoint pt = new PathPoint(0, 60, 1, 4, 5);
 
         double yPosition = pt.y;
         double movementSpeed = pt.moveSpeed;
@@ -49,10 +50,10 @@ public class VelocityTester extends ULLinearOpMode {
             finalYDistanceToPoint = yPosition - odom.worldYPosition;
             //if it enters the approach zone
             if (finalYDistanceToPoint <= approachZone) {
-                robot.drive(MathFunctions.slowApproach(movementSpeed, finalYDistanceToPoint, approachZone), 0, 0);
+                MovementFunctions.driveTowards(MathFunctions.slowApproach(movementSpeed, finalYDistanceToPoint, approachZone), 0, 0, robot);
                 //if it is not in the approach zone
             } else {
-                robot.drive(movementSpeed, 0, 0);
+                MovementFunctions.driveTowards(movementSpeed, 0, 0, robot);
             }
             double timeElapsedSec = timer.milliseconds() / 1000;
             double deltaDistance = initialYDistanceToPoint - finalYDistanceToPoint;
@@ -67,7 +68,7 @@ public class VelocityTester extends ULLinearOpMode {
             }
         }
 
-        robot.stopMotors();
+        MovementFunctions.stopMotors(robot);
 
         Log.i("Thread", "STOPPED");
 

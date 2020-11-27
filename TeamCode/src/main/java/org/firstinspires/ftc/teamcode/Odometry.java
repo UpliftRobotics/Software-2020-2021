@@ -19,7 +19,6 @@ import java.util.ArrayList;
 public class Odometry {
 
     private Robot robot;
-    private MovementFunctions moveFun;
     private PositionUpdateThread posRun;
     public boolean updateValid;
 
@@ -53,55 +52,6 @@ public class Odometry {
         posRun = new PositionUpdateThread();
         updateValid = true;
         posRun.start();
-    }
-
-    /**
-     * This is a getter method for the left encoder ticks.
-     * @return int This returns the value of the left encoder's position (in ticks)
-     */
-    public int getLeftTicks() {
-        return robot.leftFront.getCurrentPosition();
-    }
-
-    /**
-     * This is a getter method for the right encoder ticks.
-     * @return int This returns the value of the right encoder's position (in ticks)
-     */
-    public int getRightTicks() {
-        return robot.rightFront.getCurrentPosition();
-    }
-
-    /**
-     * This is a getter method for the center encoder ticks.
-     * @return int This returns the value of the center encoder's position (in ticks)
-     */
-    public int getCenterTicks() {
-        return robot.rightBack.getCurrentPosition();
-    }
-
-    /**
-     * This is an overloaded (1) setter method for the robot's initial position and angle
-     * @param pt This is a Point object that holds the x and y values that will be added to the
-     *           worldXPosition and worldYPosition. (It is usually used for initial position.)
-     * @param angle This is a double value of the angle that will be added to the worldAngle of the
-     *              robot. (It is usually used for initial angle.)
-     */
-    public void setStartPosition(Point pt, double angle) {
-        worldXPosition += pt.x;
-        worldYPosition += pt.y;
-        worldAngle += angle; // in degrees
-    }
-
-    /**
-     * This is an overloaded (2) setter method for the robot's initial position only
-     * @param x This is a double value that holds the x value that will be added to the
-     *          worldXPosition (It is usually used for initial x position.)
-     * @param y This is a double value that holds the y value that will be added to the
-     *          worldYPosition (It is usually used for initial y position.)
-     */
-    public void setStartPosition(double x, double y) {
-        worldXPosition += x;
-        worldYPosition += y;
     }
 
     /**
@@ -188,6 +138,57 @@ public class Odometry {
         for (PathPoint pt : path) {
             goToPosition(pt.x, pt.y, pt.moveSpeed, 0, pt.errorDistance, pt.errorAngle);
         }
+    }
+
+    /**
+     * This is a getter method for the left encoder ticks.
+     * @return int This returns the value of the left encoder's position (in ticks)
+     */
+    public int getLeftTicks() {
+        return robot.leftFront.getCurrentPosition();
+    }
+
+    /**
+     * This is a getter method for the right encoder ticks.
+     * @return int This returns the value of the right encoder's position (in ticks)
+     */
+    public int getRightTicks() {
+        return robot.rightFront.getCurrentPosition();
+    }
+
+    /**
+     * This is a getter method for the center encoder ticks.
+     * @return int This returns the value of the center encoder's position (in ticks)
+     */
+    public int getCenterTicks() {
+        return robot.rightBack.getCurrentPosition();
+    }
+
+    /**
+     * This is an overloaded (1) setter method for the robot's initial position and angle
+     * @param x This is a double value that holds the x value that will be added to the
+     *          worldXPosition (It is usually used for initial x position.)
+     * @param y This is a double value that holds the y value that will be added to the
+     *          worldYPosition (It is usually used for initial y position.)
+     * @param angle This is a double value of the angle, in degrees [-180, 180], that will be added to the worldAngle of the
+     *              robot. (It is usually used for initial angle.)
+     */
+    public void setStartPosition(double x, double y, double angle) {
+        worldXPosition += x;
+        worldYPosition += y;
+        worldAngle += angle; // in degrees
+    }
+
+    /**
+     * This is an overloaded (2) setter method for the robot's initial position only
+     * @param x This is a double value that holds the x value that will be added to the
+     *          worldXPosition (It is usually used for initial x position.)
+     * @param y This is a double value that holds the y value that will be added to the
+     *          worldYPosition (It is usually used for initial y position.)
+     */
+    public void setStartPosition(double x, double y) {
+        worldXPosition += x;
+        worldYPosition += y;
     }
 
     /**

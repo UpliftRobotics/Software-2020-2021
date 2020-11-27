@@ -12,7 +12,7 @@ import org.firstinspires.ftc.teamcode.toolkit.ULLinearOpMode;
 
 // Note: this class was inspired by the odometry calibration program made by Wizard.exe, FTC Team 9794
 
-@TeleOp(name = "OdometryCalibration", group = "Odometry")
+@TeleOp(name = "Odometry Calibration", group = "Hardware Testers")
 public class OdometryCalibration extends ULLinearOpMode {
 
     Robot robot;

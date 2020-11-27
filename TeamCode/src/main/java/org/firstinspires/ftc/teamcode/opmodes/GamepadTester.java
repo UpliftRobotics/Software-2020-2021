@@ -3,7 +3,7 @@ package org.firstinspires.ftc.teamcode.opmodes;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import org.firstinspires.ftc.teamcode.toolkit.ULLinearOpMode;
 
-@TeleOp(name = "GamepadTester", group = "OpModes")
+@TeleOp(name = "Gamepad Tester", group = "Hardware Testers")
 public class GamepadTester extends ULLinearOpMode {
 
     @Override

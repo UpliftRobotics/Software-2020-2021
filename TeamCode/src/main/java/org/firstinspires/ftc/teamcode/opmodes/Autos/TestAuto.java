@@ -20,23 +20,22 @@ public class TestAuto extends ULLinearOpMode {
     @Override
     public void runOpMode() {
         robot = new Robot();
-        odom = new Odometry(robot);
+        odom = robot.odometry;
 
         waitForStart();
 
         // declare and initialize an empty list of PathPoints
-        ArrayList<PathPoint> allPoints = new ArrayList<>();
+        ArrayList<PathPoint> path = new ArrayList<>();
 
 
-        allPoints.add(new PathPoint(0, 72, 1.0, 4, 5));
-        allPoints.add(new PathPoint(-38, 72, 1.0, 6, 5));
-
-        //allPoints.add(new PathPoint(0, -30, 0.5, , 10));
+        path.add(new PathPoint(0, 72, 1.0, 4, 5));
 
 
-
-        //follow the path
-        odom.followPath(allPoints);
+        // follow the path designated earlier in the program (only if the path list was filled)
+        if(!path.isEmpty()) {
+            odom.followPath(path);
+            path.clear();
+        }
 
         odom.stopUpdateThread();
     }
