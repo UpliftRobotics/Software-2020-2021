@@ -3,7 +3,6 @@ package org.firstinspires.ftc.teamcode;
 import org.firstinspires.ftc.teamcode.toolkit.MathFunctions;
 import org.firstinspires.ftc.teamcode.toolkit.MovementFunctions;
 import org.firstinspires.ftc.teamcode.toolkit.PathPoint;
-import org.firstinspires.ftc.teamcode.toolkit.Point;
 
 import java.util.ArrayList;
 

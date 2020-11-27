@@ -8,6 +8,7 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.teamcode.Odometry;
 import org.firstinspires.ftc.teamcode.Robot;
+import org.firstinspires.ftc.teamcode.toolkit.MovementFunctions;
 import org.firstinspires.ftc.teamcode.toolkit.ULLinearOpMode;
 
 // Note: this class was inspired by the odometry calibration program made by Wizard.exe, FTC Team 9794
@@ -52,13 +53,13 @@ public class OdometryCalibration extends ULLinearOpMode {
         while (getZAngle() < 90) {
             // if angle greater than 60 degrees, drop power by factor of 1/2
             if (getZAngle() < 60) {
-                setPowerAll(-PIVOT_SPEED, -PIVOT_SPEED, PIVOT_SPEED, PIVOT_SPEED);
+                MovementFunctions.spin(1, robot);
             } else {
-                setPowerAll(-PIVOT_SPEED / 2, -PIVOT_SPEED / 2, PIVOT_SPEED / 2, PIVOT_SPEED / 2);
+                MovementFunctions.spin(0.5, robot);
             }
         }
 
-        setPowerAll(0,0, 0, 0);
+        MovementFunctions.stopMotors(robot);
 
         // update angle value (in degrees)
         double angle = getZAngle();
@@ -99,13 +100,6 @@ public class OdometryCalibration extends ULLinearOpMode {
 
     private double getZAngle(){
         return (-robot.imu.getAngularOrientation().firstAngle);
-    }
-
-    private void setPowerAll(double rf, double rb, double lf, double lb){
-        robot.rightFront.setPower(rf);
-        robot.rightBack.setPower(rb);
-        robot.leftFront.setPower(lf);
-        robot.rightBack.setPower(lb);
     }
 
 }

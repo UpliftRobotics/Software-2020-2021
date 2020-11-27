@@ -4,18 +4,39 @@ import com.qualcomm.robotcore.util.Range;
 
 import org.firstinspires.ftc.teamcode.Robot;
 
+
 public class MovementFunctions {
 
     // method to move a certain direction at a given speed
     public static void driveTowards(double speedVal, double angle, double turnVal, Robot robot) {
-        robot.leftFront.setPower(Range.clip((Math.sin(Math.toRadians(angle) + (0.25 * Math.PI)) * speedVal + turnVal), -1, 1));
-        robot.rightFront.setPower(Range.clip((Math.sin(Math.toRadians(angle) - (0.25 * Math.PI)) * speedVal - turnVal), -1, 1));
-        robot.leftBack.setPower(Range.clip((Math.sin(Math.toRadians(angle) - (0.25 * Math.PI)) * speedVal + turnVal), -1, 1));
-        robot.rightBack.setPower(Range.clip((Math.sin(Math.toRadians(angle) + (0.25 * Math.PI)) * speedVal - turnVal), -1, 1));
+        double lf = Math.sin(Math.toRadians(angle) + (0.25 * Math.PI)) * speedVal + turnVal;
+        double rf = Math.sin(Math.toRadians(angle) - (0.25 * Math.PI)) * speedVal - turnVal;
+        double lb = Math.sin(Math.toRadians(angle) - (0.25 * Math.PI)) * speedVal + turnVal;
+        double rb = Math.sin(Math.toRadians(angle) + (0.25 * Math.PI)) * speedVal - turnVal;
+
+        // find max total input out of the 4 motors
+        double maxVal = Math.abs(lf);
+        if(Math.abs(rf) > maxVal){
+            maxVal = Math.abs(rf);
+        }
+        if(Math.abs(lb) > maxVal){
+            maxVal = Math.abs(lb);
+        }
+        if(Math.abs(rb) > maxVal){
+            maxVal = Math.abs(rb);
+        }
+
+        // set the scaled powers
+        robot.leftFront.setPower(lf / maxVal);
+        robot.rightFront.setPower(rf / maxVal);
+        robot.leftBack.setPower(lb / maxVal);
+        robot.rightBack.setPower(rb / maxVal);
+
     }
 
     // method to constantly spin ( [+] for clockwise and [-] for counter-clockwise )
     public static void spin(double speed, Robot robot) {
+        speed = Range.clip(speed, -1, 1);
         robot.leftFront.setPower(speed);
         robot.leftBack.setPower(speed);
         robot.rightFront.setPower(-speed);
