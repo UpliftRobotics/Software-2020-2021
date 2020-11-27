@@ -10,7 +10,6 @@ import org.firstinspires.ftc.teamcode.toolkit.ULLinearOpMode;
 
 import java.util.ArrayList;
 
-@Disabled
 @Autonomous(name = "TestAuto", group = "OpModes")
 public class TestAuto extends ULLinearOpMode {
 
@@ -28,10 +27,10 @@ public class TestAuto extends ULLinearOpMode {
         ArrayList<PathPoint> path = new ArrayList<>();
 
         odom.setStartPosition(0,0,0);
-        path.add(new PathPoint(0, 36, 0.7, 4, 5));
-        path.add(new PathPoint(36,36,0.7,4,5));
-        path.add(new PathPoint(36, 0, 0.7, 4, 5));
-        path.add(new PathPoint(0, 0, 0.7, 4, 5));
+        path.add(new PathPoint(0, 36, 0.5, 0.5, 5));
+        path.add(new PathPoint(36,36,0.5, 0.5,5));
+        path.add(new PathPoint(36, 0, 0.5, 0.5, 5));
+        path.add(new PathPoint(0, 0, 0.5, 0.5, 5));
 
 
         // follow the path designated earlier in the program (only if the path list was filled)

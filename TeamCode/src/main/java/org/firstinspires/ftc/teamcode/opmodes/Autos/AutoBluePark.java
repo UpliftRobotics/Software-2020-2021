@@ -23,6 +23,7 @@ public class AutoBluePark extends ULLinearOpMode {
 
         waitForStart();
 
+
         // create empty path list
         ArrayList<PathPoint> path = new ArrayList<>();
 

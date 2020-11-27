@@ -25,6 +25,7 @@ import org.openftc.easyopencv.OpenCvCameraRotation;
  */
 public class Robot {
 
+    public ULLinearOpMode opMode;
     // Declare the odometry object
     public Odometry odometry;
 
@@ -49,7 +50,7 @@ public class Robot {
     public static double wheelCircumference = wheelRadius * (2 * Math.PI); // inches
     public static double COUNTS_PER_INCH = (720 * 4) / wheelCircumference;
     public static double robotEncoderWheelDistance = 15.77469;
-    public static double horizontalEncoderInchesPerDegreeOffset = -4.7448;
+    public static double horizontalEncoderInchesPerDegreeOffset = -4.7448 / COUNTS_PER_INCH;
 
     /**
      * This is the Robot constructor that initializes all hardware and major software aspects of
@@ -57,8 +58,10 @@ public class Robot {
      * and instantiation of the Odometry object.
      */
     public Robot() {
+        opMode = ULLinearOpMode.getInstance();
+
         //create the hardware map
-        hardwareMap = ULLinearOpMode.getInstance().hardwareMap;
+        hardwareMap = opMode.hardwareMap;
 
         //initialize the motors into the hardware map
         leftFront = hardwareMap.get(DcMotor.class,"lf_motor");//Declares two left motors
@@ -75,12 +78,12 @@ public class Robot {
         parameters.angleUnit = BNO055IMU.AngleUnit.DEGREES;
         imu.initialize(parameters);
 
-        webcamName= hardwareMap.get(WebcamName.class,"webcam");
-        int cameraMonitorViewId = hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId","id",hardwareMap.appContext.getPackageName());
-        camera = OpenCvCameraFactory.getInstance().createWebcam(webcamName, cameraMonitorViewId);
-        camera.openCameraDevice();
-        camera.setPipeline(detector);
-        camera.startStreaming(320,240, OpenCvCameraRotation.UPRIGHT);
+//        webcamName= hardwareMap.get(WebcamName.class,"webcam");
+//        int cameraMonitorViewId = hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId","id",hardwareMap.appContext.getPackageName());
+//        camera = OpenCvCameraFactory.getInstance().createWebcam(webcamName, cameraMonitorViewId);
+//        camera.openCameraDevice();
+//        camera.setPipeline(detector);
+//        camera.startStreaming(320,240, OpenCvCameraRotation.UPRIGHT);
 
         odometry = new Odometry(this);
 

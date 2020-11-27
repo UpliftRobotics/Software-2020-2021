@@ -26,6 +26,9 @@ public class MovementFunctions {
             maxVal = Math.abs(rb);
         }
 
+        if(maxVal < 1) {
+            maxVal = 1;
+        }
         // set the scaled powers
         robot.leftFront.setPower(lf / maxVal);
         robot.rightFront.setPower(rf / maxVal);

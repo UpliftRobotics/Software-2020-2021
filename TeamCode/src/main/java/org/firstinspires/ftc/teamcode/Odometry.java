@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode;
 
+import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.toolkit.MathFunctions;
 import org.firstinspires.ftc.teamcode.toolkit.MovementFunctions;
 import org.firstinspires.ftc.teamcode.toolkit.PathPoint;
@@ -173,9 +174,9 @@ public class Odometry {
      *              robot. (It is usually used for initial angle.)
      */
     public void setStartPosition(double x, double y, double angle) {
-        worldXPosition += x;
-        worldYPosition += y;
-        worldAngle += angle; // in degrees
+        worldXPosition = x;
+        worldYPosition = y;
+        worldAngle = angle; // in degrees
     }
 
     /**
@@ -221,8 +222,13 @@ public class Odometry {
 
         @Override
         public void run() {
+            Telemetry tele = robot.opMode.telemetry;
             while(updateValid) {
                 positionUpdate();
+                tele.addData("WorldX", worldXPosition);
+                tele.addData("WorldY", worldYPosition);
+                tele.addData("WorldAngle", worldAngle);
+                tele.update();
                 try {
                     Thread.sleep(10);
                 } catch (Exception ex) {
