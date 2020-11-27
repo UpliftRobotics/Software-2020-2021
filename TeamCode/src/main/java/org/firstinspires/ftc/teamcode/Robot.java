@@ -48,8 +48,8 @@ public class Robot {
     public static double wheelRadius = 19/25.4; // in meters (change thi later)
     public static double wheelCircumference = wheelRadius * (2 * Math.PI); // inches
     public static double COUNTS_PER_INCH = (720 * 4) / wheelCircumference;
-    public static double robotEncoderWheelDistance = 16.44;
-    public static double horizontalEncoderInchesPerDegreeOffset = 0.02386;
+    public static double robotEncoderWheelDistance = 15.77469;
+    public static double horizontalEncoderInchesPerDegreeOffset = -4.7448;
 
     /**
      * This is the Robot constructor that initializes all hardware and major software aspects of
