@@ -3,10 +3,10 @@ package org.firstinspires.ftc.teamcode.opmodes;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.util.Range;
 
+import org.firstinspires.ftc.teamcode.toolkit.MathFunctions;
 import org.firstinspires.ftc.teamcode.toolkit.MovementFunctions;
 import org.firstinspires.ftc.teamcode.Odometry;
 import org.firstinspires.ftc.teamcode.Robot;
-import org.firstinspires.ftc.teamcode.toolkit.TelemetryOutput;
 import org.firstinspires.ftc.teamcode.toolkit.ULLinearOpMode;
 
 @TeleOp(name = "TeleOp", group = "OpModes")
@@ -40,7 +40,7 @@ public class Teleop extends ULLinearOpMode {
             // Note: The following algorithm was inspired by the webpage https://seamonsters-2605.github.io/archive/mecanum/. It explains this concept very well.
 
             // find the angle of the left joystick
-            double joystickAngle = Math.toDegrees(Math.atan2(leftY, leftX));
+            double joystickAngle = Math.toDegrees(MathFunctions.atan2UL(leftY, leftX));
 
             // find the magnitude, or hypotenuse of the left joystick and scale it down by dividing by the max
             double magnitude = Math.sqrt(Math.pow(leftX, 2) + Math.pow(leftY, 2));

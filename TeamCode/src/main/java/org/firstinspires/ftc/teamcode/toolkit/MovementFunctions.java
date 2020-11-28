@@ -7,12 +7,16 @@ import org.firstinspires.ftc.teamcode.Robot;
 
 public class MovementFunctions {
 
+    public static final int SLIDE_WITHOUT_TURNS = 0;
+    public static final int DRIVE_WITH_TURNS = 1;
+
     // method to move a certain direction at a given speed
     public static void driveTowards(double speedVal, double angle, double turnVal, Robot robot) {
-        double lf = Math.sin(Math.toRadians(angle) + (0.25 * Math.PI)) * speedVal + turnVal;
-        double rf = Math.sin(Math.toRadians(angle) - (0.25 * Math.PI)) * speedVal - turnVal;
-        double lb = Math.sin(Math.toRadians(angle) - (0.25 * Math.PI)) * speedVal + turnVal;
-        double rb = Math.sin(Math.toRadians(angle) + (0.25 * Math.PI)) * speedVal - turnVal;
+
+        double lf = Math.sin(Math.toRadians(90 - angle) + (0.25 * Math.PI)) * speedVal + turnVal;
+        double rf = Math.sin(Math.toRadians(90 - angle) - (0.25 * Math.PI)) * speedVal - turnVal;
+        double lb = Math.sin(Math.toRadians(90 - angle) - (0.25 * Math.PI)) * speedVal + turnVal;
+        double rb = Math.sin(Math.toRadians(90 - angle) + (0.25 * Math.PI)) * speedVal - turnVal;
 
         // find max total input out of the 4 motors
         double maxVal = Math.abs(lf);
@@ -35,6 +39,14 @@ public class MovementFunctions {
         robot.leftBack.setPower(lb / maxVal);
         robot.rightBack.setPower(rb / maxVal);
 
+    }
+
+    // method to drive forwards
+    public static void moveForward(double speed, Robot robot) {
+        robot.leftFront.setPower(speed);
+        robot.rightFront.setPower(speed);
+        robot.leftBack.setPower(speed);
+        robot.rightBack.setPower(speed);
     }
 
     // method to constantly spin ( [+] for clockwise and [-] for counter-clockwise )
@@ -70,6 +82,9 @@ public class MovementFunctions {
         } else {
             // either a value of 0 was passed into the method, or some null/NA value [do nothing]
         }
+
+        MovementFunctions.stopMotors(robot);
+
     }
 
     // method to turn TO a certain angle (within the angle restrictions), with either the shortest path (technique 0) or through a specified direction in the direction indicator (clockwise for 1, counter-clockwise for 2)

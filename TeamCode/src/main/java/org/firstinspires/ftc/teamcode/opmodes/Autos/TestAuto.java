@@ -5,6 +5,7 @@ import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 
 import org.firstinspires.ftc.teamcode.Odometry;
 import org.firstinspires.ftc.teamcode.Robot;
+import org.firstinspires.ftc.teamcode.toolkit.MovementFunctions;
 import org.firstinspires.ftc.teamcode.toolkit.PathPoint;
 import org.firstinspires.ftc.teamcode.toolkit.ULLinearOpMode;
 
@@ -35,7 +36,8 @@ public class TestAuto extends ULLinearOpMode {
 
         // follow the path designated earlier in the program (only if the path list was filled)
         if(!path.isEmpty()) {
-            odom.followPath(path);
+            odom.followPath(path, MovementFunctions.SLIDE_WITHOUT_TURNS);
+            odom.followPath(path, MovementFunctions.DRIVE_WITH_TURNS);
             path.clear();
         }
 

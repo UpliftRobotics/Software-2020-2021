@@ -4,6 +4,7 @@ import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.toolkit.MathFunctions;
 import org.firstinspires.ftc.teamcode.toolkit.MovementFunctions;
 import org.firstinspires.ftc.teamcode.toolkit.PathPoint;
+import org.firstinspires.ftc.teamcode.toolkit.TelemetryOutput;
 
 import java.util.ArrayList;
 
@@ -98,34 +99,62 @@ public class Odometry {
      *                       value of 0)
      * @param allowedDistError This is the allowed distance error from the target point that the
      *                         robot should stop within.
-     * @param allowedAngleError This is the amount of angle drift that the robot can handle without
-     *                          correcting itself to stay at the preferredAngle.
+     * @param driveType This is an int value that is the constant value of the drive type (ie. DRIVE_WITH_TURNS, SLIDE_WITHOUT_TURNS)
      */
-    public void goToPosition(double xPosition, double yPosition, double movementSpeed, double preferredAngle, double allowedDistError, double allowedAngleError) {
+    public void goToPosition(double xPosition, double yPosition, double movementSpeed, double preferredAngle, double allowedDistError, int driveType) {
         double xDistanceToPoint = xPosition - worldXPosition;
         double yDistanceToPoint = yPosition - worldYPosition;
         double distanceToPoint = Math.hypot(xDistanceToPoint, yDistanceToPoint);
-        double relativeAngle = Math.toDegrees(Math.atan2(yDistanceToPoint, xDistanceToPoint));
-//        double approachZone = allowedDistError * 5;
+        double relativeAngle = Math.toDegrees(MathFunctions.atan2UL(yDistanceToPoint, xDistanceToPoint)) - worldAngle;
+        double approachZone = allowedDistError * 5;
 
-        while (distanceToPoint > allowedDistError) {
-            //if it enters the approach zone
-//            if (distanceToPoint <= approachZone) {
-//                robot.drive(movementSpeed, relativeAngle, 0);
-//                //if it is not in the approach zone
-//            } else {
-            MovementFunctions.driveTowards(movementSpeed, relativeAngle, 0, robot);
+        // determine driving type to be used
+        if(driveType == MovementFunctions.SLIDE_WITHOUT_TURNS) {
+            while (distanceToPoint > allowedDistError) {
+                // if not in approach zone
+                if (distanceToPoint <= approachZone) {
+                    MovementFunctions.driveTowards(movementSpeed / 2, relativeAngle, 0, robot);
+                    // if enters approach zone
+                } else {
+                    MovementFunctions.driveTowards(movementSpeed, relativeAngle, 0, robot);
+                }
 
+                xDistanceToPoint = xPosition - worldXPosition;
+                yDistanceToPoint = yPosition - worldYPosition;
+                distanceToPoint = Math.hypot(xDistanceToPoint, yDistanceToPoint);
+                relativeAngle = Math.toDegrees(MathFunctions.atan2UL(yDistanceToPoint, xDistanceToPoint)) - worldAngle;
+            }
+            // arrived at point, so stop
+            MovementFunctions.stopMotors(robot);
+            // correct angle to be preferred angle
+            MovementFunctions.turnTo(preferredAngle, movementSpeed / 2, 0, robot);
 
-            xDistanceToPoint = xPosition - worldXPosition;
-            yDistanceToPoint = yPosition - worldYPosition;
-            distanceToPoint = Math.hypot(xDistanceToPoint, yDistanceToPoint);
-            relativeAngle = Math.toDegrees(Math.atan2(yDistanceToPoint, xDistanceToPoint));
+        } else if(driveType == MovementFunctions.DRIVE_WITH_TURNS) {
+            while(distanceToPoint > allowedDistError) {
+                // if not in approach zone
+                if (distanceToPoint > approachZone) {
+                    if(Math.abs(relativeAngle) > 5) {
+                        MovementFunctions.turnTo(relativeAngle, movementSpeed, 0, robot);
+                    }
+                    MovementFunctions.moveForward(movementSpeed, robot);
+                    // if enters approach zone
+                } else {
+                    MovementFunctions.moveForward(movementSpeed / 2, robot);
+                }
+
+                xDistanceToPoint = xPosition - worldXPosition;
+                yDistanceToPoint = yPosition - worldYPosition;
+                distanceToPoint = Math.hypot(xDistanceToPoint, yDistanceToPoint);
+                relativeAngle = Math.toDegrees(MathFunctions.atan2UL(yDistanceToPoint, xDistanceToPoint)) - worldAngle;
+            }
+            // arrived at point, so stop
+            MovementFunctions.stopMotors(robot);
+
+        } else {
+            // do nothing, since no valid driveType constant value was passed into the method
+            System.out.println("Invalid DriveType Constant!");
         }
 
-        MovementFunctions.stopMotors(robot);
-
-        return;
     }
 
     /**
@@ -133,10 +162,10 @@ public class Odometry {
      * @param path This is an ArrayList of type PathPoint which holds the target points of the
      *             robot and does NOT include the starting position.
      */
-    public void followPath(ArrayList<PathPoint> path) {
+    public void followPath(ArrayList<PathPoint> path, int driveType) {
         // tell the robot to map out the path and follow it
         for (PathPoint pt : path) {
-            goToPosition(pt.x, pt.y, pt.moveSpeed, 0, pt.errorDistance, pt.errorAngle);
+            goToPosition(pt.x, pt.y, pt.moveSpeed, 0, pt.errorDistance, driveType);
         }
     }
 
@@ -165,13 +194,13 @@ public class Odometry {
     }
 
     /**
-     * This is an overloaded (1) setter method for the robot's initial position and angle
-     * @param x This is a double value that holds the x value that will be added to the
+     * This is a setter method for the robot's initial position and angle
+     * @param x This is a double value that holds the x value that will be the
      *          worldXPosition (It is usually used for initial x position.)
-     * @param y This is a double value that holds the y value that will be added to the
+     * @param y This is a double value that holds the y value that will be the
      *          worldYPosition (It is usually used for initial y position.)
-     * @param angle This is a double value of the angle, in degrees [-180, 180], that will be added to the worldAngle of the
-     *              robot. (It is usually used for initial angle.)
+     * @param angle This is a double value of the angle, in degrees [-180, 180], that will be the
+     *              worldAngle of the robot. (It is usually used for initial angle.)
      */
     public void setStartPosition(double x, double y, double angle) {
         worldXPosition = x;
@@ -180,26 +209,15 @@ public class Odometry {
     }
 
     /**
-     * This is an overloaded (2) setter method for the robot's initial position only
-     * @param x This is a double value that holds the x value that will be added to the
-     *          worldXPosition (It is usually used for initial x position.)
-     * @param y This is a double value that holds the y value that will be added to the
-     *          worldYPosition (It is usually used for initial y position.)
-     */
-    public void setStartPosition(double x, double y) {
-        worldXPosition += x;
-        worldYPosition += y;
-    }
-
-    /**
      * This method calculates the distance of the robot to a certain point and can be very useful
      * in debugging.
-     * @param pt This is a PathPoint value that is the reference point (target).
-     * @return
+     * @param x This is the x coordinate of the target position.
+     * @param y This is the y coordinate of the target position.
+     * @return double This returns the distance of the robot to the point.
      */
-    public double getDistanceToPoint(PathPoint pt) {
-        double xPosition = pt.x;
-        double yPosition = pt.y;
+    public double getDistanceToPosition(double x, double y) {
+        double xPosition = x;
+        double yPosition = y;
         double xDistanceToPoint = xPosition - worldXPosition;
         double yDistanceToPoint = yPosition - worldYPosition;
         double distanceToPoint = Math.hypot(xDistanceToPoint, yDistanceToPoint);
@@ -225,10 +243,7 @@ public class Odometry {
             Telemetry tele = robot.opMode.telemetry;
             while(updateValid) {
                 positionUpdate();
-                tele.addData("WorldX", worldXPosition);
-                tele.addData("WorldY", worldYPosition);
-                tele.addData("WorldAngle", worldAngle);
-                tele.update();
+                TelemetryOutput.printWorldData(tele, Odometry.this);
                 try {
                     Thread.sleep(10);
                 } catch (Exception ex) {

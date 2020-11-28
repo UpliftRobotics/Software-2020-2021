@@ -26,6 +26,10 @@ public class MathFunctions {
         return angle;
     }
 
+    public static double atan2UL(double y, double x) {
+        return (Math.PI / 2) - Math.atan2(y, x);
+    }
+
     // old method for circle-line intersection (UNUSED)
 //    public static ArrayList<Point> lineCircleIntersect(Point circleCenter, double radius, Point linePoint1, Point linePoint2) {
 //        if((Math.abs(linePoint1.y - linePoint2.y)) < 0.003) {
