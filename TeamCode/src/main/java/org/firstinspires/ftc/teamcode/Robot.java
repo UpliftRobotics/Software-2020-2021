@@ -4,7 +4,9 @@ import com.qualcomm.hardware.bosch.BNO055IMU;
 
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
+import com.qualcomm.robotcore.hardware.DistanceSensor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
+import com.qualcomm.robotcore.hardware.LightSensor;
 import com.qualcomm.robotcore.util.Range;
 
 import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
@@ -25,6 +27,9 @@ public class Robot {
     public DcMotor leftBack; // links to Center Encoder Motor
     public DcMotor rightFront; // links to Right Encoder Motor
     public DcMotor rightBack;
+    //public DistanceSensor d1;
+    //public DistanceSensor d2;
+    //public LightSensor light;
 
     public BNO055IMU imu;
 
@@ -54,6 +59,9 @@ public class Robot {
         leftBack = hardwareMap.get(DcMotor.class,"lb_motor");
         rightFront = hardwareMap.get(DcMotor.class,"rf_motor"); //Declares two right motors
         rightBack = hardwareMap.get(DcMotor.class,"rb_motor");
+        //d1 = hardwareMap.get(DistanceSensor.class, "D1");
+        //d2 = hardwareMap.get(DistanceSensor.class, "d2");
+        //light = hardwareMap.get(LightSensor.class, "light");
 
         leftFront.setDirection(DcMotorSimple.Direction.REVERSE);
         leftBack.setDirection(DcMotorSimple.Direction.REVERSE);
