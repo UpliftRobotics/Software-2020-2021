@@ -74,7 +74,7 @@ public class Odometry {
         changeInRobotOrientation = Math.toDegrees((deltaLeftDistance - deltaRightDistance) / (Robot.robotEncoderWheelDistance));
         deltaHorizontal = deltaCenterDistance - (changeInRobotOrientation * Robot.horizontalEncoderInchesPerDegreeOffset);
 
-        rawAngle = worldAngle + changeInRobotOrientation;
+        rawAngle = rawAngle + changeInRobotOrientation;
         worldAngle = MathFunctions.angleRestrictions(rawAngle);
 
         worldXPosition += ((((deltaLeftDistance + deltaRightDistance) / 2.0)) * Math.sin(Math.toRadians(worldAngle))) + (deltaHorizontal * Math.cos(Math.toRadians(worldAngle)));
@@ -130,12 +130,10 @@ public class Odometry {
             MovementFunctions.turnTo(preferredAngle, movementSpeed / 2, 0, robot);
 
         } else if(driveType == MovementFunctions.DRIVE_WITH_TURNS) {
+            MovementFunctions.turn(relativeAngle, movementSpeed / 2, robot);
             while(distanceToPoint > allowedDistError) {
                 // if not in approach zone
                 if (distanceToPoint > approachZone) {
-                    if(Math.abs(relativeAngle) > 5) {
-                        MovementFunctions.turnTo(relativeAngle, movementSpeed, 0, robot);
-                    }
                     MovementFunctions.moveForward(movementSpeed, robot);
                     // if enters approach zone
                 } else {

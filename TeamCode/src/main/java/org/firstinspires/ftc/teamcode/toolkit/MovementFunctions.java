@@ -63,8 +63,8 @@ public class MovementFunctions {
         double initialAngle = robot.odometry.rawAngle;
         // if turning counter-clockwise
         if(degrees < 0) {
-            while(robot.odometry.worldAngle > (initialAngle + degrees)) {
-                if(Math.abs(robot.odometry.worldAngle - initialAngle) < Math.abs(0.2 * degrees)) {
+            while(robot.odometry.rawAngle > (initialAngle + degrees)) {
+                if(Math.abs(robot.odometry.rawAngle - initialAngle) < Math.abs(0.2 * degrees)) {
                     MovementFunctions.spin((-1 * Math.abs(speed / 2)), robot);
                 } else {
                     MovementFunctions.spin((-1 * Math.abs(speed)), robot);
@@ -72,8 +72,8 @@ public class MovementFunctions {
             }
         // if turning clockwise
         } else if(degrees > 0) {
-            while(robot.odometry.worldAngle < (initialAngle + degrees)) {
-                if(Math.abs(robot.odometry.worldAngle - initialAngle) < Math.abs(0.2 * degrees)) {
+            while(robot.odometry.rawAngle < (initialAngle + degrees)) {
+                if(Math.abs(robot.odometry.rawAngle - initialAngle) < Math.abs(0.2 * degrees)) {
                     MovementFunctions.spin(Math.abs(speed / 2), robot);
                 } else {
                     MovementFunctions.spin(Math.abs(speed), robot);
@@ -100,6 +100,8 @@ public class MovementFunctions {
         } else {
             MovementFunctions.turn(MathFunctions.angleRestrictions(targetAngle - initialAngle), speed, robot);
         }
+
+        return;
     }
 
 

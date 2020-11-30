@@ -20,6 +20,7 @@ public class TelemetryOutput {
         telemetry.addData("WorldX:\t", MathFunctions.truncate(odom.worldXPosition));
         telemetry.addData("WorldY:\t", MathFunctions.truncate(odom.worldYPosition));
         telemetry.addData("WorldOrientationAngle\t", odom.worldAngle);
+        telemetry.addData("Raw Angle\t", odom.rawAngle);
         telemetry.update();
     }
 
