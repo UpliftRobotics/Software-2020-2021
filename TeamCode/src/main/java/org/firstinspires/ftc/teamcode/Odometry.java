@@ -80,7 +80,12 @@ public class Odometry {
         changeInRobotOrientation = Math.toDegrees((deltaLeftDistance - deltaRightDistance) / (Robot.robotEncoderWheelDistance));
         deltaHorizontal = deltaCenterDistance - (changeInRobotOrientation * Robot.horizontalEncoderInchesPerDegreeOffset);
 
+<<<<<<< HEAD
         worldAngle = MathFunctions.AngleRestrictions(worldAngle + changeInRobotOrientation);
+=======
+        rawAngle = worldAngle + changeInRobotOrientation;
+        worldAngle = MathFunctions.angleRestrictions(rawAngle);
+>>>>>>> parent of fb113a9... dfvsdfvdsf
 
         worldXPosition += ((((deltaLeftDistance + deltaRightDistance) / 2.0)) * Math.sin(Math.toRadians(worldAngle))) + (deltaHorizontal * Math.cos(Math.toRadians(worldAngle)));
 
@@ -100,6 +105,7 @@ public class Odometry {
         double relativeAngle = Math.toDegrees(Math.atan2(yDistanceToPoint, xDistanceToPoint));
         double approachZone = allowedDistError * 5;
 
+<<<<<<< HEAD
         while (distanceToPoint > allowedDistError) {
             //if it enters the approach zone
             if (distanceToPoint <= approachZone) {
@@ -107,6 +113,46 @@ public class Odometry {
                 //if it is not in the approach zone
             } else {
                 robot.drive(movementSpeed, relativeAngle, 0);
+=======
+        // determine driving type to be used
+        if(driveType == MovementFunctions.SLIDE_WITHOUT_TURNS) {
+            while (distanceToPoint > allowedDistError) {
+                // if not in approach zone
+                if (distanceToPoint <= approachZone) {
+                    MovementFunctions.driveTowards(movementSpeed / 2, relativeAngle, 0, robot);
+                    // if enters approach zone
+                } else {
+                    MovementFunctions.driveTowards(movementSpeed, relativeAngle, 0, robot);
+                }
+
+                xDistanceToPoint = xPosition - worldXPosition;
+                yDistanceToPoint = yPosition - worldYPosition;
+                distanceToPoint = Math.hypot(xDistanceToPoint, yDistanceToPoint);
+                relativeAngle = Math.toDegrees(MathFunctions.atan2UL(yDistanceToPoint, xDistanceToPoint)) - worldAngle;
+            }
+            // arrived at point, so stop
+            MovementFunctions.stopMotors(robot);
+            // correct angle to be preferred angle
+            MovementFunctions.turnTo(preferredAngle, movementSpeed / 2, 0, robot);
+
+        } else if(driveType == MovementFunctions.DRIVE_WITH_TURNS) {
+            while(distanceToPoint > allowedDistError) {
+                // if not in approach zone
+                if (distanceToPoint > approachZone) {
+                    if(Math.abs(relativeAngle) > 5) {
+                        MovementFunctions.turnTo(relativeAngle, movementSpeed, 0, robot);
+                    }
+                    MovementFunctions.moveForward(movementSpeed, robot);
+                    // if enters approach zone
+                } else {
+                    MovementFunctions.moveForward(movementSpeed / 2, robot);
+                }
+
+                xDistanceToPoint = xPosition - worldXPosition;
+                yDistanceToPoint = yPosition - worldYPosition;
+                distanceToPoint = Math.hypot(xDistanceToPoint, yDistanceToPoint);
+                relativeAngle = Math.toDegrees(MathFunctions.atan2UL(yDistanceToPoint, xDistanceToPoint)) - worldAngle;
+>>>>>>> parent of fb113a9... dfvsdfvdsf
             }
 
             xDistanceToPoint = xPosition - worldXPosition;
