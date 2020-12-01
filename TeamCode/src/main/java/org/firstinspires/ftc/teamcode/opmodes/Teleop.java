@@ -55,9 +55,6 @@ public class Teleop extends ULLinearOpMode {
             // set the powers using the 2 specific equations and clip the result
             MovementFunctions.driveTowards(magnitude, joystickAngle, turnValue, robot);
 
-            // add telemetry data for the encoders
-//            TelemetryOutput.printFullTelemetry(telemetry, odom);
-
         }
 
         odom.stopUpdateThread();

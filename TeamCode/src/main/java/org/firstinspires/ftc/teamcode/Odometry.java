@@ -256,10 +256,10 @@ public class Odometry {
 
         @Override
         public void run() {
-            Telemetry tele = robot.opMode.telemetry;
+            Telemetry telem = robot.opMode.telemetry;
             while(updateValid) {
                 positionUpdate();
-                TelemetryOutput.printWorldData(tele, Odometry.this);
+                TelemetryOutput.printWorldData(telem, robot);
                 try {
                     Thread.sleep(10);
                 } catch (Exception ex) {

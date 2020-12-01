@@ -33,9 +33,6 @@ public class BlueVisionAuto extends ULLinearOpMode {
         // create empty path list
         ArrayList<PathPoint> path = new ArrayList<>();
 
-        telemetry.addData("Ring Count", ringNum);
-        telemetry.update();
-
         // set the initial position of the robot
         odom.setStartPosition(53, 8, 0);
 
