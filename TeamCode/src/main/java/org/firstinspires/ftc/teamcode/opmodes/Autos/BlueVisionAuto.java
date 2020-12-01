@@ -1,12 +1,15 @@
 package org.firstinspires.ftc.teamcode.opmodes.Autos;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.util.ReadWriteFile;
+
 import org.firstinspires.ftc.teamcode.Odometry;
 import org.firstinspires.ftc.teamcode.Robot;
 import org.firstinspires.ftc.teamcode.toolkit.MovementFunctions;
 import org.firstinspires.ftc.teamcode.toolkit.PathPoint;
 import org.firstinspires.ftc.teamcode.toolkit.ULLinearOpMode;
 
+import java.io.File;
 import java.util.ArrayList;
 
 @Autonomous(name = "BlueVisionAuto", group = "OpModes")
@@ -20,6 +23,7 @@ public class BlueVisionAuto extends ULLinearOpMode {
 
         robot = new Robot();
         odom = robot.odometry;
+
 
         waitForStart();
 
@@ -59,7 +63,9 @@ public class BlueVisionAuto extends ULLinearOpMode {
             odom.followPath(path, MovementFunctions.SLIDE_WITHOUT_TURNS);
             path.clear();
         }
-
+        ReadWriteFile.writeFile(odom.odometryFileWorldX, String.valueOf(odom.worldXPosition));
+        ReadWriteFile.writeFile(odom.odometryFileWorldY, String.valueOf(odom.worldYPosition));
+        ReadWriteFile.writeFile(odom.odometryFileWorldAngle, String.valueOf(odom.worldAngle));
         odom.stopUpdateThread();
 
     }

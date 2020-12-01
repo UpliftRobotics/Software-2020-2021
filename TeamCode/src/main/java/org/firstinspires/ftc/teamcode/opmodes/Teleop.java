@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode.opmodes;
 
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.util.Range;
+import com.qualcomm.robotcore.util.ReadWriteFile;
 
 import org.firstinspires.ftc.teamcode.toolkit.MathFunctions;
 import org.firstinspires.ftc.teamcode.toolkit.MovementFunctions;
@@ -28,11 +29,13 @@ public class Teleop extends ULLinearOpMode {
 
         robot = new Robot();
         odom = robot.odometry;
+        odom.worldXPosition = Double.parseDouble(ReadWriteFile.readFile(odom.odometryFileWorldX).trim());
+        odom.worldYPosition = Double.parseDouble(ReadWriteFile.readFile(odom.odometryFileWorldY).trim());
+        odom.worldAngle = Double.parseDouble(ReadWriteFile.readFile(odom.odometryFileWorldAngle).trim());
 
         waitForStart();
 
         while(opModeIsActive()) {
-
             // initialize the gamepad stick values to the three needed axes
             leftY = Range.clip(-gamepad1.left_stick_y, -1, 1);
             rightX = Range.clip(gamepad1.right_stick_x, -1, 1);

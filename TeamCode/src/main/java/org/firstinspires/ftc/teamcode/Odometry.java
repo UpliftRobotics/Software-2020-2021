@@ -1,11 +1,13 @@
 package org.firstinspires.ftc.teamcode;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
+import org.firstinspires.ftc.robotcore.internal.system.AppUtil;
 import org.firstinspires.ftc.teamcode.toolkit.MathFunctions;
 import org.firstinspires.ftc.teamcode.toolkit.MovementFunctions;
 import org.firstinspires.ftc.teamcode.toolkit.PathPoint;
 import org.firstinspires.ftc.teamcode.toolkit.TelemetryOutput;
 
+import java.io.File;
 import java.util.ArrayList;
 
 /**
@@ -41,6 +43,10 @@ public class Odometry {
     public double deltaCenterDistance;
     private double deltaHorizontal;
     private double changeInRobotOrientation;
+    public File odometryFileWorldX;
+    public File odometryFileWorldY;
+    public File odometryFileWorldAngle;
+
 
 
     /**
@@ -53,7 +59,11 @@ public class Odometry {
         posRun = new PositionUpdateThread();
         updateValid = true;
         posRun.start();
+        odometryFileWorldX = AppUtil.getInstance().getSettingsFile("odometryX.txt");
+        odometryFileWorldY = AppUtil.getInstance().getSettingsFile("odometryY.txt");
+        odometryFileWorldAngle = AppUtil.getInstance().getSettingsFile("odometryTheta.txt");
     }
+
 
     /**
      * This is a method to update the global position and angle of the robot. This method uses the
