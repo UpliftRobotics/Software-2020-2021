@@ -1,5 +1,7 @@
 package org.firstinspires.ftc.teamcode;
 
+import com.qualcomm.robotcore.util.ReadWriteFile;
+
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.robotcore.internal.system.AppUtil;
 import org.firstinspires.ftc.teamcode.toolkit.MathFunctions;
@@ -230,6 +232,12 @@ public class Odometry {
         double yDistanceToPoint = yPosition - worldYPosition;
         double distanceToPoint = Math.hypot(xDistanceToPoint, yDistanceToPoint);
         return distanceToPoint;
+    }
+
+    public void writePositionToFile() {
+        ReadWriteFile.writeFile(odometryFileWorldX, String.valueOf(worldXPosition));
+        ReadWriteFile.writeFile(odometryFileWorldY, String.valueOf(worldYPosition));
+        ReadWriteFile.writeFile(odometryFileWorldAngle, String.valueOf(worldAngle));
     }
 
     /**

@@ -5,15 +5,13 @@ public class PathPoint {
     public double y;
     public double moveSpeed;
     public double errorDistance;
-    public double errorAngle;
 
-    public PathPoint(double x, double y, double moveSpeed, double errorDistance, double errorAngle) {
+    public PathPoint(double x, double y, double moveSpeed, double errorDistance) {
 
         this.x = x;
         this.y = y;
         this.moveSpeed = moveSpeed;
         this.errorDistance = errorDistance;
-        this.errorAngle = errorAngle;
     }
 
     public PathPoint(PathPoint thisPoint) {
@@ -21,7 +19,6 @@ public class PathPoint {
         y = thisPoint.y;
         moveSpeed = thisPoint.moveSpeed;
         errorDistance = thisPoint.errorDistance;
-        errorAngle = thisPoint.errorAngle;
     }
 
     public Point toPoint() {

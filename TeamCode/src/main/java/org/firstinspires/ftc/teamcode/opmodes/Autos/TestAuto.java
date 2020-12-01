@@ -28,19 +28,19 @@ public class TestAuto extends ULLinearOpMode {
         ArrayList<PathPoint> path = new ArrayList<>();
 
         odom.setStartPosition(0,0,0);
-        path.add(new PathPoint(0, 36, 0.5, 0.5, 5));
-        path.add(new PathPoint(36,36,0.5, 0.5,5));
-        path.add(new PathPoint(36, 0, 0.5, 0.5, 5));
-        path.add(new PathPoint(0, 0, 0.5, 0.5, 5));
+        path.add(new PathPoint(0, 36, 0.5, 0.5));
+        path.add(new PathPoint(36,36,0.5, 0.5));
+        path.add(new PathPoint(36, 0, 0.5, 0.5));
+        path.add(new PathPoint(0, 0, 0.5, 0.5));
 
 
         // follow the path designated earlier in the program (only if the path list was filled)
         if(!path.isEmpty()) {
             odom.followPath(path, MovementFunctions.SLIDE_WITHOUT_TURNS);
-            odom.followPath(path, MovementFunctions.DRIVE_WITH_TURNS);
             path.clear();
         }
 
         odom.stopUpdateThread();
+        odom.writePositionToFile();
     }
 }
