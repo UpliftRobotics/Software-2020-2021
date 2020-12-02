@@ -78,7 +78,7 @@ public class Odometry {
 
         finalLeftDistance = (getLeftTicks() / Robot.COUNTS_PER_INCH);
         finalRightDistance = (getRightTicks() / Robot.COUNTS_PER_INCH);
-        finalCenterDistance = -getCenterTicks() / Robot.COUNTS_PER_INCH;
+        finalCenterDistance = -(getCenterTicks() / Robot.COUNTS_PER_INCH);
 
         deltaLeftDistance = finalLeftDistance - initialLeftDistance;
         deltaRightDistance = finalRightDistance - initialRightDistance;

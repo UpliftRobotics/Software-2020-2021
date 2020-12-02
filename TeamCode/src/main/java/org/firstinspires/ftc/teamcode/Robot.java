@@ -78,12 +78,12 @@ public class Robot {
         parameters.angleUnit = BNO055IMU.AngleUnit.DEGREES;
         imu.initialize(parameters);
 
-//        webcamName= hardwareMap.get(WebcamName.class,"webcam");
-//        int cameraMonitorViewId = hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId","id",hardwareMap.appContext.getPackageName());
-//        camera = OpenCvCameraFactory.getInstance().createWebcam(webcamName, cameraMonitorViewId);
-//        camera.openCameraDevice();
-//        camera.setPipeline(detector);
-//        camera.startStreaming(320,240, OpenCvCameraRotation.UPRIGHT);
+        webcamName= hardwareMap.get(WebcamName.class,"webcam");
+        int cameraMonitorViewId = hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId","id",hardwareMap.appContext.getPackageName());
+        camera = OpenCvCameraFactory.getInstance().createWebcam(webcamName, cameraMonitorViewId);
+        camera.openCameraDevice();
+        camera.setPipeline(detector);
+        camera.startStreaming(320,240, OpenCvCameraRotation.UPRIGHT);
 
         odometry = new Odometry(this);
 
