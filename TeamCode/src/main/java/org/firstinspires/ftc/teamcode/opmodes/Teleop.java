@@ -62,6 +62,17 @@ public class Teleop extends ULLinearOpMode {
                odom.goToPosition(48,84,0.7,0,0.5, MovementFunctions.SLIDE_WITHOUT_TURNS);
 
             }
+            boolean servoMove = true;
+
+            if(gamepad2.b){
+                if(servoMove){
+                    robot.servo1.setPosition(0.5);
+                } else {
+                    robot.servo1.setPosition(0.1);
+                }
+                servoMove = !servoMove;
+
+            }
 
         }
         odom.stopUpdateThread();
