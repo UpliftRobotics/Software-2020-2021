@@ -5,6 +5,7 @@ import com.qualcomm.hardware.bosch.BNO055IMU;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
+import com.qualcomm.robotcore.hardware.Servo;
 
 import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
 import org.firstinspires.ftc.teamcode.toolkit.opencvtoolkit.RingDetector;
@@ -38,6 +39,9 @@ public class Robot {
     public DcMotor rightFront; // links to Right Encoder Motor
     public DcMotor rightBack;
 
+    public Servo servo1;
+    public Servo servo2;
+
     public BNO055IMU imu;
 
     public OpenCvCamera camera;
@@ -68,6 +72,9 @@ public class Robot {
         leftBack = hardwareMap.get(DcMotor.class,"lb_motor");
         rightFront = hardwareMap.get(DcMotor.class,"rf_motor"); //Declares two right motors
         rightBack = hardwareMap.get(DcMotor.class,"rb_motor");
+
+        servo1 = hardwareMap.get(Servo.class,"servo_1");
+        servo2 = hardwareMap.get(Servo.class,"servo_2");
 
         leftFront.setDirection(DcMotorSimple.Direction.REVERSE);
         leftBack.setDirection(DcMotorSimple.Direction.REVERSE);

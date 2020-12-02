@@ -55,6 +55,18 @@ public class Teleop extends ULLinearOpMode {
             // set the powers using the 2 specific equations and clip the result
             MovementFunctions.driveTowards(magnitude, joystickAngle, turnValue, robot);
 
+            boolean servoMove = true;
+
+            if(gamepad2.a){
+                if(servoMove){
+                    robot.servo1.setPosition(0.5);
+                } else {
+                    robot.servo1.setPosition(0.1);
+                }
+                servoMove = !servoMove;
+
+            }
+
         }
 
         odom.stopUpdateThread();
