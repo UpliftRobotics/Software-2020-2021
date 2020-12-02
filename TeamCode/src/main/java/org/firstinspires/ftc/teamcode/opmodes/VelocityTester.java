@@ -27,7 +27,7 @@ public class VelocityTester extends ULLinearOpMode {
 
         waitForStart();
 
-        PathPoint pt = new PathPoint(0, 60, 1, 4, 5);
+        PathPoint pt = new PathPoint(0, 60, 1, 4);
 
         double yPosition = pt.y;
         double movementSpeed = pt.moveSpeed;

@@ -3,6 +3,7 @@ package org.firstinspires.ftc.teamcode.opmodes;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.util.Range;
 import com.qualcomm.robotcore.util.ReadWriteFile;
+import com.vuforia.State;
 
 import org.firstinspires.ftc.teamcode.toolkit.MathFunctions;
 import org.firstinspires.ftc.teamcode.toolkit.MovementFunctions;
@@ -22,11 +23,15 @@ public class Teleop extends ULLinearOpMode {
     double rightX;
     double leftY;
     double leftX;
-
+    public enum TeleOpStates {
+        NORMAL,
+        SHOOTING_POSITION,
+        DEFAULT;
+    }
+    TeleOpStates state = TeleOpStates.NORMAL;
 
     @Override
     public void runOpMode() {
-
         robot = new Robot();
         odom = robot.odometry;
         odom.worldXPosition = Double.parseDouble(ReadWriteFile.readFile(odom.odometryFileWorldX).trim());
@@ -34,8 +39,7 @@ public class Teleop extends ULLinearOpMode {
         odom.worldAngle = Double.parseDouble(ReadWriteFile.readFile(odom.odometryFileWorldAngle).trim());
 
         waitForStart();
-
-        while(opModeIsActive()) {
+        while (opModeIsActive()) {
             // initialize the gamepad stick values to the three needed axes
             leftY = Range.clip(-gamepad1.left_stick_y, -1, 1);
             rightX = Range.clip(gamepad1.right_stick_x, -1, 1);
@@ -51,13 +55,17 @@ public class Teleop extends ULLinearOpMode {
 
             // find the turnValue directly from the rightX input value (scaled for smoothness)
             double turnValue = 0.75 * rightX;
-
             // set the powers using the 2 specific equations and clip the result
             MovementFunctions.driveTowards(magnitude, joystickAngle, turnValue, robot);
 
-        }
+            if (gamepad1.a){
+               odom.goToPosition(48,84,0.7,0,0.5, MovementFunctions.SLIDE_WITHOUT_TURNS);
 
+            }
+
+        }
         odom.stopUpdateThread();
+
 
     }
 }

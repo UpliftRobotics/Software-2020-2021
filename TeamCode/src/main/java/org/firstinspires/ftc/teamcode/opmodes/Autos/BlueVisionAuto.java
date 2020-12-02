@@ -39,20 +39,20 @@ public class BlueVisionAuto extends ULLinearOpMode {
         // fill the path with the correct points, dependent on the number of rings detected
         if(ringNum == 0) {
             path.clear();
-            path.add(new PathPoint(53, 84, 0.7, 4));
-            path.add(new PathPoint(12, 84, 0.7, 4));
+            path.add(new PathPoint(53, 84, 0.7, 0.5));
+            path.add(new PathPoint(12, 84, 0.7, 0.5));
         } else if(ringNum == 1) {
             path.clear();
-            path.add(new PathPoint(53, 108, 0.7, 4));
-            path.add(new PathPoint(34, 108, 0.7, 4));
+            path.add(new PathPoint(53, 108, 0.7, 0.5));
+            path.add(new PathPoint(34, 108, 0.7, 0.5));
         } else if(ringNum == 4) {
             path.clear();
-            path.add(new PathPoint(53, 132, 0.7, 4));
-            path.add(new PathPoint(10, 132, 0.7, 4));
+            path.add(new PathPoint(53, 132, 0.7, 0.5));
+            path.add(new PathPoint(10, 132, 0.7, 0.5));
         } else {
             // detection did not work, so just park on the line
             path.clear();
-            path.add(new PathPoint(53, 84, 0.7, 4));
+            path.add(new PathPoint(53, 84, 0.7, 0.5));
         }
 
         // follow the path designated earlier in the program (only if the path list was filled)

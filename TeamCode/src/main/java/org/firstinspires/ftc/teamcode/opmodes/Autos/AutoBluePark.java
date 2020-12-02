@@ -41,6 +41,7 @@ public class AutoBluePark extends ULLinearOpMode {
         }
 
         odom.stopUpdateThread();
+        odom.writePositionToFile();
 
     }
 
