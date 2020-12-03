@@ -39,8 +39,8 @@ public class Robot {
     public DcMotor rightFront; // links to Right Encoder Motor
     public DcMotor rightBack;
 
-    public Servo servo1;
-    public Servo servo2;
+//    public Servo servo1;
+//    public Servo servo2;
 
     public BNO055IMU imu;
 
@@ -73,8 +73,8 @@ public class Robot {
         rightFront = hardwareMap.get(DcMotor.class,"rf_motor"); //Declares two right motors
         rightBack = hardwareMap.get(DcMotor.class,"rb_motor");
 
-        servo1 = hardwareMap.get(Servo.class,"servo_1");
-        servo2 = hardwareMap.get(Servo.class,"servo_2");
+//        servo1 = hardwareMap.get(Servo.class,"servo_1");
+//        servo2 = hardwareMap.get(Servo.class,"servo_2");
 
         leftFront.setDirection(DcMotorSimple.Direction.REVERSE);
         leftBack.setDirection(DcMotorSimple.Direction.REVERSE);
