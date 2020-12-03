@@ -2,14 +2,11 @@ package org.firstinspires.ftc.teamcode.opmodes;
 
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.util.Range;
-import com.qualcomm.robotcore.util.ReadWriteFile;
-import com.vuforia.State;
 
 import org.firstinspires.ftc.teamcode.toolkit.MathFunctions;
 import org.firstinspires.ftc.teamcode.toolkit.MovementFunctions;
 import org.firstinspires.ftc.teamcode.Odometry;
 import org.firstinspires.ftc.teamcode.Robot;
-import org.firstinspires.ftc.teamcode.toolkit.TelemetryOutput;
 import org.firstinspires.ftc.teamcode.toolkit.ULLinearOpMode;
 
 @TeleOp(name = "TeleOp", group = "OpModes")
@@ -34,11 +31,11 @@ public class Teleop extends ULLinearOpMode {
     public void runOpMode() {
         robot = new Robot();
         odom = robot.odometry;
-        odom.worldXPosition = Double.parseDouble(ReadWriteFile.readFile(odom.odometryFileWorldX).trim());
-        odom.worldYPosition = Double.parseDouble(ReadWriteFile.readFile(odom.odometryFileWorldY).trim());
-        odom.worldAngle = Double.parseDouble(ReadWriteFile.readFile(odom.odometryFileWorldAngle).trim());
+
+        odom.readPositionFiles();
 
         waitForStart();
+        robot.robotStatus = "Program Running...";
         while (opModeIsActive()) {
             // initialize the gamepad stick values to the three needed axes
             leftY = Range.clip(-gamepad1.left_stick_y, -1, 1);
@@ -62,8 +59,9 @@ public class Teleop extends ULLinearOpMode {
                odom.goToPosition(48,84,0.7,0,0.5, MovementFunctions.SLIDE_WITHOUT_TURNS);
 
             }
-            boolean servoMove = true;
 
+//            boolean servoMove = true;
+//
 //            if(gamepad2.b){
 //                if(servoMove){
 //                    robot.servo1.setPosition(0.5);
@@ -75,8 +73,9 @@ public class Teleop extends ULLinearOpMode {
 //            }
 
         }
+        robot.robotStatus = "Program Stopping...";
         odom.stopUpdateThread();
-
+        odom.clearPositionFiles();
 
     }
 }

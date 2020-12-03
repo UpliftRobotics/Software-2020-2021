@@ -24,6 +24,7 @@ public class AutoBluePark extends ULLinearOpMode {
 
         waitForStart();
 
+        robot.robotStatus = "Program Running...";
 
         // create empty path list
         ArrayList<PathPoint> path = new ArrayList<>();
@@ -40,8 +41,9 @@ public class AutoBluePark extends ULLinearOpMode {
             path.clear();
         }
 
+        robot.robotStatus = "Program Stopping...";
         odom.stopUpdateThread();
-        odom.writePositionToFile();
+        odom.writePositionToFiles();
 
     }
 

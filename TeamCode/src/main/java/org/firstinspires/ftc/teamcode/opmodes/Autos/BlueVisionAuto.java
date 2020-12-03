@@ -27,6 +27,8 @@ public class BlueVisionAuto extends ULLinearOpMode {
 
         waitForStart();
 
+        robot.robotStatus = "Program Running...";
+
         // pull ring count from the detector class immediately at start
         int ringNum = robot.detector.ringCount;
 
@@ -61,8 +63,9 @@ public class BlueVisionAuto extends ULLinearOpMode {
             path.clear();
         }
 
+        robot.robotStatus = "Program Stopping...";
         odom.stopUpdateThread();
-        odom.writePositionToFile();
+        odom.writePositionToFiles();
 
     }
 
