@@ -31,6 +31,8 @@ public class TestTeleop extends ULLinearOpMode {
     DcMotor shooter2;
     DcMotor intake;
 
+    boolean shooterOn = false;
+
     @Override
     public void runOpMode() {
 
@@ -77,14 +79,16 @@ public class TestTeleop extends ULLinearOpMode {
             TelemetryOutput.printFullTelemetry(telemetry, robot);
 
             if (gamepad2.a) {
-                shooter1.setPower(1);
-                shooter2.setPower(1);
+                shooterOn = !shooterOn;
+                if (shooterOn) {
+                    shooter1.setPower(1);
+                    shooter2.setPower(1);
+                } else {
+                    shooter1.setPower(0);
+                    shooter2.setPower(0);
+                }
+            }
 
-            }
-            if (gamepad2.b) {
-                shooter1.setPower(0);
-                shooter2.setPower(0);
-            }
             intake.setPower(Range.clip(gamepad2.right_stick_y, -1, 1));
         }
 
