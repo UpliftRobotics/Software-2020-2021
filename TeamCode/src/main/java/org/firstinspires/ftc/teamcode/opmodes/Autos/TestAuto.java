@@ -24,6 +24,8 @@ public class TestAuto extends ULLinearOpMode {
 
         waitForStart();
 
+        robot.robotStatus = "Program Running...";
+
         // declare and initialize an empty list of PathPoints
         ArrayList<PathPoint> path = new ArrayList<>();
 
@@ -40,7 +42,8 @@ public class TestAuto extends ULLinearOpMode {
             path.clear();
         }
 
+        robot.robotStatus = "Program Stopping...";
         odom.stopUpdateThread();
-        odom.writePositionToFile();
+        odom.writePositionToFiles();
     }
 }

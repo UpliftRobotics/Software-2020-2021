@@ -64,19 +64,21 @@ public class MovementFunctions {
         // if turning counter-clockwise
         if(degrees < 0) {
             while(robot.odometry.rawAngle > (initialAngle + degrees)) {
-                if(Math.abs(robot.odometry.rawAngle - initialAngle) < Math.abs(0.4 * degrees)) {
-                    MovementFunctions.spin((-1 * Math.abs(speed / 3)), robot);
-                } else {
+                // if turn less than 75% complete, go normal speed, else divide speed by 3
+                if(Math.abs(robot.odometry.rawAngle - initialAngle) < Math.abs(0.75 * degrees)) {
                     MovementFunctions.spin((-1 * Math.abs(speed)), robot);
+                } else {
+                    MovementFunctions.spin((-1 * Math.abs(speed / 3)), robot);
                 }
             }
         // if turning clockwise
         } else if(degrees > 0) {
             while(robot.odometry.rawAngle < (initialAngle + degrees)) {
-                if(Math.abs(robot.odometry.rawAngle - initialAngle) < Math.abs(0.4 * degrees)) {
-                    MovementFunctions.spin(Math.abs(speed / 3), robot);
-                } else {
+                // if turn less than 75% complete, go normal speed, else divide speed by 3
+                if(Math.abs(robot.odometry.rawAngle - initialAngle) < Math.abs(0.75 * degrees)) {
                     MovementFunctions.spin(Math.abs(speed), robot);
+                } else {
+                    MovementFunctions.spin(Math.abs(speed / 3), robot);
                 }
             }
         } else {

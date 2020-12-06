@@ -2,14 +2,11 @@ package org.firstinspires.ftc.teamcode.opmodes;
 
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.util.Range;
-import com.qualcomm.robotcore.util.ReadWriteFile;
-import com.vuforia.State;
 
 import org.firstinspires.ftc.teamcode.toolkit.MathFunctions;
 import org.firstinspires.ftc.teamcode.toolkit.MovementFunctions;
 import org.firstinspires.ftc.teamcode.Odometry;
 import org.firstinspires.ftc.teamcode.Robot;
-import org.firstinspires.ftc.teamcode.toolkit.TelemetryOutput;
 import org.firstinspires.ftc.teamcode.toolkit.ULLinearOpMode;
 
 @TeleOp(name = "TeleOp", group = "OpModes")
@@ -27,9 +24,11 @@ public class Teleop extends ULLinearOpMode {
     public void runOpMode() {
         robot = new Robot();
         odom = robot.odometry;
-        odom.readPositionInFile();
+
+        odom.readPositionFiles();
 
         waitForStart();
+        robot.robotStatus = "Program Running...";
         while (opModeIsActive()) {
             int ringNum = robot.detector.ringCount;
 
@@ -55,13 +54,14 @@ public class Teleop extends ULLinearOpMode {
             if (gamepad1.a){
                odom.goToPosition(36,78,0.7,0,0.5, MovementFunctions.SLIDE_WITHOUT_TURNS);
             }
-            if(ringNum == 1 && gamepad1.b){
-                //move intake down
-                //collect the ring
-            }
+//            if(ringNum == 1 && gamepad1.b){
+//                //move intake down
+//                //collect the ring
+//            }
+
 
 //            boolean servoMove = true;
-
+//
 //            if(gamepad2.b){
 //                if(servoMove){
 //                    robot.servo1.setPosition(0.5);
@@ -73,8 +73,9 @@ public class Teleop extends ULLinearOpMode {
 //            }
 
         }
+        robot.robotStatus = "Program Stopping...";
         odom.stopUpdateThread();
-
+        odom.clearPositionFiles();
 
     }
 }

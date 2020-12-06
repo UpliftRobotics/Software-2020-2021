@@ -39,14 +39,16 @@ public class Robot {
     public DcMotor rightFront; // links to Right Encoder Motor
     public DcMotor rightBack;
 
-    public Servo servo1;
-    public Servo servo2;
+//    public Servo servo1;
+//    public Servo servo2;
 
     public BNO055IMU imu;
 
     public OpenCvCamera camera;
     WebcamName webcamName;
     public RingDetector detector = new RingDetector();
+
+    public String robotStatus;
 
     // values specific to the drivetrain
     public static double oneRotationTicks = 720;
@@ -62,6 +64,8 @@ public class Robot {
      * and instantiation of the Odometry object.
      */
     public Robot() {
+        robotStatus = "Init Loading...";
+
         opMode = ULLinearOpMode.getInstance();
 
         //create the hardware map
@@ -109,6 +113,8 @@ public class Robot {
         rightBack.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         leftFront.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         leftBack.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+
+        robotStatus = "Init Complete - Ready to Start!";
 
     }
 
