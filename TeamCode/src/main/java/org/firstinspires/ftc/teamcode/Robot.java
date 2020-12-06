@@ -41,6 +41,9 @@ public class Robot {
 
 //    public Servo servo1;
 //    public Servo servo2;
+    public DcMotor shooter1;
+    public DcMotor shooter2;
+    public DcMotor intake;
 
     public BNO055IMU imu;
 
@@ -79,6 +82,8 @@ public class Robot {
 
 //        servo1 = hardwareMap.get(Servo.class,"servo_1");
 //        servo2 = hardwareMap.get(Servo.class,"servo_2");
+        shooter1 = hardwareMap.get(DcMotor.class, "shooter_1");
+        shooter2 = hardwareMap.get(DcMotor.class, "shooter_2");
 
         leftFront.setDirection(DcMotorSimple.Direction.REVERSE);
         leftBack.setDirection(DcMotorSimple.Direction.REVERSE);
