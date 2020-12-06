@@ -239,13 +239,6 @@ public class Odometry {
         ReadWriteFile.writeFile(odometryFileWorldY, String.valueOf(worldYPosition));
         ReadWriteFile.writeFile(odometryFileWorldAngle, String.valueOf(worldAngle));
     }
-    public void readPositionInFile(){
-        worldXPosition = Double.parseDouble(ReadWriteFile.readFile(odometryFileWorldX).trim());
-        worldYPosition = Double.parseDouble(ReadWriteFile.readFile(odometryFileWorldY).trim());
-        worldAngle = Double.parseDouble(ReadWriteFile.readFile(odometryFileWorldAngle).trim());
-
-    }
-
     public void readPositionFiles() {
         String xStr = ReadWriteFile.readFile(odometryFileWorldX).trim();
         String yStr = ReadWriteFile.readFile(odometryFileWorldY).trim();
