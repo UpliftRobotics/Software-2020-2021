@@ -23,23 +23,17 @@ public class Teleop extends ULLinearOpMode {
     double rightX;
     double leftY;
     double leftX;
-    public enum TeleOpStates {
-        NORMAL,
-        SHOOTING_POSITION,
-        DEFAULT;
-    }
-    TeleOpStates state = TeleOpStates.NORMAL;
-
     @Override
     public void runOpMode() {
         robot = new Robot();
         odom = robot.odometry;
-        odom.worldXPosition = Double.parseDouble(ReadWriteFile.readFile(odom.odometryFileWorldX).trim());
-        odom.worldYPosition = Double.parseDouble(ReadWriteFile.readFile(odom.odometryFileWorldY).trim());
-        odom.worldAngle = Double.parseDouble(ReadWriteFile.readFile(odom.odometryFileWorldAngle).trim());
+        odom.readPositionInFile();
 
         waitForStart();
         while (opModeIsActive()) {
+            int ringNum = robot.detector.ringCount;
+
+
             // initialize the gamepad stick values to the three needed axes
             leftY = Range.clip(-gamepad1.left_stick_y, -1, 1);
             rightX = Range.clip(gamepad1.right_stick_x, -1, 1);
@@ -59,20 +53,24 @@ public class Teleop extends ULLinearOpMode {
             MovementFunctions.driveTowards(magnitude, joystickAngle, turnValue, robot);
 
             if (gamepad1.a){
-               odom.goToPosition(48,84,0.7,0,0.5, MovementFunctions.SLIDE_WITHOUT_TURNS);
-
+               odom.goToPosition(36,78,0.7,0,0.5, MovementFunctions.SLIDE_WITHOUT_TURNS);
             }
-            boolean servoMove = true;
-
-            if(gamepad2.b){
-                if(servoMove){
-                    robot.servo1.setPosition(0.5);
-                } else {
-                    robot.servo1.setPosition(0.1);
-                }
-                servoMove = !servoMove;
-
+            if(ringNum == 1 && gamepad1.b){
+                //move intake down
+                //collect the ring
             }
+
+//            boolean servoMove = true;
+
+//            if(gamepad2.b){
+//                if(servoMove){
+//                    robot.servo1.setPosition(0.5);
+//                } else {
+//                    robot.servo1.setPosition(0.1);
+//                }
+//                servoMove = !servoMove;
+//
+//            }
 
         }
         odom.stopUpdateThread();

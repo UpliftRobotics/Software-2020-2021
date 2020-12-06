@@ -239,6 +239,12 @@ public class Odometry {
         ReadWriteFile.writeFile(odometryFileWorldY, String.valueOf(worldYPosition));
         ReadWriteFile.writeFile(odometryFileWorldAngle, String.valueOf(worldAngle));
     }
+    public void readPositionInFile(){
+        worldXPosition = Double.parseDouble(ReadWriteFile.readFile(odometryFileWorldX).trim());
+        worldYPosition = Double.parseDouble(ReadWriteFile.readFile(odometryFileWorldY).trim());
+        worldAngle = Double.parseDouble(ReadWriteFile.readFile(odometryFileWorldAngle).trim());
+
+    }
 
     /**
      * This method is used to stop the PositionUpdateThread safely by setting the updateValid
