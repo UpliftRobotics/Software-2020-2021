@@ -69,20 +69,20 @@ public class Teleop extends ULLinearOpMode {
 //
 //            }
             if (gamepad2.a) {
-                shooterOn = !shooterOn;
-                if (shooterOn) {
-                    robot.shooter1.setPower(1);
-                    robot.shooter2.setPower(1);
-                } else {
-                    robot.shooter1.setPower(0);
-                    robot.shooter2.setPower(0);
-                }
+                robot.shooter1.setPower(1);
+                robot.shooter2.setPower(1);
             }
+
+            if (gamepad2.b) {
+                robot.shooter1.setPower(0);
+                robot.shooter2.setPower(0);
+            }
+
             if(gamepad2.dpad_up){
                 constant += 0.05;
             }
-            if(gamepad2.dpad_up){
-                constant += 0.05;
+            if(gamepad2.dpad_down){
+                constant -= 0.05;
             }
             if(gamepad2.y){
                 robot.wobble.setPosition(constant);
@@ -98,7 +98,7 @@ public class Teleop extends ULLinearOpMode {
 
 //            boolean servoMove = true;
 //
-//            if(gamepad2.b){
+//            if(gamepad2.y){
 //                if(servoMove){
 //                    robot.servo1.setPosition(0.5);
 //                } else {
