@@ -88,7 +88,8 @@ public class Robot {
 //        servo2 = hardwareMap.get(Servo.class,"servo_2");
         shooter1 = hardwareMap.get(DcMotor.class, "shooter_1");
         shooter2 = hardwareMap.get(DcMotor.class, "shooter_2");
-
+        intake = hardwareMap.get(DcMotor.class, "intake");
+        inDistSensor = hardwareMap.get(DistanceSensor.class,"d1");
         leftFront.setDirection(DcMotorSimple.Direction.REVERSE);
         leftBack.setDirection(DcMotorSimple.Direction.REVERSE);
 
