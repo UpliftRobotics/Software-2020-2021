@@ -7,6 +7,7 @@ import org.firstinspires.ftc.teamcode.toolkit.MathFunctions;
 import org.firstinspires.ftc.teamcode.toolkit.MovementFunctions;
 import org.firstinspires.ftc.teamcode.Odometry;
 import org.firstinspires.ftc.teamcode.Robot;
+import org.firstinspires.ftc.teamcode.toolkit.TeleOpFunctions;
 import org.firstinspires.ftc.teamcode.toolkit.ULLinearOpMode;
 
 @TeleOp(name = "TeleOp", group = "OpModes")
@@ -20,6 +21,7 @@ public class Teleop extends ULLinearOpMode {
     double rightX;
     double leftY;
     double leftX;
+    boolean shooterOn = false;
     @Override
     public void runOpMode() {
         robot = new Robot();
@@ -37,6 +39,8 @@ public class Teleop extends ULLinearOpMode {
             leftY = Range.clip(-gamepad1.left_stick_y, -1, 1);
             rightX = Range.clip(gamepad1.right_stick_x, -1, 1);
             leftX = Range.clip(gamepad1.left_stick_x, -1, 1);
+            robot.intake.setPower(Range.clip(gamepad2.right_stick_y, -1, 1));
+
 
             // Note: The following algorithm was inspired by the webpage https://seamonsters-2605.github.io/archive/mecanum/. It explains this concept very well.
 
@@ -54,6 +58,27 @@ public class Teleop extends ULLinearOpMode {
             if (gamepad1.a){
                odom.goToPosition(36,78,0.7,0,0.5, MovementFunctions.SLIDE_WITHOUT_TURNS);
             }
+            if(gamepad2.x){
+//                robot.bucket.setTargetPosition(0);
+                TeleOpFunctions.shooterOn(1,2000,robot);
+            }
+            if(gamepad1.b){
+//                robot.bucket.setTargetPosition(0);
+                odom.goToPosition(48,120,0.7,0,0.5, MovementFunctions.SLIDE_WITHOUT_TURNS);
+
+            }
+            if (gamepad2.a) {
+                shooterOn = !shooterOn;
+                if (shooterOn) {
+                    robot.shooter1.setPower(1);
+                    robot.shooter2.setPower(1);
+                } else {
+                    robot.shooter1.setPower(0);
+                    robot.shooter2.setPower(0);
+                }
+            }
+
+
 //            if(ringNum == 1 && gamepad1.b){
 //                //move intake down
 //                //collect the ring

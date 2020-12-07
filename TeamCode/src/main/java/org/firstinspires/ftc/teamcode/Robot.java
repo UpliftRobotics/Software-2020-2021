@@ -4,6 +4,7 @@ import com.qualcomm.hardware.bosch.BNO055IMU;
 
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
+import com.qualcomm.robotcore.hardware.DistanceSensor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 
@@ -44,7 +45,10 @@ public class Robot {
     public DcMotor shooter1;
     public DcMotor shooter2;
     public DcMotor intake;
+    public DcMotor bucket;
+    public Servo wobble;
 
+    public DistanceSensor inDistSensor;
     public BNO055IMU imu;
 
     public OpenCvCamera camera;
