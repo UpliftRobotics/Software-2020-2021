@@ -14,8 +14,8 @@ import org.firstinspires.ftc.teamcode.toolkit.ULLinearOpMode;
 
 import java.util.ArrayList;
 
-@Autonomous
-public class VelocityTester extends ULLinearOpMode {
+@Autonomous(name = "Drive Velocity Tester", group = "Hardware Testers")
+public class DriveVelocityTester extends ULLinearOpMode {
 
     Robot robot;
     Odometry odom;
