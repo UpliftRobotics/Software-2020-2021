@@ -40,13 +40,12 @@ public class Robot {
     public DcMotor rightFront; // links to Right Encoder Motor
     public DcMotor rightBack;
 
-//    public Servo servo1;
-//    public Servo servo2;
     public DcMotor shooter1;
     public DcMotor shooter2;
     public DcMotor intake;
     public DcMotor bucket;
     public Servo wobble;
+//    public Servo flicker;
 
     public DistanceSensor inDistSensor;
     public BNO055IMU imu;
@@ -87,7 +86,7 @@ public class Robot {
         rightBack = hardwareMap.get(DcMotor.class,"rb_motor");
 
         wobble = hardwareMap.get(Servo.class,"wobble");
-//        servo2 = hardwareMap.get(Servo.class,"servo_2");
+//        flicker = hardwareMap.get(Servo.class,"flicker");
         shooter1 = hardwareMap.get(DcMotor.class, "shooter_1");
         shooter2 = hardwareMap.get(DcMotor.class, "shooter_2");
         intake = hardwareMap.get(DcMotor.class, "intake");
