@@ -22,7 +22,6 @@ public class Teleop extends ULLinearOpMode {
     double leftY;
     double leftX;
     boolean shooterOn = false;
-    int constant = 0;
     @Override
     public void runOpMode() {
         robot = new Robot();
@@ -78,15 +77,15 @@ public class Teleop extends ULLinearOpMode {
                 robot.shooter2.setPower(0);
             }
 
-//            if(gamepad2.dpad_up){
-//                constant += 0.05;
-//            }
-//            if(gamepad2.dpad_down){
-//                constant -= 0.05;
-//            }
-//            if(gamepad2.y){
-//                robot.wobble.setPosition(constant);
-//            }
+            if(gamepad2.dpad_up){
+                robot.constant += 0.05;
+            }
+            if(gamepad2.dpad_down){
+                robot.constant -= 0.05;
+            }
+            if(gamepad2.y){
+                robot.wobble.setPosition(robot.constant);
+            }
 //
 
 

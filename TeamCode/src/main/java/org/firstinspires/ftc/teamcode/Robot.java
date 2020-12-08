@@ -56,6 +56,8 @@ public class Robot {
     public RingDetector detector = new RingDetector();
 
     public String robotStatus;
+     public int constant = 0;
+
 
     // values specific to the drivetrain
     public static double oneRotationTicks = 720;
