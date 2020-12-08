@@ -22,6 +22,7 @@ public class Teleop extends ULLinearOpMode {
     double leftY;
     double leftX;
     boolean shooterOn = false;
+    int constant = 0;
     @Override
     public void runOpMode() {
         robot = new Robot();
@@ -58,25 +59,35 @@ public class Teleop extends ULLinearOpMode {
             if (gamepad1.a){
                odom.goToPosition(36,78,0.7,0,0.5, MovementFunctions.SLIDE_WITHOUT_TURNS);
             }
-            if(gamepad2.x){
-//                robot.bucket.setTargetPosition(0);
-                TeleOpFunctions.shooterOn(1,2000,robot);
-            }
-            if(gamepad1.b){
-//                robot.bucket.setTargetPosition(0);
-                odom.goToPosition(48,120,0.7,0,0.5, MovementFunctions.SLIDE_WITHOUT_TURNS);
-
-            }
+//            if(gamepad2.x){
+////                robot.bucket.setTargetPosition(0);
+//                TeleOpFunctions.shooterOn(1,2000,robot);
+//            }
+//            if(gamepad1.b){
+////                robot.bucket.setTargetPosition(0);
+//                odom.goToPosition(48,120,0.7,0,0.5, MovementFunctions.SLIDE_WITHOUT_TURNS);
+//
+//            }
             if (gamepad2.a) {
-                shooterOn = !shooterOn;
-                if (shooterOn) {
-                    robot.shooter1.setPower(1);
-                    robot.shooter2.setPower(1);
-                } else {
-                    robot.shooter1.setPower(0);
-                    robot.shooter2.setPower(0);
-                }
+                robot.shooter1.setPower(1);
+                robot.shooter2.setPower(1);
             }
+
+            if (gamepad2.b) {
+                robot.shooter1.setPower(0);
+                robot.shooter2.setPower(0);
+            }
+
+            if(gamepad2.dpad_up){
+                constant += 0.05;
+            }
+            if(gamepad2.dpad_down){
+                constant -= 0.05;
+            }
+            if(gamepad2.y){
+                robot.wobble.setPosition(constant);
+            }
+
 
 
 //            if(ringNum == 1 && gamepad1.b){
@@ -87,7 +98,7 @@ public class Teleop extends ULLinearOpMode {
 
 //            boolean servoMove = true;
 //
-//            if(gamepad2.b){
+//            if(gamepad2.y){
 //                if(servoMove){
 //                    robot.servo1.setPosition(0.5);
 //                } else {

@@ -23,6 +23,7 @@ public class TelemetryOutput {
         telemetry.addData("WorldY:\t", MathFunctions.truncate(robot.odometry.worldYPosition));
         telemetry.addData("WorldAngle\t", robot.odometry.worldAngle);
         telemetry.addData("Ring Count:\t", robot.detector.ringCount);
+        telemetry.addData("Servo Val", robot.wobble.getPosition());
         telemetry.update();
     }
 

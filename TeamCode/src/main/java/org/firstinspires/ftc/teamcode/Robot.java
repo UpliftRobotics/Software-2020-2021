@@ -84,11 +84,12 @@ public class Robot {
         rightFront = hardwareMap.get(DcMotor.class,"rf_motor"); //Declares two right motors
         rightBack = hardwareMap.get(DcMotor.class,"rb_motor");
 
-//        servo1 = hardwareMap.get(Servo.class,"servo_1");
+        wobble = hardwareMap.get(Servo.class,"wobble");
 //        servo2 = hardwareMap.get(Servo.class,"servo_2");
         shooter1 = hardwareMap.get(DcMotor.class, "shooter_1");
         shooter2 = hardwareMap.get(DcMotor.class, "shooter_2");
-
+        intake = hardwareMap.get(DcMotor.class, "intake");
+        inDistSensor = hardwareMap.get(DistanceSensor.class,"d1");
         leftFront.setDirection(DcMotorSimple.Direction.REVERSE);
         leftBack.setDirection(DcMotorSimple.Direction.REVERSE);
 

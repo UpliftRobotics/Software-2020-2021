@@ -79,14 +79,13 @@ public class TestTeleop extends ULLinearOpMode {
             TelemetryOutput.printFullTelemetry(telemetry, robot);
 
             if (gamepad2.a) {
-                shooterOn = !shooterOn;
-                if (shooterOn) {
-                    shooter1.setPower(1);
-                    shooter2.setPower(1);
-                } else {
-                    shooter1.setPower(0);
-                    shooter2.setPower(0);
-                }
+                shooter1.setPower(1);
+                shooter2.setPower(1);
+            }
+
+            if (gamepad2.b) {
+                shooter1.setPower(0);
+                shooter2.setPower(0);
             }
 
             intake.setPower(Range.clip(gamepad2.right_stick_y, -1, 1));
