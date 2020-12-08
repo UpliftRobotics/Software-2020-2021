@@ -69,13 +69,11 @@ public class Teleop extends ULLinearOpMode {
 //
 //            }
             if (gamepad2.a) {
-                robot.shooter1.setPower(1);
-                robot.shooter2.setPower(1);
+                TeleOpFunctions.shooterOn(1, robot);
             }
 
             if (gamepad2.b) {
-                robot.shooter1.setPower(0);
-                robot.shooter2.setPower(0);
+                TeleOpFunctions.shooterOff(robot);
             }
 
 //            if(gamepad2.dpad_up){

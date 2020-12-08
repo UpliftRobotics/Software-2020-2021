@@ -49,8 +49,6 @@ public class TestTeleop extends ULLinearOpMode {
                 odom.updateValid = false;
             }
 
-//            odom.positionUpdate();
-
             // initialize the gamepad stick values to the three needed axes
             leftY = Range.clip(-gamepad1.left_stick_y, -1, 1);
             rightX = Range.clip(gamepad1.right_stick_x, -1, 1);

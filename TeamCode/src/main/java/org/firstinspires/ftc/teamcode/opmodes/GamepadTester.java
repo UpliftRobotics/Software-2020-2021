@@ -16,6 +16,10 @@ public class GamepadTester extends ULLinearOpMode {
             telemetry.addData("Gamepad1 Left Joystick X:   ", gamepad1.left_stick_x);
             telemetry.addData("Gamepad1 Right Joystick Y:   ", gamepad1.right_stick_y);
             telemetry.addData("Gamepad1 Right Joystick X:   ", gamepad1.right_stick_x);
+            telemetry.addData("Gamepad2 Left Joystick Y:   ", gamepad2.left_stick_y);
+            telemetry.addData("Gamepad2 Left Joystick X:   ", gamepad2.left_stick_x);
+            telemetry.addData("Gamepad2 Right Joystick Y:   ", gamepad2.right_stick_y);
+            telemetry.addData("Gamepad2 Right Joystick X:   ", gamepad2.right_stick_x);
             telemetry.update();
         }
 

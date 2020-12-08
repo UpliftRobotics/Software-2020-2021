@@ -17,8 +17,14 @@ public class TeleOpFunctions{
             e.printStackTrace();
         }
     }
+
     public static void shooterOff(Robot robot){
         robot.shooter1.setPower(0);
         robot.shooter2.setPower(0);
+    }
+
+    public static void flickRing(Robot robot) {
+        robot.flicker.setPosition(0.5);
+        robot.flicker.setPosition(0);
     }
 }
