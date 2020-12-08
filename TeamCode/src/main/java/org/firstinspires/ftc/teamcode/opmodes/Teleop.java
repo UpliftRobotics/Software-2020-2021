@@ -78,16 +78,16 @@ public class Teleop extends ULLinearOpMode {
                 robot.shooter2.setPower(0);
             }
 
-            if(gamepad2.dpad_up){
-                constant += 0.05;
-            }
-            if(gamepad2.dpad_down){
-                constant -= 0.05;
-            }
-            if(gamepad2.y){
-                robot.wobble.setPosition(constant);
-            }
-
+//            if(gamepad2.dpad_up){
+//                constant += 0.05;
+//            }
+//            if(gamepad2.dpad_down){
+//                constant -= 0.05;
+//            }
+//            if(gamepad2.y){
+//                robot.wobble.setPosition(constant);
+//            }
+//
 
 
 //            if(ringNum == 1 && gamepad1.b){
