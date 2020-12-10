@@ -26,51 +26,46 @@ public class ShooterVelocity extends ULLinearOpMode {
         ArrayList<Double> times = new ArrayList<>();
         ArrayList<Double> angularVelocities1 = new ArrayList<>();
 
-        double initialTime = System.currentTimeMillis() / 1000.0;
-        double currentElapsedSec = 0.0;
-        double previousElapsedSec = 0.0;
+        double initialTime = System.currentTimeMillis();
+        double currentElapsedMilli = 0.0;
+        double previousElapsedMilli = 0.0;
         int previousTicks = 0;
 
 
         TeleOpFunctions.shooterOn(1, robot);
 
-        while (currentElapsedSec < 8) {
+        while (currentElapsedMilli < 8000) {
 
-            currentElapsedSec = (System.currentTimeMillis() / 1000.0) - initialTime;
-            double deltaTime = currentElapsedSec - previousElapsedSec;
-            previousElapsedSec = currentElapsedSec;
+            currentElapsedMilli = System.currentTimeMillis() - initialTime;
+            double deltaTime = currentElapsedMilli - previousElapsedMilli;
             int currentTicks = getShooter1Ticks();
             int deltaTicks = currentTicks - previousTicks;
-            previousTicks = currentTicks;
 
-            times.add(currentElapsedSec);
-            angularVelocities1.add(((deltaTicks / deltaTime) * 60) / (ticksPerShooterWheelRotation));
+            if(deltaTime > 10) {
+                times.add(currentElapsedMilli);
+                angularVelocities1.add(((deltaTicks / deltaTime) * 60000.0) / (ticksPerShooterWheelRotation));
+                previousElapsedMilli = currentElapsedMilli;
+                previousTicks = currentTicks;
+            }
 
-            if(currentElapsedSec > 5) {
+            if(currentElapsedMilli > 5000 && currentElapsedMilli < 5100) {
                 TeleOpFunctions.shooterOff(robot);
             }
+
 
         }
 
         robot.robotStatus = "LOADING DATA... DO NOT PRESS STOP!";
 
-        String timeStr = "";
         for(int i = 0; i < times.size(); i++) {
-            timeStr += (times.get(i) + "\n");
+            Log.i("Time", times.get(i) + "");
         }
 
-        String angularVelocity1Str = "";
         for(int i = 0; i < angularVelocities1.size(); i++) {
-            angularVelocity1Str += (angularVelocities1.get(i) + "\n");
+            Log.d("Velocity", angularVelocities1.get(i) + "");
         }
-
-        Log.w("Times", timeStr);
-        Log.w("Shooter 1 Ang Velocity", angularVelocity1Str);
 
         odom.stopUpdateThread();
-
-        stop();
-
     }
 
     private int getShooter1Ticks() {

@@ -279,7 +279,13 @@ public class Odometry {
             Telemetry telem = robot.opMode.telemetry;
             while(updateValid) {
                 positionUpdate();
-                TelemetryOutput.printWorldData(telem, robot);
+                if(robot.telemetryType == Robot.FULL_TELEMETRY) {
+                    TelemetryOutput.printFullTelemetry(telem, robot);
+                } else if(robot.telemetryType == Robot.WORLD_TELEMETRY) {
+                    TelemetryOutput.printWorldData(telem, robot);
+                } else if(robot.telemetryType == Robot.CLASS_SPECIFIC_TELEMETRY) {
+                    // Telemetry run through opmode, not through the telemetry output class (ex. odometry cal, etc)
+                }
                 try {
                     Thread.sleep(10);
                 } catch (Exception ex) {

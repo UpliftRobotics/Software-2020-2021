@@ -45,7 +45,7 @@ public class Robot {
     public DcMotor intake;
     public DcMotor bucket;
     public Servo wobble;
-//    public Servo flicker;
+    public Servo flicker;
 
     public DistanceSensor inDistSensor;
     public BNO055IMU imu;
@@ -55,7 +55,11 @@ public class Robot {
     public RingDetector detector = new RingDetector();
 
     public String robotStatus;
-     public int constant = 0;
+    public int telemetryType;
+    public static final int FULL_TELEMETRY = 0;
+    public static final int WORLD_TELEMETRY = 1;
+    public static final int CLASS_SPECIFIC_TELEMETRY = 2;
+    public int constant = 0;
 
 
     // values specific to the drivetrain
@@ -131,6 +135,7 @@ public class Robot {
         shooter2.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
         robotStatus = "Init Complete - Ready to Start!";
+        telemetryType = WORLD_TELEMETRY;
 
     }
 
