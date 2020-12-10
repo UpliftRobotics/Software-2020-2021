@@ -67,10 +67,10 @@ public class Teleop extends ULLinearOpMode {
                 TeleOpFunctions.shooterOff(robot);
             }
             if(gamepad2.y){
-                robot.wobble.setPosition(1);
+                robot.flicker.setPosition(0.5);
             }
             if(gamepad2.x){
-                robot.wobble.setPosition(0);
+                robot.flicker.setPosition(0);
             }
 
             // wobble servo tester
