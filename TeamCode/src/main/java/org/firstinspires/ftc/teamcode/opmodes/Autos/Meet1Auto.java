@@ -53,9 +53,9 @@ public class Meet1Auto extends ULLinearOpMode {
         MovementFunctions.turnTo(0, 0.7, 0, robot);
 
         // go to shooting position
-        odom.goToPosition(40, 78, 0.7, 0, 0.5, MovementFunctions.SLIDE_WITHOUT_TURNS);
+        odom.goToPosition(52, 78, 0.7, 0, 0.5, MovementFunctions.SLIDE_WITHOUT_TURNS);
+        TeleOpFunctions.shooterOn(1, robot);
         MovementFunctions.turnTo(-15,0.5,0, robot);
-        TeleOpFunctions.shooterOn(1,1000, robot);
 //        TeleOpFunctions.flickRing(robot);
         MovementFunctions.turnTo(0,0.5,0, robot);
 //        TeleOpFunctions.flickRing(robot);

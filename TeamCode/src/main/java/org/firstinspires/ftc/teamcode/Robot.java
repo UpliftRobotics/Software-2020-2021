@@ -90,7 +90,7 @@ public class Robot {
         rightBack = hardwareMap.get(DcMotor.class,"rb_motor");
 
         wobble = hardwareMap.get(Servo.class,"wobble");
-//        flicker = hardwareMap.get(Servo.class,"flicker");
+        flicker = hardwareMap.get(Servo.class,"flicker");
         shooter1 = hardwareMap.get(DcMotor.class, "shooter_1");
         shooter2 = hardwareMap.get(DcMotor.class, "shooter_2");
         intake = hardwareMap.get(DcMotor.class, "intake");
