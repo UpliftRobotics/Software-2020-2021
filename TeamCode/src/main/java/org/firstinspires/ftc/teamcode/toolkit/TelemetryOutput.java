@@ -24,6 +24,7 @@ public class TelemetryOutput {
         telemetry.addData("WorldAngle\t", robot.odometry.worldAngle);
         telemetry.addData("Ring Count:\t", robot.detector.ringCount);
         telemetry.addData("Rectangle Ratio:\t", robot.detector.rectRatio);
+        telemetry.addData("Transfer\t", robot.transfer.getCurrentPosition());
         telemetry.update();
     }
 
