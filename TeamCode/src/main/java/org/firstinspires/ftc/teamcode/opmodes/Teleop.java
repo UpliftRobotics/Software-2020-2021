@@ -67,7 +67,7 @@ public class Teleop extends ULLinearOpMode {
                 TeleOpFunctions.shooterOff(robot);
             }
             if(gamepad2.right_bumper){
-                T;
+                TeleOpFunctions.flickRing(robot);
             }
             if (gamepad2.y) {
                 TeleOpFunctions.shoot(robot);
