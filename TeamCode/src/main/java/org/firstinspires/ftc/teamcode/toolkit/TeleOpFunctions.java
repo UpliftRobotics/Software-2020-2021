@@ -24,8 +24,8 @@ public class TeleOpFunctions{
     }
 
     public static void flickRing(Robot robot) {
-//        robot.flicker.setPosition(0.5);
-//        robot.flicker.setPosition(0);
+        robot.flicker.setPosition(0.5);
+        robot.flicker.setPosition(0.2);
     }
 
     public static void shoot(Robot robot) {
