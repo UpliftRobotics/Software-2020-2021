@@ -45,7 +45,7 @@ public class Robot {
     public DcMotor intake;
     public DcMotor bucket;
     public Servo wobble;
-//    public Servo flicker;
+    public Servo flicker;
 
     public DistanceSensor inDistSensor;
     public BNO055IMU imu;
@@ -63,8 +63,8 @@ public class Robot {
     public static double wheelRadius = 19/25.4; // in meters (change thi later)
     public static double wheelCircumference = wheelRadius * (2 * Math.PI); // inches
     public static double COUNTS_PER_INCH = (720 * 4) / wheelCircumference;
-    public static double robotEncoderWheelDistance = 15.77469;
-    public static double horizontalEncoderInchesPerDegreeOffset = -4.7448 / COUNTS_PER_INCH;
+    public static double robotEncoderWheelDistance = 16.9;
+    public static double horizontalEncoderInchesPerDegreeOffset = -7.8 / COUNTS_PER_INCH;
 
     /**
      * This is the Robot constructor that initializes all hardware and major software aspects of
