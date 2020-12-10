@@ -28,6 +28,21 @@ public class TeleOpFunctions{
 //        robot.flicker.setPosition(0);
     }
 
+    public static void shoot(Robot robot) {
+        // put transfer here
+        shooterOn(1, robot);
+       for (int i = 0; i < 3; i++) {
+           flickRing(robot);
+           try {
+               Thread.sleep(100);
+           } catch (InterruptedException e) {
+               e.printStackTrace();
+           }
+       }
+       shooterOff(robot);
+       // put transfer here
+    }
+
     public static void dropWobble(Robot robot) {
         robot.wobble.setPosition(0); // CHANGE VALUE
     }
