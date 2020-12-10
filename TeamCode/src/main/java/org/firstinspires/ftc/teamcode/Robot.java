@@ -43,7 +43,7 @@ public class Robot {
     public DcMotor shooter1;
     public DcMotor shooter2;
     public DcMotor intake;
-    public DcMotor bucket;
+    public DcMotor transfer;
     public Servo wobble;
     public Servo flicker;
 
@@ -91,6 +91,7 @@ public class Robot {
 
         wobble = hardwareMap.get(Servo.class,"wobble");
         flicker = hardwareMap.get(Servo.class,"flicker");
+        transfer = hardwareMap.get(DcMotor.class, "transfer");
         shooter1 = hardwareMap.get(DcMotor.class, "shooter_1");
         shooter2 = hardwareMap.get(DcMotor.class, "shooter_2");
         intake = hardwareMap.get(DcMotor.class, "intake");
