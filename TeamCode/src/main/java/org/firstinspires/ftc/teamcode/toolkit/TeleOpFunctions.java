@@ -24,7 +24,16 @@ public class TeleOpFunctions{
     }
 
     public static void flickRing(Robot robot) {
-        robot.flicker.setPosition(0.5);
-        robot.flicker.setPosition(0);
+//        robot.flicker.setPosition(0.5);
+//        robot.flicker.setPosition(0);
     }
+
+    public static void dropWobble(Robot robot) {
+        robot.wobble.setPosition(0); // CHANGE VALUE
+    }
+
+    public static void pickupWobble(Robot robot) {
+        robot.wobble.setPosition(0.5); // CHANGE VALUE
+    }
+
 }

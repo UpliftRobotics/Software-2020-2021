@@ -34,6 +34,9 @@ public class OdometryCalibration extends ULLinearOpMode {
 
         waitForStart();
 
+        // set telemetry to only look at this class's telemetry
+        robot.telemetryType = Robot.CLASS_SPECIFIC_TELEMETRY;
+
         // add necessary parameters for the REVhub imu
         BNO055IMU.Parameters parameters = new BNO055IMU.Parameters();
         parameters.angleUnit = BNO055IMU.AngleUnit.DEGREES;
@@ -95,6 +98,7 @@ public class OdometryCalibration extends ULLinearOpMode {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
+
         stop();
     }
 

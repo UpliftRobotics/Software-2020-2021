@@ -21,7 +21,6 @@ public class Teleop extends ULLinearOpMode {
     double rightX;
     double leftY;
     double leftX;
-    boolean shooterOn = false;
     @Override
     public void runOpMode() {
         robot = new Robot();
@@ -75,6 +74,7 @@ public class Teleop extends ULLinearOpMode {
                 TeleOpFunctions.shooterOff(robot);
             }
 
+            // wobble servo tester
             if(gamepad2.dpad_up){
                 robot.constant += 0.05;
             }
@@ -84,10 +84,20 @@ public class Teleop extends ULLinearOpMode {
             if(gamepad2.y){
                 robot.wobble.setPosition(robot.constant);
             }
-//
+
+            // flicker servo tester
+            if(gamepad1.dpad_up){
+                robot.constant += 0.05;
+            }
+            if(gamepad1.dpad_down){
+                robot.constant -= 0.05;
+            }
+            if(gamepad1.y){
+                robot.flicker.setPosition(robot.constant);
+            }
 
 
-//            if(ringNum == 1 && gamepad1.b){
+//            if(ringNum != 0 && gamepad1.b){
 //                //move intake down
 //                //collect the ring
 //            }

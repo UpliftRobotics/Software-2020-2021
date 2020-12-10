@@ -33,12 +33,24 @@ public class Meet1Auto extends ULLinearOpMode {
         ArrayList<PathPoint> wobblePath;
 
         // set the initial position of the robot
-        odom.setStartPosition(53, 8, 0);
+        odom.setStartPosition(33, 8, 0);
         wobblePath = AutoFunctions.createWobblePath(0.7, 0.5, robot);
         if(!wobblePath.isEmpty()) {
             odom.followPath(wobblePath, MovementFunctions.SLIDE_WITHOUT_TURNS);
             wobblePath.clear();
         }
+
+        // turn the robot in order to drop off the wobble goal
+        MovementFunctions.turnTo(-180, 0.7, MovementFunctions.COUNTER_CLOCKWISE, robot);
+
+        // put down servo
+//        TeleOpFunctions.dropWobble(robot);
+
+        // turn a little to get rid of wobble goal
+        MovementFunctions.turn(30, 0.7, robot);
+
+        // reset angle quickly
+        MovementFunctions.turnTo(0, 0.7, 0, robot);
 
         // go to shooting position
         odom.goToPosition(40, 78, 0.7, 0, 0.5, MovementFunctions.SLIDE_WITHOUT_TURNS);

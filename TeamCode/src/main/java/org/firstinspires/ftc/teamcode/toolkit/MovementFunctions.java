@@ -10,6 +10,9 @@ public class MovementFunctions {
     public static final int SLIDE_WITHOUT_TURNS = 0;
     public static final int DRIVE_WITH_TURNS = 1;
 
+    public static final int CLOCKWISE = 1;
+    public static final int COUNTER_CLOCKWISE = 2;
+
     // method to move a certain direction at a given speed
     public static void driveTowards(double speedVal, double angle, double turnVal, Robot robot) {
 
@@ -93,10 +96,10 @@ public class MovementFunctions {
     public static void turnTo(double targetAngle, double speed, int directionIndex, Robot robot) {
         double initialAngle = robot.odometry.worldAngle;
         // clockwise turn
-        if(directionIndex == 1) {
+        if(directionIndex == CLOCKWISE) {
             MovementFunctions.turn(MathFunctions.angleRestrictions(targetAngle - initialAngle + 360), speed, robot);
         // counter-clockwise turn
-        } else if(directionIndex == 2) {
+        } else if(directionIndex == COUNTER_CLOCKWISE) {
             MovementFunctions.turn(MathFunctions.angleRestrictions(targetAngle - initialAngle - 360), speed, robot);
         // Shortest technique
         } else {
