@@ -40,7 +40,7 @@ public class Teleop extends ULLinearOpMode {
             rightX = Range.clip(gamepad1.right_stick_x, -1, 1);
             leftX = Range.clip(gamepad1.left_stick_x, -1, 1);
             robot.intake.setPower(Range.clip(gamepad2.right_stick_y, -1, 1));
-            robot.transfer.setPower(Range.clip(gamepad2.left_stick_y/2, -1, 1));
+            robot.transfer.setPower(Range.clip(gamepad2.left_stick_y/4, -1, 1));
 
 
             // Note: The following algorithm was inspired by the webpage https://seamonsters-2605.github.io/archive/mecanum/. It explains this concept very well.

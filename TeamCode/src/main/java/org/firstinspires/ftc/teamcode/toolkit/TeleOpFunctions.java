@@ -29,7 +29,7 @@ public class TeleOpFunctions{
  }
 
     public static void shoot(Robot robot) {
-        // put transfer here
+        //transferUp(robot);
         shooterOn(1, robot);
        for (int i = 0; i < 3; i++) {
            flickRing(robot);
@@ -40,7 +40,7 @@ public class TeleOpFunctions{
            }
        }
        shooterOff(robot);
-       // put transfer here
+       //transferDown(robot);
     }
 
     public static void dropWobble(Robot robot) {
@@ -49,6 +49,14 @@ public class TeleOpFunctions{
 
     public static void pickupWobble(Robot robot) {
         robot.wobble.setPosition(0.5); // CHANGE VALUE
+    }
+
+    public static void transferUp(Robot robot) {
+        robot.transfer.setTargetPosition(5);
+    }
+
+    public static void transferDown(Robot robot) {
+        robot.transfer.setTargetPosition(0);
     }
 
 }
