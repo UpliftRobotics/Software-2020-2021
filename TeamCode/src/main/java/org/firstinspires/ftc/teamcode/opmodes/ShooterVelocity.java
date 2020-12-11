@@ -34,7 +34,7 @@ public class ShooterVelocity extends ULLinearOpMode {
 
         TeleOpFunctions.shooterOn(1, robot);
 
-        while (currentElapsedMilli < 8000) {
+        while (currentElapsedMilli < 14000) {
 
             currentElapsedMilli = System.currentTimeMillis() - initialTime;
             double deltaTime = currentElapsedMilli - previousElapsedMilli;
@@ -48,7 +48,7 @@ public class ShooterVelocity extends ULLinearOpMode {
                 previousTicks = currentTicks;
             }
 
-            if(currentElapsedMilli > 5000 && currentElapsedMilli < 5100) {
+            if(currentElapsedMilli > 10000 && currentElapsedMilli < 11000) {
                 TeleOpFunctions.shooterOff(robot);
             }
 
