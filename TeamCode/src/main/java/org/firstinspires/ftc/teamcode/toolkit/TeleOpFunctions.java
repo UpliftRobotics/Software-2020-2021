@@ -66,11 +66,15 @@ public class TeleOpFunctions {
     }
 
     public static void transferUp(Robot robot) {
-        robot.transfer.setTargetPosition(-738);
+        while(robot.transfer.getCurrentPosition() > -730) {
+            robot.transfer.setPower(-0.05);
+        }
     }
 
     public static void transferDown(Robot robot) {
-        robot.transfer.setTargetPosition(0);
+        while(robot.transfer.getCurrentPosition() < 0) {
+            robot.transfer.setPower(0.05);
+        }
     }
 
 }

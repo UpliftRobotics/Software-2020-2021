@@ -136,8 +136,7 @@ public class Robot {
         shooter2.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
         transfer.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        transfer.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        transfer.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        transfer.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         transfer.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
 

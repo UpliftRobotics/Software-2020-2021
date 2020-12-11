@@ -31,16 +31,18 @@ public class Teleop extends ULLinearOpMode {
         odom.readPositionFiles();
 
         waitForStart();
-        robot.robotStatus = "Program Running...";
-        while (opModeIsActive()) {
-            int ringNum = robot.detector.ringCount;
 
+        robot.robotStatus = "Program Running...";
+
+        while (opModeIsActive()) {
             // initialize the gamepad stick values to the three needed axes
             leftY = Range.clip(-gamepad1.left_stick_y, -1, 1);
             rightX = Range.clip(gamepad1.right_stick_x, -1, 1);
             leftX = Range.clip(gamepad1.left_stick_x, -1, 1);
+
+            // set powers for intake and transfer
             robot.intake.setPower(Range.clip(gamepad2.right_stick_y, -1, 1));
-            robot.transfer.setPower(Range.clip(gamepad2.left_stick_y/4, -1, 1));
+            robot.transfer.setPower(Range.clip(gamepad2.left_stick_y / 4, -0.25, 0.25));
 
 
             // Note: The following algorithm was inspired by the webpage https://seamonsters-2605.github.io/archive/mecanum/. It explains this concept very well.
@@ -52,19 +54,21 @@ public class Teleop extends ULLinearOpMode {
             double turnValue = 0.75 * rightX;
             // set the powers using the 2 specific equations and clip the result
             MovementFunctions.driveTowards(magnitude, joystickAngle, turnValue, robot);
+
             //BUTTONS
             //GAMEPAD 1(DRIVER)
             if (gamepad1.a){
                odom.goToPosition(36,78,0.7,0,0.5, MovementFunctions.SLIDE_WITHOUT_TURNS);
             }
             if(gamepad1.b){
-//                robot.bucket.setTargetPosition(0);
                 odom.goToPosition(48,120,0.7,0,0.5, MovementFunctions.SLIDE_WITHOUT_TURNS);
             }
+
             // GAMEPAD 2(OPERATOR)
             if (gamepad2.a) {
                 TeleOpFunctions.shooterOn(1, robot);
             }
+
             if (gamepad2.b) {
                 TeleOpFunctions.shooterOff(robot);
             }
@@ -72,21 +76,16 @@ public class Teleop extends ULLinearOpMode {
             if(gamepad2.right_bumper){
                 TeleOpFunctions.flickRing(robot);
             }
+
             if (gamepad2.y) {
                 TeleOpFunctions.shoot(robot);
             }
 
-            // wobble servo tester
-
-
-//            if(ringNum != 0 && gamepad1.b){
-//                //move intake down
-//                //collect the ring
-//            }
         }
         robot.robotStatus = "Program Stopping...";
         odom.stopUpdateThread();
         odom.clearPositionFiles();
 
     }
+
 }

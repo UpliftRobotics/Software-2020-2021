@@ -35,7 +35,7 @@ public class Meet1Auto extends ULLinearOpMode {
         odom.goToPosition(60, 8, 0.7, 0, 0.5, MovementFunctions.SLIDE_WITHOUT_TURNS);
 
         // go to shooting position
-        odom.goToPosition(60, 78, 0.7, 0, 0.5, MovementFunctions.SLIDE_WITHOUT_TURNS);
+        odom.goToPosition(60, 76, 0.7, 0, 0.5, MovementFunctions.SLIDE_WITHOUT_TURNS);
 
         // put the transfer system up
         TeleOpFunctions.transferUp(robot);
@@ -59,6 +59,11 @@ public class Meet1Auto extends ULLinearOpMode {
         MovementFunctions.turnTo(15,0.5,0, robot);
 
         // flick the ring into the shooter
+        TeleOpFunctions.flickRing(robot);
+
+        // turn back towards center and shoot twice, IN CASE ANY RINGS ARE STUCK
+        MovementFunctions.turnTo(0,0.5,0, robot);
+        TeleOpFunctions.flickRing(robot);
         TeleOpFunctions.flickRing(robot);
 
         // turn off the shooter
