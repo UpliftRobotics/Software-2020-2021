@@ -137,6 +137,7 @@ public class Robot {
 
         transfer.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         transfer.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        transfer.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         transfer.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
 

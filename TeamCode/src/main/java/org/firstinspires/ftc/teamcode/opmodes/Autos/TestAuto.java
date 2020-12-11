@@ -2,11 +2,13 @@ package org.firstinspires.ftc.teamcode.opmodes.Autos;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
+import com.qualcomm.robotcore.hardware.DcMotor;
 
 import org.firstinspires.ftc.teamcode.Odometry;
 import org.firstinspires.ftc.teamcode.Robot;
 import org.firstinspires.ftc.teamcode.toolkit.MovementFunctions;
 import org.firstinspires.ftc.teamcode.toolkit.PathPoint;
+import org.firstinspires.ftc.teamcode.toolkit.TeleOpFunctions;
 import org.firstinspires.ftc.teamcode.toolkit.ULLinearOpMode;
 
 import java.util.ArrayList;
@@ -26,21 +28,8 @@ public class TestAuto extends ULLinearOpMode {
 
         robot.robotStatus = "Program Running...";
 
-        // declare and initialize an empty list of PathPoints
-        ArrayList<PathPoint> path = new ArrayList<>();
-
-        odom.setStartPosition(0,0,0);
-        path.add(new PathPoint(0, 36, 0.5, 0.5));
-        path.add(new PathPoint(36,36,0.5, 0.5));
-        path.add(new PathPoint(36, 0, 0.5, 0.5));
-        path.add(new PathPoint(0, 0, 0.5, 0.5));
-
-
-        // follow the path designated earlier in the program (only if the path list was filled)
-        if(!path.isEmpty()) {
-            odom.followPath(path, MovementFunctions.SLIDE_WITHOUT_TURNS);
-            path.clear();
-        }
+        TeleOpFunctions.transferUp(robot);
+        TeleOpFunctions.transferDown(robot);
 
         robot.robotStatus = "Program Stopping...";
         odom.stopUpdateThread();
