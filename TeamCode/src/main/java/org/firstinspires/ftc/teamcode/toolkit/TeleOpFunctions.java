@@ -26,6 +26,7 @@ public class TeleOpFunctions {
     public static void flickRing(Robot robot) {
         robot.flicker.setPosition(0.5);
         robot.flicker.setPosition(0.2);
+    }
 
         public static void shoot (Robot robot){
             // put transfer here
@@ -42,6 +43,7 @@ public class TeleOpFunctions {
             // put transfer here
         }
 
+
         public static void dropWobble (Robot robot){
             robot.wobble.setPosition(0); // CHANGE VALUE
         }
@@ -50,4 +52,4 @@ public class TeleOpFunctions {
             robot.wobble.setPosition(0.5); // CHANGE VALUE
         }
     }
-}
+
