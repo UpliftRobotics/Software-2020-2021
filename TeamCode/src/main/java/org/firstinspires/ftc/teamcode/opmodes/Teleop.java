@@ -59,7 +59,7 @@ public class Teleop extends ULLinearOpMode {
             //GAMEPAD 1(DRIVER)
             if (gamepad1.a){
                 // go to shooting position (for high goal)
-                odom.goToPosition(35.5,61,0.7,0,0.5, MovementFunctions.SLIDE_WITHOUT_TURNS);
+                odom.goToPosition(25.512,46.841,0.7,0,0.5, MovementFunctions.SLIDE_WITHOUT_TURNS);
             }
             if(gamepad1.b){
                 // go to powershot shooting position
