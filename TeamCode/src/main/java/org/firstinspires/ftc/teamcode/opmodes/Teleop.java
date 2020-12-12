@@ -58,10 +58,12 @@ public class Teleop extends ULLinearOpMode {
             //BUTTONS
             //GAMEPAD 1(DRIVER)
             if (gamepad1.a){
-               odom.goToPosition(35.5,61,0.7,0,0.5, MovementFunctions.SLIDE_WITHOUT_TURNS);
+                // go to shooting position (for high goal)
+                odom.goToPosition(35.5,61,0.7,0,0.5, MovementFunctions.SLIDE_WITHOUT_TURNS);
             }
             if(gamepad1.b){
-                odom.goToPosition(48,120,0.7,0,0.5, MovementFunctions.SLIDE_WITHOUT_TURNS);
+                // go to powershot shooting position
+                odom.goToPosition(50.5,56,0.7,0,0.5, MovementFunctions.SLIDE_WITHOUT_TURNS);
             }
 
             // GAMEPAD 2(OPERATOR)
@@ -84,6 +86,9 @@ public class Teleop extends ULLinearOpMode {
             if(gamepad2.dpad_up) {
                 robot.transferUpHeight = robot.transfer.getCurrentPosition();
             }
+
+            // CANCEL button for goToPosition
+            // Click Left Dpad on Gamepad 1 to cancel a goToPosition method
 
         }
         robot.robotStatus = "Program Stopping...";

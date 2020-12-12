@@ -123,6 +123,11 @@ public class Odometry {
         // determine driving type to be used
         if(driveType == MovementFunctions.SLIDE_WITHOUT_TURNS) {
             while (distanceToPoint > allowedDistError) {
+                if(robot.opMode.gamepad1.dpad_left) {
+                    // breakaway statement for teleop
+                    MovementFunctions.stopMotors(robot);
+                    return;
+                }
                 // if not in approach zone
                 if (distanceToPoint <= approachZone) {
                     MovementFunctions.driveTowards(movementSpeed / 2, relativeAngle, 0, robot);
@@ -144,6 +149,11 @@ public class Odometry {
         } else if(driveType == MovementFunctions.DRIVE_WITH_TURNS) {
             MovementFunctions.turn(relativeAngle, movementSpeed / 2, robot);
             while(distanceToPoint > allowedDistError) {
+                if(robot.opMode.gamepad1.dpad_left) {
+                    // breakaway statement for teleop
+                    MovementFunctions.stopMotors(robot);
+                    return;
+                }
                 // if not in approach zone
                 if (distanceToPoint > approachZone) {
                     MovementFunctions.moveForward(movementSpeed, robot);
