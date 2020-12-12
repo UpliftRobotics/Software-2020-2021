@@ -56,7 +56,9 @@ public class TeleOpFunctions {
         transferDown(robot);
     }
 
-
+    public static void releaseLatch(Robot robot){
+        robot.latch.setPosition(0.32);
+    }
 
     public static void dropWobble (Robot robot){
         robot.wobble.setPosition(0); // CHANGE VALUE

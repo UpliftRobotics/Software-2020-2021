@@ -6,6 +6,7 @@ import org.firstinspires.ftc.teamcode.Odometry;
 import org.firstinspires.ftc.teamcode.Robot;
 import org.firstinspires.ftc.teamcode.toolkit.MovementFunctions;
 import org.firstinspires.ftc.teamcode.toolkit.PathPoint;
+import org.firstinspires.ftc.teamcode.toolkit.TeleOpFunctions;
 import org.firstinspires.ftc.teamcode.toolkit.ULLinearOpMode;
 
 import java.util.ArrayList;
@@ -24,7 +25,7 @@ public class AutoBluePark extends ULLinearOpMode {
 
         waitForStart();
 
-        robot.latch.setPosition(0.32);
+        TeleOpFunctions.releaseLatch(robot);
 
         robot.robotStatus = "Program Running...";
 

@@ -7,6 +7,7 @@ import org.firstinspires.ftc.teamcode.Odometry;
 import org.firstinspires.ftc.teamcode.Robot;
 import org.firstinspires.ftc.teamcode.toolkit.MovementFunctions;
 import org.firstinspires.ftc.teamcode.toolkit.PathPoint;
+import org.firstinspires.ftc.teamcode.toolkit.TeleOpFunctions;
 import org.firstinspires.ftc.teamcode.toolkit.ULLinearOpMode;
 
 import java.io.File;
@@ -28,6 +29,9 @@ public class BlueVisionAuto extends ULLinearOpMode {
         waitForStart();
 
         robot.robotStatus = "Program Running...";
+
+        TeleOpFunctions.releaseLatch(robot);
+
 
         // pull ring count from the detector class immediately at start
         int ringNum = robot.detector.ringCount;

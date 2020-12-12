@@ -31,6 +31,8 @@ public class PowershotAuto extends ULLinearOpMode {
 
         robot.robotStatus = "Program Running...";
 
+        TeleOpFunctions.releaseLatch(robot);
+
         odom.setStartPosition(29, 0.5, 0);
 
         // shift to the right/forward
