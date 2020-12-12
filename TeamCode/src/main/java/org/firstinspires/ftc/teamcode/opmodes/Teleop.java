@@ -58,7 +58,7 @@ public class Teleop extends ULLinearOpMode {
             //BUTTONS
             //GAMEPAD 1(DRIVER)
             if (gamepad1.a){
-               odom.goToPosition(36,78,0.7,0,0.5, MovementFunctions.SLIDE_WITHOUT_TURNS);
+               odom.goToPosition(35.5,61,0.7,0,0.5, MovementFunctions.SLIDE_WITHOUT_TURNS);
             }
             if(gamepad1.b){
                 odom.goToPosition(48,120,0.7,0,0.5, MovementFunctions.SLIDE_WITHOUT_TURNS);
@@ -79,6 +79,10 @@ public class Teleop extends ULLinearOpMode {
 
             if (gamepad2.y) {
                 TeleOpFunctions.shoot(robot);
+            }
+
+            if(gamepad2.dpad_up) {
+                robot.transferUpHeight = robot.transfer.getCurrentPosition();
             }
 
         }

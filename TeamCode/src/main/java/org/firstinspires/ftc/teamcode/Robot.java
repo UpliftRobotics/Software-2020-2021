@@ -60,6 +60,8 @@ public class Robot {
     public static final int WORLD_TELEMETRY = 1;
     public static final int CLASS_SPECIFIC_TELEMETRY = 2;
     public int constant = 0;
+    public int transferUpHeight = -743;
+
 
 
     // values specific to the drivetrain

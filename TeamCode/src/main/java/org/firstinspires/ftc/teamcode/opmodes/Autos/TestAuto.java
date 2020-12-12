@@ -29,7 +29,7 @@ public class TestAuto extends ULLinearOpMode {
         robot.robotStatus = "Program Running...";
 
         TeleOpFunctions.transferUp(robot);
-        TeleOpFunctions.transferDown(robot);
+
 
         robot.robotStatus = "Program Stopping...";
         odom.stopUpdateThread();
