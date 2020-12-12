@@ -26,6 +26,7 @@ public class AutoBluePark extends ULLinearOpMode {
         waitForStart();
 
         TeleOpFunctions.releaseLatch(robot);
+        TeleOpFunctions.dropWobble(robot);
 
         robot.robotStatus = "Program Running...";
 

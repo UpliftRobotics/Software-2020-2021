@@ -17,6 +17,8 @@ import org.openftc.easyopencv.OpenCvCamera;
 import org.openftc.easyopencv.OpenCvCameraFactory;
 import org.openftc.easyopencv.OpenCvCameraRotation;
 
+import java.io.File;
+
 /**
  * <h1>Robot</h1>
  * The Robot class is where all hardware aspects of the robot are declared and initialized. Also,
@@ -64,6 +66,7 @@ public class Robot {
     public static final int CLASS_SPECIFIC_TELEMETRY = 2;
     public double constant = 0.5;
     public int transferUpHeight = -735;
+    public int offset = -735;
 
 
 
@@ -72,8 +75,9 @@ public class Robot {
     public static double wheelRadius = 19/25.4; // in meters (change thi later)
     public static double wheelCircumference = wheelRadius * (2 * Math.PI); // inches
     public static double COUNTS_PER_INCH = (720 * 4) / wheelCircumference;
-    public static double robotEncoderWheelDistance = 16.9;
-    public static double horizontalEncoderInchesPerDegreeOffset = -7.8 / COUNTS_PER_INCH;
+    public static double robotEncoderWheelDistance = 15.5255;
+    public static double horizontalEncoderInchesPerDegreeOffset = -2.055 / COUNTS_PER_INCH;
+
 
     /**
      * This is the Robot constructor that initializes all hardware and major software aspects of
@@ -111,12 +115,12 @@ public class Robot {
         parameters.angleUnit = BNO055IMU.AngleUnit.DEGREES;
         imu.initialize(parameters);
 
-        webcamName= hardwareMap.get(WebcamName.class,"webcam");
-        int cameraMonitorViewId = hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId","id",hardwareMap.appContext.getPackageName());
-        camera = OpenCvCameraFactory.getInstance().createWebcam(webcamName, cameraMonitorViewId);
-        camera.openCameraDevice();
-        camera.setPipeline(detector);
-        camera.startStreaming(320,240, OpenCvCameraRotation.UPRIGHT);
+//        webcamName= hardwareMap.get(WebcamName.class,"webcam");
+//        int cameraMonitorViewId = hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId","id",hardwareMap.appContext.getPackageName());
+//        camera = OpenCvCameraFactory.getInstance().createWebcam(webcamName, cameraMonitorViewId);
+//        camera.openCameraDevice();
+//        camera.setPipeline(detector);
+//        camera.startStreaming(320,240, OpenCvCameraRotation.UPRIGHT);
 
         odometry = new Odometry(this);
 
@@ -144,8 +148,6 @@ public class Robot {
         transfer.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         transfer.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         transfer.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-
-
 
 
         robotStatus = "Init Complete - Ready to Start!";

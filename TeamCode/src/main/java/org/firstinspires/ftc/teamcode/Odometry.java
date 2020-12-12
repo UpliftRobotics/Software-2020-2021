@@ -48,6 +48,7 @@ public class Odometry {
     public File odometryFileWorldX;
     public File odometryFileWorldY;
     public File odometryFileWorldAngle;
+    public File transferFile;
 
 
 
@@ -64,6 +65,8 @@ public class Odometry {
         odometryFileWorldX = AppUtil.getInstance().getSettingsFile("odometryX.txt");
         odometryFileWorldY = AppUtil.getInstance().getSettingsFile("odometryY.txt");
         odometryFileWorldAngle = AppUtil.getInstance().getSettingsFile("odometryTheta.txt");
+        transferFile = AppUtil.getInstance().getSettingsFile("transferFile.txt");
+
     }
 
 
@@ -248,11 +251,13 @@ public class Odometry {
         ReadWriteFile.writeFile(odometryFileWorldX, String.valueOf(worldXPosition));
         ReadWriteFile.writeFile(odometryFileWorldY, String.valueOf(worldYPosition));
         ReadWriteFile.writeFile(odometryFileWorldAngle, String.valueOf(worldAngle));
+        ReadWriteFile.writeFile(transferFile, String.valueOf(robot.transfer.getCurrentPosition()));
     }
     public void readPositionFiles() {
         String xStr = ReadWriteFile.readFile(odometryFileWorldX).trim();
         String yStr = ReadWriteFile.readFile(odometryFileWorldY).trim();
         String angleStr = ReadWriteFile.readFile(odometryFileWorldAngle).trim();
+        String transferStr = ReadWriteFile.readFile(transferFile).trim();
         if(!xStr.isEmpty()){
             worldXPosition = Double.parseDouble(ReadWriteFile.readFile(odometryFileWorldX).trim());
         }
@@ -261,6 +266,9 @@ public class Odometry {
         }
         if(!angleStr.isEmpty()) {
             worldAngle = Double.parseDouble(ReadWriteFile.readFile(odometryFileWorldAngle).trim());
+        }
+        if(!transferStr.isEmpty()) {
+            robot.offset = Integer.parseInt(ReadWriteFile.readFile(transferFile).trim());
         }
     }
 

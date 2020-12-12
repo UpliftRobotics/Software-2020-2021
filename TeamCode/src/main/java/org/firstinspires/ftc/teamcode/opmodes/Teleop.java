@@ -34,7 +34,8 @@ public class Teleop extends ULLinearOpMode {
         waitForStart();
 
         robot.robotStatus = "Program Running...";
-        robot.telemetryType = Robot.FULL_TELEMETRY;
+        robot.telemetryType = Robot.WORLD_TELEMETRY;
+        robot.transferUpHeight = 0;
 
         while (opModeIsActive()) {
             // initialize the gamepad stick values to the three needed axes
@@ -44,7 +45,7 @@ public class Teleop extends ULLinearOpMode {
 
             // set powers for intake and transfer
             robot.intake.setPower(Range.clip(gamepad2.right_stick_y, -1, 1));
-            robot.transfer.setPower(Range.clip(gamepad2.left_stick_y / 4, -0.25, 0.25));
+            robot.transfer.setPower(Math.pow(gamepad2.left_stick_y, 3));
 
 
             // Note: The following algorithm was inspired by the webpage https://seamonsters-2605.github.io/archive/mecanum/. It explains this concept very well.
@@ -69,10 +70,8 @@ public class Teleop extends ULLinearOpMode {
                 odom.goToPosition(50.5,56,0.7,0,0.5, MovementFunctions.SLIDE_WITHOUT_TURNS);
             }
 
-            if(gamepad1.x) {
-                robot.latch.setPosition(0.22);
-            }
-            if(gamepad1.y) {
+            
+            if(gamepad1.dpad_up) {
                 robot.latch.setPosition(0.32);
             }
 
