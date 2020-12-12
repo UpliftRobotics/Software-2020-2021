@@ -9,6 +9,8 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 
 import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
+import org.firstinspires.ftc.teamcode.toolkit.MovementFunctions;
+import org.firstinspires.ftc.teamcode.toolkit.TeleOpFunctions;
 import org.firstinspires.ftc.teamcode.toolkit.opencvtoolkit.RingDetector;
 import org.firstinspires.ftc.teamcode.toolkit.ULLinearOpMode;
 import org.openftc.easyopencv.OpenCvCamera;
@@ -46,6 +48,7 @@ public class Robot {
     public DcMotor transfer;
     public Servo wobble;
     public Servo flicker;
+    public Servo latch;
 
     public DistanceSensor inDistSensor;
     public BNO055IMU imu;
@@ -59,8 +62,8 @@ public class Robot {
     public static final int FULL_TELEMETRY = 0;
     public static final int WORLD_TELEMETRY = 1;
     public static final int CLASS_SPECIFIC_TELEMETRY = 2;
-    public int constant = 0;
-    public int transferUpHeight = -743;
+    public double constant = 0.5;
+    public int transferUpHeight = -738;
 
 
 
@@ -94,6 +97,7 @@ public class Robot {
         wobble = hardwareMap.get(Servo.class,"wobble");
         flicker = hardwareMap.get(Servo.class,"flicker");
         transfer = hardwareMap.get(DcMotor.class, "transfer");
+        latch = hardwareMap.get(Servo.class, "latch");
         shooter1 = hardwareMap.get(DcMotor.class, "shooter_1");
         shooter2 = hardwareMap.get(DcMotor.class, "shooter_2");
         intake = hardwareMap.get(DcMotor.class, "intake");
@@ -147,6 +151,30 @@ public class Robot {
         robotStatus = "Init Complete - Ready to Start!";
         telemetryType = WORLD_TELEMETRY;
 
+    }
+
+    public void safeDisable() {
+        MovementFunctions.stopMotors(this);
+        intake.setPower(0);
+        shooter1.setPower(0);
+        shooter2.setPower(0);
+        transfer.setPower(0);
+    }
+
+    public boolean ULwait(Long milliseconds) {
+        long initialTime = System.currentTimeMillis();
+        while(System.currentTimeMillis() - initialTime < milliseconds) {
+            try {
+                Thread.sleep(5);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            if(opMode.gamepad1.dpad_left) {
+                safeDisable();
+                return false;
+            }
+        }
+        return true;
     }
 
 }

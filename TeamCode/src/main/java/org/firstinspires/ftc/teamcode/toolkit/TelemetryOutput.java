@@ -21,6 +21,7 @@ public class TelemetryOutput {
         telemetry.addData("Robot Status:\t", robot.robotStatus);
         telemetry.addData("WorldX:\t", MathFunctions.truncate(robot.odometry.worldXPosition));
         telemetry.addData("WorldY:\t", MathFunctions.truncate(robot.odometry.worldYPosition));
+        telemetry.addData("Servo Constant\t", robot.latch.getPosition());
         telemetry.addData("WorldAngle\t", robot.odometry.worldAngle);
         telemetry.addData("Ring Count:\t", robot.detector.ringCount);
         telemetry.addData("Transfer\t", robot.transfer.getCurrentPosition());

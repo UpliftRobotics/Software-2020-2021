@@ -66,6 +66,13 @@ public class Teleop extends ULLinearOpMode {
                 odom.goToPosition(50.5,56,0.7,0,0.5, MovementFunctions.SLIDE_WITHOUT_TURNS);
             }
 
+            if(gamepad1.x) {
+                robot.latch.setPosition(0.22);
+            }
+            if(gamepad1.y) {
+                robot.latch.setPosition(0.32);
+            }
+
             // GAMEPAD 2(OPERATOR)
             if (gamepad2.a) {
                 TeleOpFunctions.shooterOn(1, robot);
@@ -83,8 +90,16 @@ public class Teleop extends ULLinearOpMode {
                 TeleOpFunctions.shoot(robot);
             }
 
-            if(gamepad2.dpad_up) {
+            if(gamepad2.x) {
                 robot.transferUpHeight = robot.transfer.getCurrentPosition();
+            }
+
+            if(gamepad2.dpad_left) {
+                TeleOpFunctions.dropWobble(robot);
+            }
+
+            if(gamepad2.dpad_right) {
+                TeleOpFunctions.pickupWobble(robot);
             }
 
             // CANCEL button for goToPosition

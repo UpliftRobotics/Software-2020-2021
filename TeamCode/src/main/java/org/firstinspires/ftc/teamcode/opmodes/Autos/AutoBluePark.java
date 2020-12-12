@@ -24,6 +24,8 @@ public class AutoBluePark extends ULLinearOpMode {
 
         waitForStart();
 
+        robot.latch.setPosition(0.32);
+
         robot.robotStatus = "Program Running...";
 
         // create empty path list
@@ -33,7 +35,9 @@ public class AutoBluePark extends ULLinearOpMode {
         odom.setStartPosition(29, 0.5, 0);
 
         // fill path with points
-        path.add(new PathPoint(29, 84, 0.7, 4));
+        path.add(new PathPoint(43, 24.5, 0.7, 0.5));
+        path.add(new PathPoint(43, 72, 0.7, 0.5));
+
 
         // follow the path designated earlier in the program (only if the path list was filled)
         if(!path.isEmpty()) {

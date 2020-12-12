@@ -41,14 +41,15 @@ public class TeleOpFunctions {
  }
 
     public static void shoot(Robot robot) {
-        transferUp(robot);
         shooterOn(1, robot);
+        if(!robot.ULwait((long)2000)) {
+            return;
+        }
+        transferUp(robot);
         for (int i = 0; i < 3; i++) {
            flickRing(robot);
-           try {
-               Thread.sleep(2000);
-           } catch (InterruptedException e) {
-               e.printStackTrace();
+           if(!robot.ULwait((long)700)) {
+                return;
            }
         }
         shooterOff(robot);
@@ -62,7 +63,7 @@ public class TeleOpFunctions {
     }
 
     public static void pickupWobble (Robot robot){
-        robot.wobble.setPosition(0.5); // CHANGE VALUE
+        robot.wobble.setPosition(1); // CHANGE VALUE
     }
 
     public static void transferUp(Robot robot) {
