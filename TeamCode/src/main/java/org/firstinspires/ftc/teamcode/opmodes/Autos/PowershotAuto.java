@@ -76,7 +76,7 @@ public class PowershotAuto extends ULLinearOpMode {
 //        TeleOpFunctions.transferDown(robot);
 
         // park on line
-        odom.goToPosition(53,72,0.7,0,0.5, MovementFunctions.SLIDE_WITHOUT_TURNS);
+        odom.goToPosition(58,72,0.7,0,0.5, MovementFunctions.SLIDE_WITHOUT_TURNS);
 
         robot.robotStatus = "Program Stopping...";
         odom.stopUpdateThread();

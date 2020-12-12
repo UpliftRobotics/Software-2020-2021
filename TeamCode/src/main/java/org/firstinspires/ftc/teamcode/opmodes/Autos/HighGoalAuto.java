@@ -58,7 +58,7 @@ public class HighGoalAuto extends ULLinearOpMode {
         TeleOpFunctions.flickRing(robot);
 
         // turn back towards center and shoot twice, IN CASE ANY RINGS ARE STUCK
-//        MovementFunctions.turnTo(0,0.5,0, robot);
+        MovementFunctions.turnTo(0,0.5,0, robot);
         TeleOpFunctions.flickRing(robot);
         TeleOpFunctions.flickRing(robot);
 
@@ -69,7 +69,7 @@ public class HighGoalAuto extends ULLinearOpMode {
 //        TeleOpFunctions.transferDown(robot);
 
         // park on line
-        odom.goToPosition(53,72,0.7,0,0.5, MovementFunctions.SLIDE_WITHOUT_TURNS);
+        odom.goToPosition(35.5,72,0.7,0,0.5, MovementFunctions.SLIDE_WITHOUT_TURNS);
 
         robot.robotStatus = "Program Stopping...";
         odom.stopUpdateThread();
