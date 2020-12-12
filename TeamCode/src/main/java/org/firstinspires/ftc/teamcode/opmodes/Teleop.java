@@ -9,6 +9,7 @@ import org.firstinspires.ftc.teamcode.toolkit.MovementFunctions;
 import org.firstinspires.ftc.teamcode.Odometry;
 import org.firstinspires.ftc.teamcode.Robot;
 import org.firstinspires.ftc.teamcode.toolkit.TeleOpFunctions;
+import org.firstinspires.ftc.teamcode.toolkit.TelemetryOutput;
 import org.firstinspires.ftc.teamcode.toolkit.ULLinearOpMode;
 
 @TeleOp(name = "TeleOp", group = "OpModes")
@@ -33,6 +34,7 @@ public class Teleop extends ULLinearOpMode {
         waitForStart();
 
         robot.robotStatus = "Program Running...";
+        robot.telemetryType = Robot.FULL_TELEMETRY;
 
         while (opModeIsActive()) {
             // initialize the gamepad stick values to the three needed axes

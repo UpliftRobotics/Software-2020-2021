@@ -56,9 +56,9 @@ public class OdometryCalibration extends ULLinearOpMode {
         while (getZAngle() < 90) {
             // if angle greater than 60 degrees, drop power by factor of 1/2
             if (getZAngle() < 60) {
-                MovementFunctions.spin(0.5, robot);
+                MovementFunctions.spin(1, robot);
             } else {
-                MovementFunctions.spin(0.2, robot);
+                MovementFunctions.spin(1, robot);
             }
         }
 
