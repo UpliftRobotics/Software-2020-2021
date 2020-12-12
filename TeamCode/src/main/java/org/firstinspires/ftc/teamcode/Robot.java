@@ -63,7 +63,7 @@ public class Robot {
     public static final int WORLD_TELEMETRY = 1;
     public static final int CLASS_SPECIFIC_TELEMETRY = 2;
     public double constant = 0.5;
-    public int transferUpHeight = -738;
+    public int transferUpHeight = -735;
 
 
 

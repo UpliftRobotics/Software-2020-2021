@@ -61,16 +61,16 @@ public class TeleOpFunctions {
     }
 
     public static void dropWobble (Robot robot){
-        robot.wobble.setPosition(0); // CHANGE VALUE
+        robot.wobble.setPosition(0.5); // CHANGE VALUE
     }
 
     public static void pickupWobble (Robot robot){
-        robot.wobble.setPosition(1); // CHANGE VALUE
+        robot.wobble.setPosition(0.9); // CHANGE VALUE
     }
 
     public static void transferUp(Robot robot) {
         while(robot.transfer.getCurrentPosition() > robot.transferUpHeight) {
-            robot.transfer.setPower(-0.4);
+            robot.transfer.setPower(-0.55);
         }
         robot.transfer.setPower(0);
 
@@ -78,7 +78,7 @@ public class TeleOpFunctions {
 
     public static void transferDown(Robot robot) {
         while(robot.transfer.getCurrentPosition() < 0) {
-            robot.transfer.setPower(0.4);
+            robot.transfer.setPower(0.55);
         }
         robot.transfer.setPower(0);
     }

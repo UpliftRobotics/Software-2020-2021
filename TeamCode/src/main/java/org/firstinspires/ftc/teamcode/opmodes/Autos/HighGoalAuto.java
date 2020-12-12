@@ -30,6 +30,7 @@ public class HighGoalAuto extends ULLinearOpMode {
         robot.robotStatus = "Program Running...";
 
         TeleOpFunctions.releaseLatch(robot);
+        TeleOpFunctions.dropWobble(robot);
 
         odom.setStartPosition(29, 0.5, 0);
 
@@ -40,12 +41,12 @@ public class HighGoalAuto extends ULLinearOpMode {
         odom.goToPosition(43, 61, 0.7, 0, 0.5, MovementFunctions.SLIDE_WITHOUT_TURNS);
 
         // go to shooting position
-        odom.goToPosition(35.5, 61, 0.7, 0, 0.5, MovementFunctions.SLIDE_WITHOUT_TURNS);
+        odom.goToPosition(26.512,44.841, 0.7, 0, 0.5, MovementFunctions.SLIDE_WITHOUT_TURNS);
         MovementFunctions.turnTo(0, 0.7, 0, robot);
 
         // turn on shooter and get it up to speed
         TeleOpFunctions.shooterOn(1, robot);
-        sleep(2000);
+        sleep(3000);
 
         // put the transfer system up
         TeleOpFunctions.transferUp(robot);
@@ -67,7 +68,6 @@ public class HighGoalAuto extends ULLinearOpMode {
         TeleOpFunctions.shooterOff(robot);
 
         // put the transfer system down
-        TeleOpFunctions.transferDown(robot);
 
         // park on line
         odom.goToPosition(35.5,72,0.7,0,0.5, MovementFunctions.SLIDE_WITHOUT_TURNS);
