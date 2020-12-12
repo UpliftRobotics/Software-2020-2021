@@ -14,8 +14,8 @@ import org.firstinspires.ftc.teamcode.toolkit.ULLinearOpMode;
 
 import java.util.ArrayList;
 
-@Autonomous(name = "Meet 1 Auto", group = "OpModes")
-public class Meet1Auto extends ULLinearOpMode {
+@Autonomous(name = "Meet1 Powershot Auto", group = "OpModes")
+public class PowershotAuto extends ULLinearOpMode {
 
     Robot robot;
     Odometry odom;
@@ -33,45 +33,39 @@ public class Meet1Auto extends ULLinearOpMode {
 
         odom.setStartPosition(29, 0.5, 0);
 
-        // shift to the right
+        // shift to the right/forward
         odom.goToPosition(43, 24.5, 0.7, 0, 0.5, MovementFunctions.SLIDE_WITHOUT_TURNS);
 
-        // go to shooting position
+        // go to the left powershot shooting position
         odom.goToPosition(43, 56, 0.7, 0, 0.5, MovementFunctions.SLIDE_WITHOUT_TURNS);
         MovementFunctions.turnTo(0, 0.7, 0, robot);
 
         // turn on shooter
         TeleOpFunctions.shooterOn(1, robot);
         sleep(2000);
+
         // put the transfer system up
         TeleOpFunctions.transferUp(robot);
 
-
-        // flick the ring into the shooter
+        // flick the 1st ring into the shooter
         TeleOpFunctions.flickRing(robot);
 
-
+        // go to center powershot shooting position
         odom.goToPosition(50.5, 56, 0.7, 0, 0.5, MovementFunctions.SLIDE_WITHOUT_TURNS);
         MovementFunctions.turnTo(0, 0, 0, robot);
 
+        // flick the 2nd ring into the shooter
         TeleOpFunctions.flickRing(robot);
 
-
+        // go to the right powershot shooting position
         odom.goToPosition(58, 58, 0.7, 0, 0.5, MovementFunctions.SLIDE_WITHOUT_TURNS);
         MovementFunctions.turnTo(0, 0, 0, robot);
-
-        // flick the ring into the shooter
-
-        // turn towards the right powershot target
-//        MovementFunctions.turnTo(0,0.5,0, robot);
-
-//        odom.goToPosition(55, 56, 0.7, 0, 0.5, MovementFunctions.SLIDE_WITHOUT_TURNS);
 
         // flick the ring into the shooter
         TeleOpFunctions.flickRing(robot);
 
         // turn back towards center and shoot twice, IN CASE ANY RINGS ARE STUCK
-//        MovementFunctions.turnTo(0,0.5,0, robot);
+        MovementFunctions.turnTo(0,0.5,0, robot);
         TeleOpFunctions.flickRing(robot);
         TeleOpFunctions.flickRing(robot);
 

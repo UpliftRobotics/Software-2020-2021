@@ -17,6 +17,7 @@ public class TeleOpFunctions {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
+        shooterOff(robot);
     }
 
     public static void shooterOff(Robot robot) {
