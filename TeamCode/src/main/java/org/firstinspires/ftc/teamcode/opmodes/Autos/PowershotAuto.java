@@ -73,7 +73,7 @@ public class PowershotAuto extends ULLinearOpMode {
         TeleOpFunctions.shooterOff(robot);
 
         // put the transfer system down
-//        TeleOpFunctions.transferDown(robot);
+        TeleOpFunctions.transferDown(robot);
 
         // park on line
         odom.goToPosition(58,72,0.7,0,0.5, MovementFunctions.SLIDE_WITHOUT_TURNS);
