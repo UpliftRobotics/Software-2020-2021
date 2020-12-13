@@ -24,6 +24,7 @@ public class Teleop extends ULLinearOpMode {
     double rightX;
     double leftY;
     double leftX;
+    boolean transferSlow = false;
     @Override
     public void runOpMode() {
         robot = new Robot();
@@ -45,7 +46,11 @@ public class Teleop extends ULLinearOpMode {
 
             // set powers for intake and transfer
             robot.intake.setPower(Range.clip(gamepad2.right_stick_y, -1, 1));
-            robot.transfer.setPower(Math.pow(gamepad2.left_stick_y, 3));
+            if(transferSlow) {
+                robot.transfer.setPower(Math.pow(gamepad2.left_stick_y * 0.8, 3));
+            } else {
+                robot.transfer.setPower(Math.pow(gamepad2.left_stick_y, 3));
+            }
 
 
             // Note: The following algorithm was inspired by the webpage https://seamonsters-2605.github.io/archive/mecanum/. It explains this concept very well.
@@ -102,6 +107,10 @@ public class Teleop extends ULLinearOpMode {
 
             if(gamepad2.dpad_right) {
                 TeleOpFunctions.pickupWobble(robot);
+            }
+
+            if(gamepad2.left_bumper) {
+                transferSlow = !transferSlow;
             }
 
             // CANCEL button for goToPosition

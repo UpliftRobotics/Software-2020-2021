@@ -26,7 +26,7 @@ public class TeleOpFunctions {
     }
 
     public static void flickRing(Robot robot) {
-        robot.flicker.setPosition(0.2);
+        robot.flicker.setPosition(0.15);
         try {
             Thread.sleep(750);
         } catch (InterruptedException e) {
@@ -71,12 +71,11 @@ public class TeleOpFunctions {
     public static void transferUp(Robot robot) {
         if(robot.transfer.getCurrentPosition() > robot.transferUpHeight) {
             while(robot.transfer.getCurrentPosition() > robot.transferUpHeight) {
-                robot.transfer.setPower(-0.4);
+                robot.transfer.setPower(-0.3);
             }
-        }
-        if(robot.transfer.getCurrentPosition() < robot.transferUpHeight) {
+        }else if(robot.transfer.getCurrentPosition() < robot.transferUpHeight) {
             while(robot.transfer.getCurrentPosition() < robot.transferUpHeight) {
-                robot.transfer.setPower(0.4);
+                robot.transfer.setPower(0.3);
             }
         }
         robot.transfer.setPower(0);
@@ -85,7 +84,7 @@ public class TeleOpFunctions {
 
     public static void transferDown(Robot robot) {
         while(robot.transfer.getCurrentPosition() < robot.transferUpHeight - robot.offset) {
-            robot.transfer.setPower(0.4);
+            robot.transfer.setPower(0.3);
         }
         robot.transfer.setPower(0);
     }
