@@ -1,0 +1,82 @@
+package org.firstinspires.ftc.teamcode.opmodes.Autos;
+
+import android.content.res.Resources;
+
+import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+
+import org.firstinspires.ftc.teamcode.Odometry;
+import org.firstinspires.ftc.teamcode.Robot;
+import org.firstinspires.ftc.teamcode.toolkit.MovementFunctions;
+import org.firstinspires.ftc.teamcode.toolkit.TeleOpFunctions;
+import org.firstinspires.ftc.teamcode.toolkit.ULLinearOpMode;
+
+import java.util.ArrayList;
+
+@Autonomous(name = "Meet1 High Goal Auto", group = "OpModes")
+public class HighGoalAuto extends ULLinearOpMode {
+
+    Robot robot;
+    Odometry odom;
+
+    @Override
+    public void runOpMode() {
+
+        robot = new Robot();
+        odom = robot.odometry;
+
+
+        waitForStart();
+
+        robot.robotStatus = "Program Running...";
+
+        TeleOpFunctions.releaseLatch(robot);
+        TeleOpFunctions.dropWobble(robot);
+
+        odom.setStartPosition(29, 0.5, 0);
+
+        // shift to the right/forward
+        odom.goToPosition(43, 24.5, 0.7, 0, 0.5, MovementFunctions.SLIDE_WITHOUT_TURNS);
+
+        // shift forward
+        odom.goToPosition(43, 61, 0.7, 0, 0.5, MovementFunctions.SLIDE_WITHOUT_TURNS);
+
+        // go to shooting position
+        odom.goToPosition(26.512,44.841, 0.7, 0, 0.5, MovementFunctions.SLIDE_WITHOUT_TURNS);
+        MovementFunctions.turnTo(0, 0.7, 0, robot);
+
+        // turn on shooter and get it up to speed
+        TeleOpFunctions.shooterOn(1, robot);
+        sleep(3000);
+
+        // put the transfer system up
+        TeleOpFunctions.transferUp(robot);
+
+        // flick the 1st ring into the shooter
+        TeleOpFunctions.flickRing(robot);
+
+        // flick the 2nd ring into the shooter
+        TeleOpFunctions.flickRing(robot);
+
+        // flick the 3rd ring into the shooter
+        TeleOpFunctions.flickRing(robot);
+
+        // shoots two more times in case any rings are stuck or failed to shoot
+        TeleOpFunctions.flickRing(robot);
+        TeleOpFunctions.flickRing(robot);
+
+        // turn off the shooter
+        TeleOpFunctions.shooterOff(robot);
+
+        // put the transfer system down
+
+        // park on line
+        odom.goToPosition(35.5,72,0.7,0,0.5, MovementFunctions.SLIDE_WITHOUT_TURNS);
+
+        robot.robotStatus = "Program Stopping...";
+        odom.stopUpdateThread();
+        odom.writePositionToFiles();
+
+    }
+
+}
+
