@@ -17,24 +17,21 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class GoalDetector extends OpenCvPipeline {
-    public Telemetry telemetry;
 
     @Override
     public Mat processFrame(Mat input) {
 
-        //Converting the source image to hsv and then binary
-        input = zoomMat(input, 2);
+//        input = zoomMat(input, 2, new Point(80, 60));
+
         double totalMatArea = input.width() * input.height();
+
         Mat gray = input.clone();
-
-        Imgproc.blur(gray, gray, new Size(2.0, 2.0), new Point(-1, -1));
-
         Mat binary = new Mat(input.rows(), input.cols(), input.type(), new Scalar(0));
 
         Imgproc.cvtColor(input, gray, Imgproc.COLOR_RGB2HSV);
 
         Scalar lowHSV = new Scalar(0, 50, 70);
-        Scalar highHSV = new Scalar(10, 255, 255);
+        Scalar highHSV = new Scalar(5, 255, 255);
 
         Core.inRange(gray, lowHSV, highHSV, gray);
 
@@ -45,58 +42,103 @@ public class GoalDetector extends OpenCvPipeline {
         Mat hierarchy = new Mat();
         Imgproc.findContours(binary, contours, hierarchy, Imgproc.RETR_TREE,
                 Imgproc.CHAIN_APPROX_SIMPLE);
+        Imgproc.drawContours(input, contours, -1, new Scalar(255, 0, 0), 2);
 
-        double maxArea = 0;
-        int maxIndex = 0;
+        List<MatOfPoint> prunedContours = pruneContours(contours, totalMatArea);
 
-        for (int i = 0; i < contours.size(); i++) {
-            double area = Imgproc.contourArea(contours.get(i));
-            if (area > maxArea && area < (0.25 * totalMatArea)) {
-                maxArea = Imgproc.contourArea(contours.get(i));
-                maxIndex = i;
+        Imgproc.drawContours(input, prunedContours, -1, new Scalar(0, 255, 0), 2);
+
+        if(!prunedContours.isEmpty()) {
+            ArrayList<Double> rectRatioArray = new ArrayList<>(prunedContours.size());
+            for(MatOfPoint contour : prunedContours) {
+                rectRatioArray.add(findRectangleRatio(contour, input));
             }
+
+            String arrayStr = "";
+            for(Double ratio : rectRatioArray) {
+                if(ratio < 0.16 && ratio > 0.1) {
+                    arrayStr += ratio + " ";
+                }
+            }
+
+
+        } else {
+
         }
 
-        MatOfPoint largestContour = contours.get(maxIndex);
-
-        // Transform the contour to a different format
-        org.opencv.core.Point[] points = largestContour.toArray();
-        MatOfPoint2f contour2f = new MatOfPoint2f(largestContour.toArray());
-
-        // Do a rect fit to the contour, and draw it on the screen
-        RotatedRect rotatedRectFitToContour = Imgproc.minAreaRect(contour2f);
-        drawRectOnObject(rotatedRectFitToContour, input);
-
-
-        //Drawing the Contours
-//        Scalar color = new Scalar(0, 255, 0);
-//        Imgproc.drawContours(input, contours, -1, color, 2, Imgproc.LINE_8,
-//                hierarchy, 2, new Point() ) ;
-
-        return gray;
+        return input;
     }
 
     static void drawRectOnObject(RotatedRect rect, Mat drawOn)
     {
-        org.opencv.core.Point[] points = new Point[4];
+        Point[] points = new Point[4];
         rect.points(points);
 
         for(int i = 0; i < 4; ++i)
         {
-            Imgproc.line(drawOn, points[i], points[(i+1)%4], new Scalar(255, 0, 0), 2);
+            Imgproc.line(drawOn, points[i], points[(i+1)%4], new Scalar(0, 255, 255), 2);
         }
     }
 
-    public Mat zoomMat(Mat inputMat, double zoomAmount) {
+    public List<MatOfPoint> pruneContours(List<MatOfPoint> contours, double totalMatArea) {
+        List<MatOfPoint> prunedContours = new ArrayList<>();
+
+        for(int i = 0; i < contours.size(); i++) {
+            double area = Imgproc.contourArea(contours.get(i));
+            if(area < (0.75 * totalMatArea)) {
+                prunedContours.add(contours.get(i));
+            }
+        }
+
+        return prunedContours;
+    }
+
+    public Mat zoomMat(Mat inputMat, double zoomAmount, Point pt) {
         double width = inputMat.width();
         double height = inputMat.height();
 
         double zoomWidth = width / zoomAmount;
         double zoomHeight = height / zoomAmount;
 
-        Range columnRange = new Range((int)(0.5 * (width - zoomWidth)), (int)(width - (0.5 * (width - zoomWidth))));
-        Range rowRange = new Range((int)(0.5 * (height - zoomHeight)), (int)(height - (0.5 * (height - zoomHeight))));
+        Range columnRange = new Range((int)(pt.x - (0.5 * zoomWidth)), (int)(pt.x + (0.5 * zoomWidth)));
+        Range rowRange = new Range((int)(pt.y - (0.5 * zoomHeight)), (int)(pt.y + (0.5 * zoomHeight)));
 
         return new Mat(inputMat, rowRange, columnRange);
+    }
+
+    public static int findLargestContour(List<MatOfPoint> contours) {
+        double maxArea = 0;
+        int maxIndex = 0;
+
+        for (int i = 0; i < contours.size(); i++) {
+            double area = Imgproc.contourArea(contours.get(i));
+            if (area > maxArea) {
+                maxArea = Imgproc.contourArea(contours.get(i));
+                maxIndex = i;
+            }
+        }
+
+        return maxIndex;
+    }
+
+    public static double findRectangleRatio(MatOfPoint contour, Mat input) {
+        MatOfPoint2f contour2f = new MatOfPoint2f(contour.toArray());
+
+        RotatedRect rotatedRectFitToContour = Imgproc.minAreaRect(contour2f);
+
+        double rectWidth1 = rotatedRectFitToContour.size.width;
+        double rectHeight1 = rotatedRectFitToContour.size.height;
+
+        if (rectWidth1 < rectHeight1) {
+            double temp = rectHeight1;
+            rectHeight1 = rectWidth1;
+            rectWidth1 = temp;
+        }
+
+        double rectRatio1 = rectHeight1 / rectWidth1;
+        if(rectRatio1 < 0.16 && rectRatio1 > 0.1) {
+            drawRectOnObject(rotatedRectFitToContour, input);
+        }
+        return rectRatio1;
     }
 }

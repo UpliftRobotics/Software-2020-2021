@@ -11,6 +11,7 @@ import com.qualcomm.robotcore.hardware.Servo;
 import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
 import org.firstinspires.ftc.teamcode.toolkit.MovementFunctions;
 import org.firstinspires.ftc.teamcode.toolkit.TeleOpFunctions;
+import org.firstinspires.ftc.teamcode.toolkit.opencvtoolkit.GoalDetector;
 import org.firstinspires.ftc.teamcode.toolkit.opencvtoolkit.RingDetector;
 import org.firstinspires.ftc.teamcode.toolkit.ULLinearOpMode;
 import org.openftc.easyopencv.OpenCvCamera;
@@ -58,6 +59,7 @@ public class Robot {
     public OpenCvCamera camera;
     WebcamName webcamName;
     public RingDetector detector = new RingDetector();
+    public GoalDetector goalDetector = new GoalDetector();
 
     public String robotStatus;
     public int telemetryType;
@@ -115,12 +117,12 @@ public class Robot {
         parameters.angleUnit = BNO055IMU.AngleUnit.DEGREES;
         imu.initialize(parameters);
 
-//        webcamName= hardwareMap.get(WebcamName.class,"webcam");
-//        int cameraMonitorViewId = hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId","id",hardwareMap.appContext.getPackageName());
-//        camera = OpenCvCameraFactory.getInstance().createWebcam(webcamName, cameraMonitorViewId);
-//        camera.openCameraDevice();
-//        camera.setPipeline(detector);
-//        camera.startStreaming(320,240, OpenCvCameraRotation.UPRIGHT);
+        webcamName= hardwareMap.get(WebcamName.class,"webcam");
+        int cameraMonitorViewId = hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId","id",hardwareMap.appContext.getPackageName());
+        camera = OpenCvCameraFactory.getInstance().createWebcam(webcamName, cameraMonitorViewId);
+        camera.openCameraDevice();
+        camera.setPipeline(goalDetector);
+        camera.startStreaming(320,240, OpenCvCameraRotation.UPRIGHT);
 
         odometry = new Odometry(this);
 
