@@ -35,7 +35,7 @@ public class Teleop extends ULLinearOpMode {
         waitForStart();
 
         robot.robotStatus = "Program Running...";
-        robot.telemetryType = Robot.WORLD_TELEMETRY;
+        robot.telemetryType = Robot.FULL_TELEMETRY;
         robot.transferUpHeight = 0;
 
         while (opModeIsActive()) {
