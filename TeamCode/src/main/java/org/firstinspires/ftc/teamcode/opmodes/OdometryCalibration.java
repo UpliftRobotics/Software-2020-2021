@@ -56,7 +56,7 @@ public class OdometryCalibration extends ULLinearOpMode {
         while (getZAngle() < 90) {
             // if angle greater than 60 degrees, drop power by factor of 1/2
             if (getZAngle() < 60) {
-                MovementFunctions.spin(0.7, robot);
+                MovementFunctions.spin(0.5, robot);
             } else {
                 MovementFunctions.spin(0.2, robot);
             }
@@ -86,6 +86,7 @@ public class OdometryCalibration extends ULLinearOpMode {
         telemetry.addData("IMU Angle", getZAngle());
         telemetry.addData("Vertical Left Position", odom.getLeftTicks());
         telemetry.addData("Vertical Right Position", odom.getRightTicks());
+        telemetry.addData("Vertical Center Position", odom.getCenterTicks());
         telemetry.addData("Horizontal Position", robot.rightBack.getCurrentPosition());
         telemetry.addData("Vertical Encoder Offset", verticalEncoderTickOffsetPerDegree);
         telemetry.addData("Wheel distance", wheelBaseSeparation);
