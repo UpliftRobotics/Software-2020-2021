@@ -65,13 +65,11 @@ public class OdometryCalibration extends ULLinearOpMode {
         MovementFunctions.stopMotors(robot);
 
         // update angle value (in degrees)
-        double angle = getZAngle();
+        double angle = Math.toRadians(getZAngle());
 
         double encoderTotal = Math.abs(odom.getLeftTicks()) + Math.abs(odom.getRightTicks());
 
-        double verticalEncoderTickOffsetPerDegree = encoderTotal / angle;
-
-        double wheelBaseSeparation = (180 * verticalEncoderTickOffsetPerDegree) / (Math.PI * Robot.COUNTS_PER_INCH);
+        double wheelBaseSeparation = (encoderTotal / angle) / Robot.COUNTS_PER_INCH;
 
         horizontalTickOffset = odom.getCenterTicks() / angle;
 
@@ -87,7 +85,6 @@ public class OdometryCalibration extends ULLinearOpMode {
         telemetry.addData("Vertical Left Position", odom.getLeftTicks());
         telemetry.addData("Vertical Right Position", odom.getRightTicks());
         telemetry.addData("Horizontal Position", robot.rightBack.getCurrentPosition());
-        telemetry.addData("Vertical Encoder Offset", verticalEncoderTickOffsetPerDegree);
         telemetry.addData("Wheel distance", wheelBaseSeparation);
         telemetry.update();
 
